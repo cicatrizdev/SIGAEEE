@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import javax.servlet.http.HttpServlet;
 
-public class PesquisaAtletaController extends javax.servlet.http.HttpServlet {
+public class PesquisaAtletaController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try {
             request.setAttribute("atletas", Atleta.lerTodosAtletas());

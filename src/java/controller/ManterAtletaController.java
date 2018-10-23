@@ -13,21 +13,21 @@ import model.Atleta;
 @WebServlet(name = "ManterAtletaController")
 public class ManterAtletaController extends HttpServlet {
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException.IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
         String acao = request.getParameter("acao");
-        if(acao.equals("confirmarOperacao")) {
-            confirmarOperacao(request, response);
-        } else {
-            if(acao.equals("prepararOperacao")){
-                prepararOperacao(request, response);
-            }
+        request.setAttribute("operacao", "aeee");
+//        if(acao.equals("confirmarOperacao")) {
+//            confirmarOperacao(request, response);
+//        } else {
+//            if(acao.equals("prepararOperacao")){
+//                prepararOperacao(request, response);
+//            }
         }
-    }
     
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException {
         try {
             String operacao = request.getParameter("operacao");
-            request.setAttribute("operacao", operacao);
+            request.setAttribute("operacao", "operacao");
             request.setAttribute("atletas", Atleta.lerTodosAtletas());
             if(!operacao.equals("Incluir")) {
                 int id = Integer.parseInt(request.getParameter("codCurso"));

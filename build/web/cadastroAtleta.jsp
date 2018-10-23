@@ -40,8 +40,16 @@
                 <td><input type="text" name="txtIdAtleta" value="${atleta.id}"></td>
             </tr>
             <tr>
-                <td>Nome do Atleta</td>
+                <td>Nome</td>
                 <td><input type="text" name="txtNomeAtleta" value="${atleta.nome}"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" name="txtEmailAtleta" value="${atleta.email}"></td>
+            </tr>
+            <tr>
+                <td>Senha</td>
+                <td><input type="password" name="txtSenhaAtleta" value="${atleta.senha}"></td>
             </tr>
             <tr>
                 <td>Peso</td>
