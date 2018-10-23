@@ -30,6 +30,37 @@
         </div>
     </div>
 </nav>
-
+<section class="py-5">
+    <div class="container">
+    <h1> Cadastro Atleta - ${operacao}</h1>
+    <form action=""ManterAtletaController?acao=confirmarOperacao&operacao=${operacao}">
+        <table>
+            <tr>
+                <td>Código Atleta</td>
+                <td><input type="text" name="txtIdAtleta" value="${atleta.id}"></td>
+            </tr>
+            <tr>
+                <td>Nome do Atleta</td>
+                <td><input type="text" name="txtNomeAtleta" value="${atleta.nome}"></td>
+            </tr>
+            <tr>
+                <td>Peso</td>
+                <td><input type="text" name="txtPesoAtleta" value="${atleta.peso}"></td>
+            </tr>
+            <tr>
+                <td>Altura</td>
+                <td><input type="text" name="txtAlturaAtleta" value="${atleta.altura}"></td>
+            </tr>
+            <tr>
+                <td>Data Nascimento</td>
+                <td><input type="text" name="txtDataNascimentoAtleta" value="${atleta.dataNascimento}"></td>
+            </tr>
+        </table>
+    </form>
+    <div>
+        <button type="button" class="btn bg-dark text-white">Enviar</button>
+    </div>
+    </div>
+</section>
 </body>
 </html>
