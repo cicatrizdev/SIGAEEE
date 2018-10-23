@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <%--@declare id="escolhaesporte"--%><label for="escolhaEsporte">Selecione o esporte ...</label>
-                <div class="form-group>
+                <div class="form-group">
                 <label> Esporte</label>
                     <select class="form-control">
                         <option>exemplo 1</option>
