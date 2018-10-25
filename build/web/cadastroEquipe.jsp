@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -33,23 +35,28 @@
 
 <section class="py-5">
     <div class="container">
-        <h1>Cadastro</h1>
-        <form>
+        <h1>${operacao}</h1>
+        <form action="ManterEquipeController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEquipe" onsubmit="return validarFormulario(this)">
+            <div class="form-group">
+       <%--@declare id="nomeequipe"--%><label for="idEquipe">Nome da Equipe</label>
+                <input type="text" class="form-control" id="idEquipe" value="equipe.nome" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
+            </div>
             <div class="form-group">
        <%--@declare id="nomeequipe"--%><label for="nomeEquipe">Nome da Equipe</label>
-                <input type="text" class="form-control" id="nome" placeholder="Insira o nome da equipe">
+                <input type="text" class="form-control" id="nome" value="equipe.nome" <c:if test="${operacao = 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
             </div>
             <div class="form-group">
                 <%--@declare id="equipelogo"--%><label for="equipeLogo">Team Logo</label><br>
-                    <button type="button" class="btn">Selecionar arquivo...</button> Nenhum arquivo selecionado.
+                <button type="button" class="btn">Selecionar arquivo...</button> Nenhum arquivo selecionado.
             </div>
             <div class="form-group">
                 <%--@declare id="escolhaesporte"--%><label for="escolhaEsporte">Selecione o esporte ...</label>
                 <div class="form-group">
                 <label> Esporte</label>
-                    <select class="form-control">
-                        <option>exemplo 1</option>
-                        <option>exemplo 2</option>
+                    <select class="form-control" <c:if test="${operacao = 'Excluir'}"> readonly</c:if>>
+                        <c:forEach items="${esportes}" var="esporte">
+                                <option value="${esporte.nome}" <c:if test="${equipe.idEsporte == esporte.idEsporte}"> selected</c:if>>${esporte.nome}</option>  
+                        </c:forEach>
                     </select>
                 </div>
         </form>
