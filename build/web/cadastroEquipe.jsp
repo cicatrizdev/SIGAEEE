@@ -38,8 +38,8 @@
         <h1>${operacao}</h1>
         <form action="ManterEquipeController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEquipe" onsubmit="return validarFormulario(this)">
             <div class="form-group">
-       <%--@declare id="nomeequipe"--%><label for="idEquipe">Nome da Equipe</label>
-                <input type="text" class="form-control" id="idEquipe" value="equipe.nome" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
+       <%--@declare id="nomeequipe"--%><label for="idEquipe">Id Equipe</label>
+                <input type="text" class="form-control" id="idEquipe" value="equipe.id" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
             </div>
             <div class="form-group">
        <%--@declare id="nomeequipe"--%><label for="nomeEquipe">Nome da Equipe</label>
