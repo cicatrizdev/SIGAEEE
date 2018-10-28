@@ -19,9 +19,10 @@ public class EquipeDAO {
         PreparedStatement comando = null;
         try {
             conexao = BD.getConexao();
-            String sql = "INSERT INTO equipe (nome) VALUE (?)";
+            String sql = "INSERT INTO equipe (nome, esporte_id) VALUE (?,?)";
             comando = conexao.prepareStatement(sql);
             comando.setString(1, equipe.getNomeEquipe());
+            comando.setInt(2, equipe.getEsporte().getIdEsporte());
             comando.execute();
         } catch (SQLException e) {
             throw e;
@@ -85,10 +86,9 @@ public class EquipeDAO {
     }
 
     private static Equipe getFromDatabase(ResultSet rs) throws SQLException {
-        return new Equipe(rs.getInt("esporte_id"),
-                rs.getString("esporte_nome"),
+        return new Equipe(
                 rs.getInt("id"),
-                rs.getString("nome")
+                rs.getString("nome")                
         );
     }
 }

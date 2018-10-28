@@ -1,10 +1,10 @@
 package model;
 
 public class Esporte {
-    private Integer idEsporte;
+    private int idEsporte;
     private String nomeEsporte;
 
-    public Esporte(Integer idEsporte, String nomeEsporte) {
+    public Esporte(int idEsporte, String nomeEsporte) {
         this.idEsporte = idEsporte;
         this.nomeEsporte = nomeEsporte;
     }
@@ -13,7 +13,7 @@ public class Esporte {
         return idEsporte;
     }
 
-    public void setIdEsporte(Integer idEsporte) {
+    public void setIdEsporte(int idEsporte) {
         this.idEsporte = idEsporte;
     }
 
