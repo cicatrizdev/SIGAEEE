@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -13,12 +13,12 @@
             <th>Nome Atleta</th>
             <th colspan=2>Ação</th>
         </tr>
-        <c:forEach itemm="${atletas}" var="atleta">
+        <c:forEach items="${atletas}" var="atleta">
             <tr>
                 <td><c:out value="${atleta.idAtleta}"/></td>
                 <td><c:out value="${atleta.nomeUsuario}" /></td>
-                <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Editar&idAtleta=<c:out value="${atleta.idAtleta}"/>>Editar</a></td>
-                <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Excluir&idAtleta=<c:out value="${atleta.idAtleta}"/>>Excluir</a></td>
+                <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Editar&idAtleta=<c:out value="${atleta.idAtleta}"/>">Editar</a></td>
+                <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Excluir&idAtleta=<c:out value="${atleta.idAtleta}"/>">Excluir</a></td>
             </tr>
         </c:forEach >
     </table>

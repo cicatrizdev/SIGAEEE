@@ -5,9 +5,11 @@
  */
 package principal;
 
+import dao.AtletaDAO;
 import dao.EquipeDAO;
 import dao.EsporteDAO;
 import java.sql.SQLException;
+import model.Atleta;
 import model.Equipe;
 import model.Esporte;
 
@@ -25,17 +27,9 @@ public class MainEquipe {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
          // TODO code application logic here
-         Esporte b = new Esporte(1, "Futebol");
-         Equipe a = new Equipe(2, "FCBRO", b);
-        
-        String nome = a.getEsporte().getNomeEsporte();
-        
-        System.out.println(nome);
-        
-        EsporteDAO.inserir(b);
-        EquipeDAO.inserir(a);
-                
-         
+         Atleta a = new Atleta(2, "Vitor", "j@j.com", "md5", 10.0, 10.0, "23/10/1998");
+                   
+         AtletaDAO.inserir(a);
          
          
          
