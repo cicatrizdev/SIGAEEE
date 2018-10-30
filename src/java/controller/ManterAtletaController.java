@@ -45,6 +45,31 @@ public class ManterAtletaController extends HttpServlet {
         }
     }
     
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException{
+        String operacao = request.getParameter("operacao");
+        int idAtleta = Integer.parseInt(request.getParameter("txtIdAtleta"));
+        Atleta atleta = new Atleta(idUsuario, nomeUsuario, email, senha, peso, altura, dataNascimento);
+        try {
+            if (operacao.equals("Incluir")) {
+              atleta.inserir();
+            } else {
+                if (operacao.equals("Editar")) {
+                    atleta.alterar();
+                } else {
+                    if (operacao.equals("Excluir")) {
+                        atleta.excluir();
+                    }
+                }
+            }        
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaAtletaController");
+            view.forward(request, response);
+        } catch (IOException e) {
+            throw new ServletException(e);
+        } catch (SQLException e) {
+            throw new ServletException(e);
+        } 
+    }
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
     }
