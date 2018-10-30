@@ -1,14 +1,48 @@
 package model;
 
-public class Equipe{
+import dao.EquipeDAO;
+import java.sql.SQLException;
+
+public class Equipe {
+
     private int idEquipe;
     private String nomeEquipe;
+    private String logo;
+    private String playbook;
     private Esporte esporte;
-        
-    public Equipe(int idEquipe, String nomeEquipe, Esporte esporte) {
-        this.idEquipe = idEquipe;
-        this.nomeEquipe = nomeEquipe;
-        this.esporte = esporte;
+    private int idEsporte;
+
+    public Equipe(int idEquipe, String nomeEquipe,String logo, String playbook, Esporte esporte) {
+        this.setIdEquipe(idEquipe);
+        this.setNomeEquipe(nomeEquipe);
+        this.setEsporte(esporte);
+        this.setLogo(logo);
+        this.setPlaybook(playbook);
+        this.setIdEsporte(esporte.getIdEsporte());
+    }
+
+    public int getIdEsporte() {
+        return idEsporte;
+    }
+
+    public void setIdEsporte(int idEsporte) {
+        this.idEsporte = idEsporte;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getPlaybook() {
+        return playbook;
+    }
+
+    public void setPlaybook(String playbook) {
+        this.playbook = playbook;
     }
 
     public Equipe(int aInt, String string) {
@@ -22,9 +56,6 @@ public class Equipe{
     public void setEsporte(Esporte esporte) {
         this.esporte = esporte;
     }
-    
-
-
 
     public int getIdEquipe() {
         return idEquipe;
@@ -40,5 +71,9 @@ public class Equipe{
 
     public void setNomeEquipe(String nomeEquipe) {
         this.nomeEquipe = nomeEquipe;
+    }
+
+    public void inserir() throws SQLException, ClassNotFoundException {
+        EquipeDAO.inserir(this);
     }
 }
