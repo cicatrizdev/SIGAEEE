@@ -29,6 +29,7 @@ public abstract class BD {
     }
 
     public static Long returnId(PreparedStatement comando) throws SQLException {
+        System.out.println("I return the id of " + comando.getClass().getCanonicalName());
         try (ResultSet generatedKeys = comando.getGeneratedKeys()) {
             if (generatedKeys.next()) {
                 return generatedKeys.getLong(1);

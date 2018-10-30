@@ -5,6 +5,10 @@ public abstract class Usuario {
     private String nomeUsuario;
     private String email;
     private String senha;
+    
+    public Usuario(){
+        
+    }
 
     public Integer getIdUsuario() {
         return idUsuario;

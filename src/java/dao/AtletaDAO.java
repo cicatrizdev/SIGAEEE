@@ -10,11 +10,10 @@ public class AtletaDAO {
     public static void inserir(Atleta atleta) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
-        String sql;
         Long id = 0L;
         try {
-            sql = "INSERT INTO usuario (nome, email, senha) values (?,?,?)";
-            comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            conexao = BD.getConexao();
+            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, atleta.getNomeUsuario());
             comando.setString(2, atleta.getEmail());
             comando.setString(3, atleta.getSenha());
@@ -24,16 +23,14 @@ public class AtletaDAO {
             throw e;
         }
         try {
-            sql = "INSERT INTO atleta (peso, altura, data_nascimento, usuario_id) values (?,?,?,?)";
-            comando = conexao.prepareStatement(sql);
-            comando.setFloat(1, atleta.getPeso());
-            comando.setFloat(2, atleta.getAltura());
+            comando = conexao.prepareStatement("INSERT INTO atleta (peso, altura, data_nascimento, usuario_id) values (?,?,?,?)");
+            comando.setDouble(1, atleta.getPeso());
+            comando.setDouble(2, atleta.getAltura());
             comando.setString(3, atleta.getDataNascimento());
             comando.setInt(4, Integer.parseInt(String.valueOf(id)));
-            ResultSet rs = comando.executeQuery(sql);
-            rs.first();
-            atleta.setIdAtleta(rs.getInt("id"));
+            comando.execute();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -45,8 +42,8 @@ public class AtletaDAO {
             conexao = BD.getConexao();
             String sql = "UPDATE atleta SET peso = ?, altura = ?, data_nascimento = ? WHERE id = ?";
             comando = conexao.prepareStatement(sql);
-            comando.setFloat(1, atleta.getPeso());
-            comando.setFloat(2, atleta.getAltura());
+            comando.setDouble(1, atleta.getPeso());
+            comando.setDouble(2, atleta.getAltura());
             comando.setString(3, atleta.getDataNascimento());
             comando.setInt(4, atleta.getIdAtleta());
             comando.execute();
@@ -97,8 +94,8 @@ public class AtletaDAO {
                 rs.getString("nome"),
                 rs.getString("email"),
                 rs.getString("senha"),
-                rs.getFloat("peso"),
-                rs.getFloat("altura"),
+                rs.getDouble("peso"),
+                rs.getDouble("altura"),
                 rs.getString("dataNascimento"));
     }
 

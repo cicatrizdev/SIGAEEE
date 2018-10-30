@@ -8,15 +8,19 @@ import java.util.List;
 public class Atleta extends Usuario {
 
     private Integer idAtleta;
-    private Float peso;
-    private Float altura;
+    private Double peso;
+    private Double altura;
     private String dataNascimento;
 
-    public Atleta(Integer idUsuario, String nomeUsuario, String email, String senha, Float peso, Float altura, String dataNascimento) {
+    public Atleta(Integer idUsuario, String nomeUsuario, String email, String senha, Double peso, Double altura, String dataNascimento) {
         super(idUsuario, nomeUsuario, email, senha);
         this.peso = peso;
         this.altura = altura;
         this.dataNascimento = dataNascimento;
+    }
+
+    public Atleta() {
+        super();
     }
 
     public Integer getIdAtleta() {
@@ -27,19 +31,19 @@ public class Atleta extends Usuario {
         this.idAtleta = idAtleta;
     }
 
-    public Float getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
-    public void setPeso(Float peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
-    public Float getAltura() {
+    public Double getAltura() {
         return altura;
     }
 
-    public void setAltura(Float altura) {
+    public void setAltura(Double altura) {
         this.altura = altura;
     }
 
@@ -70,4 +74,5 @@ public class Atleta extends Usuario {
     public static List<Atleta> lerTodosAtletas() throws ClassNotFoundException, SQLException {
         return AtletaDAO.lerTodosAtletas();
     }
+
 }
