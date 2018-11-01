@@ -2,6 +2,7 @@ package model;
 
 import dao.EquipeDAO;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Equipe {
 
@@ -75,5 +76,8 @@ public class Equipe {
 
     public void inserir() throws SQLException, ClassNotFoundException {
         EquipeDAO.inserir(this);
+    }
+        public static List<Equipe> lerTodasEquipes() throws ClassNotFoundException, SQLException {
+        return EquipeDAO.lerTodasEquipes();
     }
 }
