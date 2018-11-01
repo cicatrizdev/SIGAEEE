@@ -34,9 +34,8 @@ public class PesquisaEquipeController extends HttpServlet {
             request.setAttribute("equipes", Equipe.lerTodasEquipes());
             RequestDispatcher view = request.getRequestDispatcher("/pesquisaEquipe.jsp");
             view.forward(request, response);
-        } catch (ClassNotFoundException e) {
-            throw new ServletException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new ServletException(e);
         }
 

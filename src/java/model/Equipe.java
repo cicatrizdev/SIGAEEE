@@ -13,7 +13,7 @@ public class Equipe {
     private Esporte esporte;
     private int idEsporte;
 
-    public Equipe(int idEquipe, String nomeEquipe,String logo, String playbook, Esporte esporte) {
+    public Equipe(int idEquipe, String nomeEquipe, String logo, String playbook, Esporte esporte) {
         this.setIdEquipe(idEquipe);
         this.setNomeEquipe(nomeEquipe);
         this.setEsporte(esporte);
@@ -47,7 +47,8 @@ public class Equipe {
     }
 
     public Equipe(int aInt, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setIdEquipe(aInt);
+        this.setNomeEquipe(string);
     }
 
     public Esporte getEsporte() {
@@ -77,7 +78,8 @@ public class Equipe {
     public void inserir() throws SQLException, ClassNotFoundException {
         EquipeDAO.inserir(this);
     }
-        public static List<Equipe> lerTodasEquipes() throws ClassNotFoundException, SQLException {
+
+    public static List<Equipe> lerTodasEquipes() throws ClassNotFoundException, SQLException {
         return EquipeDAO.lerTodasEquipes();
     }
 }

@@ -78,7 +78,7 @@ public class EquipeDAO {
                 equipes.add(getFromDatabase(rs));
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         } finally {
             BD.fecharConexao(conexao, comando);
         }
