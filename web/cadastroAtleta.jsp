@@ -21,7 +21,7 @@
                     <a class="nav-link" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="cadastroUsuario.jsp">Cadastro</a>
+                    <a class="nav-link" href="cadastroGestor.jsp">Cadastro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login.jsp">Login</a>
@@ -33,7 +33,7 @@
 <section class="py-5">
     <div class="container">
     <h1> Cadastro Atleta - ${operacao}</h1>
-    <form action=""ManterAtletaController?acao=confirmarOperacao&operacao=${operacao}">
+    <form action="ManterAtletaController?acao=confirmarOperacao&operacao=${operacao}">
         <table>
             <tr>
                 <td>Código Atleta</td>
