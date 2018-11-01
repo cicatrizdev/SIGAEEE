@@ -22,13 +22,7 @@ public class Evento extends TipoEvento {
         this.logradouroEvento = logradouroEvento;
     }
 
-    public Evento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    public Evento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public Integer getIdEvento() {
         return idEvento;
