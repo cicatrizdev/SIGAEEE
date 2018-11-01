@@ -21,8 +21,9 @@ public class ManterEquipeController extends HttpServlet {
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         try {
             String operacao = request.getParameter("operacao");
-            request.setAttribute("operacao", "operacao");
+            request.setAttribute("operacao", operacao);
             request.setAttribute("atletas", Equipe.lerTodasEquipes());
+            
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEquipe.jsp");
             view.forward(request, response);
         } catch (IOException e) {
