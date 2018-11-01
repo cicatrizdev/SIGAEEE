@@ -8,6 +8,30 @@
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
     </servlet-mapping>
+     <servlet>
+        <servlet-name>ManterEquipeController</servlet-name>
+        <servlet-class>controller.ManterEquipeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManterEquipeController</servlet-name>
+        <url-pattern>/ManterEquipeController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ManterAtletaController</servlet-name>
+        <servlet-class>controller.ManterAtletaController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManterAtletaController</servlet-name>
+        <url-pattern>/ManterAtletaController</url-pattern>
+    </servlet-mapping>
+         <servlet>
+        <servlet-name>PesquisaAtletaController</servlet-name>
+        <servlet-class>controller.PesquisaAtletaController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PesquisaAtletaController</servlet-name>
+        <url-pattern>/PesquisaAtletaController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

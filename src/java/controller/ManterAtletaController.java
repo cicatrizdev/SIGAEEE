@@ -29,7 +29,7 @@ public class ManterAtletaController extends HttpServlet {
             request.setAttribute("operacao", "operacao");
             request.setAttribute("atletas", Atleta.lerTodosAtletas());
             if (!operacao.equals("Incluir")) {
-                int id = Integer.parseInt(request.getParameter("codCurso"));
+                int id = Integer.parseInt(request.getParameter("txtIdAtleta"));
                 Atleta atleta = Atleta.lerAtleta(id);
                 request.setAttribute("atleta", atleta);
             }
