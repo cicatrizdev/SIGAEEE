@@ -12,17 +12,15 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/cadastroEquipe.jsp</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/src/java/controller/PesquisaAtletaController.java</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/cadastroEvento.jsp</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/cadastroAtleta.jsp</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/src/java/principal/MainEquipe.java</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/src/java/controller/ManterEventoController.java</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/cadastroGestor.jsp</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/src/java/controller/ManterAtletaController.java</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/src/java/controller/ManterEquipeController.java</file>
-            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/src/java/dao/AtletaDAO.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/web/cadastroEquipe.jsp</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/model/Equipe.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/web/pesquisaEquipe.jsp</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/model/Esporte.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/PesquisaAtletaController.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/dao/EquipeDAO.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/model/Atleta.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/PesquisaEquipeController.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/ManterEquipeController.java</file>
         </group>
     </open-files>
 </project-private>

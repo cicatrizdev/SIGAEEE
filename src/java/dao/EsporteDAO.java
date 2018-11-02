@@ -5,6 +5,7 @@ import model.Esporte;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Equipe;
 
 public class EsporteDAO {
 
@@ -87,9 +88,7 @@ public class EsporteDAO {
             String sql = "SELECT * FROM esporte";
             ResultSet rs = comando.executeQuery(sql);
             while (rs.next()) {
-                esportes.add(new Esporte(rs.getInt(rs.getInt("id")),
-                        rs.getString("nome")
-                ));
+                esportes.add(getFromDatabase(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,5 +96,11 @@ public class EsporteDAO {
             BD.fecharConexao(conexao, comando);
         }
         return esportes;
+    }
+    private static Esporte getFromDatabase(ResultSet rs) throws SQLException {
+        return new Esporte(
+                rs.getInt("id"),
+                rs.getString("nome")
+        );
     }
 }

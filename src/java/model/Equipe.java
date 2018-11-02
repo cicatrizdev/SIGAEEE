@@ -6,6 +6,10 @@ import java.util.List;
 
 public class Equipe {
 
+    public static Object lerEquipe(Integer id) throws ClassNotFoundException {
+        return EquipeDAO.lerEquipe(id);
+    }
+
     private int idEquipe;
     private String nomeEquipe;
     private String logo;
@@ -46,9 +50,12 @@ public class Equipe {
         this.playbook = playbook;
     }
 
-    public Equipe(int aInt, String string) {
+    public Equipe(int aInt, String string, String logo, String playbook, int esporte_id) {
         this.setIdEquipe(aInt);
         this.setNomeEquipe(string);
+        this.setLogo(logo);
+        this.setPlaybook(playbook);
+        this.idEsporte = esporte_id;
     }
 
     public Esporte getEsporte() {

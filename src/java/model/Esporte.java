@@ -1,6 +1,12 @@
 package model;
 
+import dao.EsporteDAO;
+
 public class Esporte {
+
+    public static Object lerTodosEsportes() throws ClassNotFoundException {
+        return EsporteDAO.lerTodosEsportes();
+    }
     private int idEsporte;
     private String nomeEsporte;
 

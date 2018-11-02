@@ -88,7 +88,10 @@ public class EquipeDAO {
     private static Equipe getFromDatabase(ResultSet rs) throws SQLException {
         return new Equipe(
                 rs.getInt("id"),
-                rs.getString("nome")                
+                rs.getString("nome"),
+                rs.getString("logo"),
+                rs.getString("playbook"),
+                rs.getInt("esporte_id")
         );
     }
 }

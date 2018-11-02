@@ -39,27 +39,27 @@
                 <form action="ManterEquipeController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEquipe" onsubmit="return validarFormulario(this)">
                     <div class="form-group">
                         <%--@declare id="nomeequipe"--%><label for="idEquipe">Id Equipe</label>
-                        <input type="text" class="form-control" id="idEquipe" value="equipe.id" name="txtIdEquipe" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id">
+                        <input type="text" class="form-control" id="idEquipe" value="${equipe.getIdEquipe()}" name="txtIdEquipe" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id">
                         </div>
                         <div class="form-group">
                         <%--@declare id="nomeequipe"--%><label for="nomeEquipe">Nome da Equipe</label>
-                        <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="equipe.nome" </c:if> name = "txtNomeEquipe"<c:if test="${operacao = 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
+                        <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="${equipe.getNomeEquipe()}" </c:if> name = "txtNomeEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
                         </div>
                         <div class="form-group">
                         <%--@declare id="equipelogo"--%><label for="equipeLogo">Team Logo</label><br>
-                        <input type="text" class="form-control" id="nome" value="equipe.logo" name = "txtLogoEquipe"<c:if test="${operacao = 'Excluir'}"> readonly</c:if> placeholder="Insira a url da logo">              
+                        <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="${equipe.getLogo()}" </c:if> name = "txtLogoEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira a url da logo">              
                         </div>
                         <div class="form-group">
                         <%--@declare id="equipelogo"--%><label for="equipePlaybook">Team Logo</label><br>
-                        <input type="text" class="form-control" id="nome" value="equipe.playbook" name = "txtPlaybookEquipe"<c:if test="${operacao = 'Excluir'}"> readonly</c:if> placeholder="Insira a url do Playbook">              
+                        <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="${equipe.getPlaybook()}" </c:if> name = "txtPlaybookEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira a url do Playbook">              
                         </div>
                         <div class="form-group">
                         <%--@declare id="escolhaesporte"--%><label for="escolhaEsporte">Selecione o esporte ...</label>
                         <div class="form-group">
                             <label> Esporte</label>
-                            <select class="form-control" <c:if test="${operacao = 'Excluir'}"> readonly</c:if>>
+                            <select class="form-control" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                 <c:forEach items="${esportes}" var="esporte">
-                                    <option value="${esporte.nome}" <c:if test="${equipe.idEsporte == esporte.idEsporte}"> selected</c:if>>${esporte.nome}</option>  
+                                    <option value="${esporte}" >${esporte.getNomeEsporte()}</option>  
                                 </c:forEach>
                             </select>
                         </div>
@@ -67,7 +67,7 @@
             </div>
 
             <div>
-                <button type="button" class="btn bg-dark text-white">Enviar</button>
+                <input type="submit" name="btnConfirmar" value="${operacao}"/>
             </div>
 
         </div>
