@@ -32,11 +32,11 @@ public class ManterEquipeController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                 Integer idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
-                 request.setAttribute("equipe", Equipe.lerEquipe(idEquipe));
+                Integer idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+                request.setAttribute("equipe", Equipe.lerEquipe(idEquipe));
 
             }
-           
+
             request.setAttribute("operacao", operacao);
             request.setAttribute("esportes", Esporte.lerTodosEsportes());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEquipe.jsp");
@@ -51,19 +51,18 @@ public class ManterEquipeController extends HttpServlet {
         String operacao = request.getParameter("operacao");
         int id_equipe = Integer.parseInt(request.getParameter("txtIdEquipe"));
         String nome = request.getParameter("txtNomeEquipe");
+
         String logo = request.getParameter("txtLogoEquipe");
         String playbook = request.getParameter("txtPlaybookEquipe");
-        Esporte esporte = new Esporte(Integer.parseInt(request.getParameter("optIdEsporte")), request.getParameter("optEsporte"));
-
+        int id_esporte = Integer.parseInt(request.getParameter("txtIdEsporte"));
         try {
-            /*            Equipe equipe = null;
-            if (esporte != 0){
-                equipe= Equipe.esporte.getIdEsporte();
-            }
-             */
-            Equipe equipe = new Equipe(id_equipe, nome, logo, playbook, esporte);
+            Equipe equipe = new Equipe(id_equipe, nome, logo, playbook, id_esporte);
             if (operacao.equals("Incluir")) {
                 equipe.inserir();
+            }else if (operacao.equals("Editar")){
+                equipe.alterar();
+            }else if (operacao.equals("Excluir")){
+                equipe.excluir();
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaEquipeController");
             view.forward(request, response);

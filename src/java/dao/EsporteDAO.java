@@ -67,9 +67,7 @@ public class EsporteDAO {
             comando.setInt(1, idEsporte);
             ResultSet rs = comando.executeQuery();
             rs.first();
-            esporte = new Esporte(rs.getInt("id"), // ta certo isso aqui??
-                    rs.getString("nome")
-            );
+            esporte = getFromDatabase(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -19,10 +19,12 @@ public class EquipeDAO {
         PreparedStatement comando = null;
         try {
             conexao = BD.getConexao();
-            String sql = "INSERT INTO equipe (nome, esporte_id) VALUE (?,?)";
+            String sql = "INSERT INTO `equipe` (`nome`, `logo`, `playbook`, `esporte_id`) VALUES (?, ?, ?, ?)";
             comando = conexao.prepareStatement(sql);
             comando.setString(1, equipe.getNomeEquipe());
-            comando.setInt(2, equipe.getEsporte().getIdEsporte());
+            comando.setString(2, equipe.getLogo());
+            comando.setString(3, equipe.getPlaybook());
+            comando.setInt(4, equipe.getIdEsporte());
             comando.execute();
         } catch (SQLException e) {
             throw e;
@@ -34,9 +36,29 @@ public class EquipeDAO {
         PreparedStatement comando = null;
         try {
             conexao = BD.getConexao();
-            String sql = "UPDATE equipe SET nome = ? WHERE id = ?";
+            String sql = "UPDATE equipe SET nome = ?, logo = ?, playbook = ?, esporte_id = ? WHERE equipe.id = ?";
             comando = conexao.prepareStatement(sql);
             comando.setString(1, equipe.getNomeEquipe());
+            comando.setString(2, equipe.getLogo());
+            comando.setString(3, equipe.getPlaybook());
+            comando.setInt(4, equipe.getIdEsporte());
+            comando.setInt(5, equipe.getIdEquipe());
+
+            comando.execute();
+            BD.fecharConexao(conexao, comando);
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public static void excluir(Equipe equipe) throws SQLException, ClassNotFoundException {
+        Connection conexao = null;
+        PreparedStatement comando = null;
+        try {
+            conexao = BD.getConexao();
+            String sql = "DELETE FROM `equipe` WHERE `equipe`.`id` = ?";
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, equipe.getIdEquipe());
 
             comando.execute();
             BD.fecharConexao(conexao, comando);
@@ -94,4 +116,5 @@ public class EquipeDAO {
                 rs.getInt("esporte_id")
         );
     }
+
 }

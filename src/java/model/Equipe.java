@@ -89,4 +89,12 @@ public class Equipe {
     public static List<Equipe> lerTodasEquipes() throws ClassNotFoundException, SQLException {
         return EquipeDAO.lerTodasEquipes();
     }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        EquipeDAO.alterar(this);
+    }
+
+    public void excluir() throws SQLException, ClassNotFoundException{
+        EquipeDAO.excluir(this);
+    }
 }

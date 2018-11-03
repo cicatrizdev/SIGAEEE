@@ -7,6 +7,10 @@ public class Esporte {
     public static Object lerTodosEsportes() throws ClassNotFoundException {
         return EsporteDAO.lerTodosEsportes();
     }
+
+    public static Object lerEsporte(Integer id) throws ClassNotFoundException {
+       return EsporteDAO.lerEsporte(id);
+    }
     private int idEsporte;
     private String nomeEsporte;
 
