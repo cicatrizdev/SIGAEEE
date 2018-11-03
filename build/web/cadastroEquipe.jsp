@@ -37,7 +37,7 @@
             <div class="container">
                 <h1>Equipe - ${operacao}</h1>
                 <form action="ManterEquipeController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEquipe">
-                    <div class="form-group">
+                    <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                         <%--@declare id="nomeequipe"--%><label for="idEquipe">Id Equipe</label>
                         <input type="text" class="form-control" id="idEquipe" value="${equipe.getIdEquipe()}" name="txtIdEquipe" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id">
                         </div>
@@ -46,21 +46,22 @@
                         <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="${equipe.getNomeEquipe()}" </c:if> name = "txtNomeEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
                         </div>
                         <div class="form-group">
-                        <%--@declare id="equipelogo"--%><label for="equipeLogo">Team Logo</label>
-                        <c:if test="${operacao != 'Incluir'}"><img src="${equipe.getLogo()}" alt="Team Logo" style="width:60px;height: 80px;"><br></c:if>                                             
+                        <%--@declare id="equipelogo"--%><label for="equipeLogo">Team Logo</label><br>
                         <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="${equipe.getLogo()}" </c:if> name = "txtLogoEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira a url da logo">              
+                        <c:if test="${operacao != 'Incluir'}"><img src="${equipe.getLogo()}" alt="Team Logo" style="width:60px;height: 80px;"><br></c:if> 
                         </div>
                         <div class="form-group">
 
-                        <%--@declare id="equipelogo"--%><label for="equipePlaybook">Team Playbook</label>
-                        <c:if test="${operacao != 'Incluir'}"><h5><a href="${equipe.getPlaybook()}">Playbook</a></h5></c:if>  
+                        <%--@declare id="equipelogo"--%><label for="equipePlaybook">Team Playbook</label><br>                    
                         <input type="text" class="form-control" id="nome" <c:if test="${operacao != 'Incluir'}"> value="${equipe.getPlaybook()}" </c:if> name = "txtPlaybookEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira a url do Playbook">              
+                        <c:if test="${operacao != 'Incluir'}"><h5><a href="${equipe.getPlaybook()}">Playbook</a></h5></c:if>  
                         </div>
                         <div class="form-group">
-                        <%--@declare id="escolhaesporte"--%><label for="escolhaEsporte">Selecione o esporte ...</label>
+                        
                         <div class="form-group">
-                            <label> Esporte</label>
-                            <select class="form-control" name="txtIdEsporte" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                        <label> Esporte</label>
+                        <select class="form-control" name="txtIdEsporte" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>> 
+                            <option value="" disabled selected>Selecione o esporte</option>
                                 <c:forEach items="${esportes}" var="esporte">
                                     <option value="${esporte.getIdEsporte()}"<c:if test="${equipe.getIdEsporte() == esporte.getIdEsporte()}"> selected</c:if>>${esporte.getNomeEsporte()}</option>  
                                 </c:forEach>
