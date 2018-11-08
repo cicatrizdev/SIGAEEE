@@ -11,7 +11,9 @@
 <body id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand text-white">SIGAEE</a>
+        <a class="navbar-brand text-white" href="index.jsp">SIGAEE</a>
+        <a class="navbar-brand text-white" href="cadastro.jsp"> > Cadastro </a>
+        <a class="navbar-brand text-white" href="cadastroGestor.jsp"> > Cadastro Gestor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,7 +23,7 @@
                     <a class="nav-link" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="cadastroGestor.jsp">Cadastro
+                    <a class="nav-link" href="cadastro.jsp">Cadastro
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -35,25 +37,18 @@
 <section class="py-5">
     <div class="container">
         <h1>Cadastro</h1>
-        <form action="ManterUsuarioController?acao=confirmarOperacao&operacao=${operacao}">
+        <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Insira seu nome">
+                <input type="text" class="form-control"name="txtNomeGestor" value="${gestor.nome}" placeholder="Insira seu nome">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="exemplo@email.com">
+                <input type="email" class="form-control" name="txtEmailGestor" value="${gestor.email}" placeholder="exemplo@email.com">
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="tipoUsuario">Tipo de Usuário</label>
-                <select class="form-control" id="tipoUsuario">
-                    <option>Gestor</option>
-                    <option>Atleta</option>
-                </select>
+                <input type="password" class="form-control"name="txtSenhaGestor" value="${gestor.senha}" placeholder="Password">
             </div>
             <div>
                 <button type="button" input type="submit" class="btn bg-dark text-white">Enviar</button>
