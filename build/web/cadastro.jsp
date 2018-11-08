@@ -34,21 +34,28 @@
     </div>
 </nav>
 <section class="py-5">
-    <div class="container align-baseline">
+    <div class="container">
         <h1>Cadastro</h1>
-    <div class="card align-baseline" style="width: 30rem;">
-        <img class="card-img-top" src=".../100px180/" alt="Imagem">
-        <div class="card-body">
-            <h5 class="card-title">Cadastro de Gestor</h5>
-            <p class="card-text">Gerencie seus atletas e seu time! Organize sua agenda e tenha todos os dados em seu controle.</p>
-            <a href="cadastroGestor.jsp" class="btn btn-primary">Cadastre-se</a>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            <div class="card " style="width: 30rem;">
+            <img class="card-img-top" src="" alt="Imagem">
+                <div class="card-body">
+                    <h5 class="card-title">Cadastro de Gestor</h5>
+                    <p class="card-text">Gerencie seus atletas e seu time! Organize sua agenda e tenha todos os dados em seu controle.</p>
+                    <a href="cadastroGestor.jsp" class="btn btn-primary">Cadastre-se</a>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center">
+            <div class="card " style="width: 30rem;">
+            <img class="card-img-top" src="" alt="Imagem">
+                <div class="card-body">
+                    <h5 class="card-title">Cadastro de Atleta</h5>
+                    <p class="card-text">Tenha acesso a todas as informações da sua equipe, esteja por dentro dos próximos compromissos.</p>
+                    <a href="cadastroAtleta.jsp" class="btn btn-primary">Cadastre-se</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="card align-top" style="width: 30rem;">
-        <img class="card-img-top" src=".../100px180/" alt="Imagem">
-        <div class="card-body">
-            <h5 class="card-title">Cadastro de Atleta</h5>
-            <p class="card-text">Tenha acesso a todas as informações da sua equipe, esteja por dentro dos próximos compromissos.</p>
-            <a href="cadastroAtleta.jsp" class="btn btn-primary">Cadastre-se</a>
-        </div>
     </div>    

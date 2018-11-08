@@ -11,7 +11,8 @@
 <body id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand text-white">SIGAEE</a>
+        <a class="navbar-brand text-white" href="index.jsp">SIGAEE</a>
+        <a class="navbar-brand text-white" href="login.jsp"> > Login</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,7 +22,7 @@
                     <a class="nav-link" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="cadastroGestor.jsp">Cadastro</a>
+                    <a class="nav-link" href="cadastro.jsp">Cadastro</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="login.jsp">Login
