@@ -23,6 +23,14 @@ public class Atleta extends Usuario {
         super();
     }
 
+    public Atleta(String nome, String email, String senha, String data, Double altura, Double peso) {
+        super(nome, email, senha);
+        this.setAltura(altura);
+        this.setPeso(peso);
+        this.setDataNascimento(data);
+        
+    }
+
     public Integer getIdAtleta() {
         return idAtleta;
     }
