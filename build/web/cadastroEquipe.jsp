@@ -35,7 +35,8 @@
 
         <section class="py-5">
             <div class="container">
-                <h1>Equipe - ${operacao}</h1>
+                <h1>Equipe ${operacao}</h1>
+                <br/>
                 <form action="ManterEquipeController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEquipe">
                     <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                         <%--@declare id="nomeequipe"--%><label for="idEquipe">Id Equipe</label>

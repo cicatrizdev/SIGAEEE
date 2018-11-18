@@ -32,7 +32,8 @@
 </nav>
 <section class="py-5">
     <div class="container">
-        <h1>Cadastro Evento</h1>
+        <h1>Cadastro de Evento</h1>
+        <br/>
         <form>
             <div class="form-group">
                 <label for="titulo">Nome</label>

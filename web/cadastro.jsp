@@ -36,6 +36,7 @@
 <section class="py-5">
     <div class="container">
         <h1>Cadastro</h1>
+        <br/>
     <div class="row">
         <div class="col-sm-6 text-center">
             <div class="card " style="width: 30rem;">

@@ -1,3 +1,4 @@
+<%--
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -49,7 +50,7 @@
                 <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
             <div class="form-group">
-                <label for="tipoUsuario">Tipo de Usu√°rio</label>
+                <label for="tipoUsuario">Tipo de Usu·rio</label>
                 <select class="form-control" id="tipoUsuario">
                     <option>Diretor Geral</option>
                     <option>Atleta</option>
@@ -67,3 +68,4 @@
 
 </body>
 </html>
+--%>

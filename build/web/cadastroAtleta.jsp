@@ -35,6 +35,7 @@
 <section class="py-5">
     <div class="container">
     <h1> Cadastro Atleta ${operacao}</h1>
+    <br/>
     <form action="ManterAtletaController?acao=confirmarOperacao&operacao=${operacao}" method="post">
         <div class="form-group">
             <label for="nome">Nome</label>

@@ -36,7 +36,8 @@
 </nav>
 <section class="py-5">
     <div class="container">
-        <h1>Cadastro</h1>
+        <h1>Cadastro de Gestor</h1>
+        <br/>
         <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}">
             <div class="form-group">
                 <label for="nome">Nome</label>
