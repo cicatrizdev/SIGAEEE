@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
+import static java.lang.Float.parseFloat;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,9 +52,9 @@ public class ManterAtletaController extends HttpServlet {
         String email = request.getParameter("txtEmailAtleta");
         String senha = request.getParameter("txtSenhaAtleta");
         String data = request.getParameter("txtDataNascimentoAtleta");
-        Double altura = parseDouble(request.getParameter("txtAlturaAtleta"));
-        Double Peso = parseDouble(request.getParameter("txtPesoAtleta"));
-        Atleta atleta = new Atleta();
+        float altura = parseFloat(request.getParameter("txtAlturaAtleta"));
+        float peso = parseFloat(request.getParameter("txtPesoAtleta"));
+        Atleta atleta = new Atleta(nome, email, senha, data, altura, peso );
         if (operacao.equals("Incluir")) {
             atleta.inserir();
         } else if (operacao.equals("Editar")) {

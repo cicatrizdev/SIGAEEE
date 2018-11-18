@@ -11,7 +11,6 @@ public class MainEquipe {
     
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         // TODO code application logic here
-        Equipe equipe = new Equipe(6, "Teste", "url", "url", 3);
-        equipe.inserir();
+    System.out.println(AtletaDAO.lerAtleta(2).getNomeUsuario());
     }
 }

@@ -69,15 +69,15 @@ public class AtletaDAO {
         }
     }
 
-    public static Atleta lerAtleta(Integer id) throws SQLException, ClassNotFoundException {
+    public static Atleta lerAtleta(int id) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
         try {
             conexao = BD.getConexao();
-            String sql = "SELECT * FROM atleta RIGHT JOIN usuario ON usuario.atleta_id = atleta.id WHERE id = ? ";
+            String sql = "SELECT * FROM atleta JOIN usuario ON usuario.id = atleta.usuario_id WHERE atleta.id_atleta = ? ";
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, id);
-            ResultSet rs = comando.executeQuery(sql);
+            ResultSet rs = comando.executeQuery();
             rs.first();
             Atleta atleta = getFromResultSet(rs);
             BD.fecharConexao(conexao, comando);
@@ -90,23 +90,27 @@ public class AtletaDAO {
     }
 
     private static Atleta getFromResultSet(ResultSet rs) throws SQLException {
-        return new Atleta(rs.getInt("id"),
+        return new Atleta(rs.getInt("id_atleta"),
+                rs.getFloat("peso"),
+                rs.getFloat("altura"),
+                rs.getString("data_nascimento"),
+                rs.getInt("posicao_id"),
+                rs.getInt("equipe_id"),
+                rs.getInt("usuario_id"),
                 rs.getString("nome"),
                 rs.getString("email"),
-                rs.getString("senha"),
-                rs.getDouble("peso"),
-                rs.getDouble("altura"),
-                rs.getString("dataNascimento"));
+                rs.getString("senha"));
     }
 
     public static List<Atleta> lerTodosAtletas() throws ClassNotFoundException, SQLException {
         Connection conexao = null;
         Statement comando = null;
+        ArrayList<Atleta> atletas = new ArrayList<>();
         try {
             conexao = BD.getConexao();
-            String sql = "SELECT * FROM atleta RIGHT JOIN usuario ON usuario.atleta_id = atleta.id";
+            comando = conexao.createStatement();
+            String sql = "SELECT * FROM atleta RIGHT JOIN usuario ON atleta.usuario_id = usuario.id";
             ResultSet rs = comando.executeQuery(sql);
-            ArrayList<Atleta> atletas = new ArrayList<>();
             while (rs.next()) {
                 atletas.add(getFromResultSet(rs));
             }
