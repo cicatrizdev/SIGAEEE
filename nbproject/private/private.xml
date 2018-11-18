@@ -5,24 +5,18 @@
             <url>src/java/dao/EquipeDAO.java</url>
             <bookmark id="1">
                 <name/>
-                <line>78</line>
+                <line>76</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/ManterAtletaController.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/model/Gestor.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/web/cadastroAtleta.jsp</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/model/Usuario.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/PesquisaAtletaController.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/dao/AtletaDAO.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/ManterGestorController.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/model/Atleta.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/web/pesquisaAtleta.jsp</file>
-            <file>file:/C:/Users/Jonathan/Documents/GitHub/SIGAEEE/src/java/controller/ManterEquipeController.java</file>
+            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/pesquisaEvento.jsp</file>
+            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/index.jsp</file>
+            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/cadastroAtleta.jsp</file>
+            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/painelGestor.jsp</file>
+            <file>file:/C:/Users/pc_me/Documents/Repositórios/LP2/SIGAEEE/web/pesquisaAtleta.jsp</file>
         </group>
     </open-files>
 </project-private>

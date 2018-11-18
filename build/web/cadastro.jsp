@@ -37,26 +37,27 @@
     <div class="container">
         <h1>Cadastro</h1>
         <br/>
-    <div class="row">
-        <div class="col-sm-6 text-center">
-            <div class="card " style="width: 30rem;">
-            <img class="card-img-top" src="" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">Cadastro de Gestor</h5>
-                    <p class="card-text">Gerencie seus atletas e seu time! Organize sua agenda e tenha todos os dados em seu controle.</p>
-                    <a href="cadastroGestor.jsp" class="btn btn-primary">Cadastre-se</a>
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <div class="card " style="width: 30rem;">
+                <img class="card-img-top" src="" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Cadastro de Gestor</h5>
+                        <p class="card-text">Gerencie seus atletas e seu time! Organize sua agenda e tenha todos os dados em seu controle.</p>
+                        <a href="cadastroGestor.jsp" class="btn btn-primary">Cadastre-se</a>
+                </div>
+                </div>
             </div>
-            </div>
-        </div>
-        <div class="col-sm-6 text-center">
-            <div class="card " style="width: 30rem;">
-            <img class="card-img-top" src="" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">Cadastro de Atleta</h5>
-                    <p class="card-text">Tenha acesso a todas as informações da sua equipe, esteja por dentro dos próximos compromissos.</p>
-                    <a href="cadastroAtleta.jsp" class="btn btn-primary">Cadastre-se</a>
+            <div class="col-sm-6 text-center">
+                <div class="card " style="width: 30rem;">
+                <img class="card-img-top" src="" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Cadastro de Atleta</h5>
+                        <p class="card-text">Tenha acesso a todas as informações da sua equipe, esteja por dentro dos próximos compromissos.</p>
+                        <a href="cadastroAtleta.jsp" class="btn btn-primary">Cadastre-se</a>
+                    </div>
                 </div>
             </div>
         </div>
+        <img class="d-block w-100 border rounded border-white" src="https://pixabay.com/get/e835b10929f3033ed1534705fb0938c9bd22ffd41cb5134492f2c278a3/thumbs-up-1006172_1920.png" alt="kd a imagem??">
     </div>
-    </div>    
