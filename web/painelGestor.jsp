@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.jsp">Home
+                    <a class="nav-link" href="painelGestor.jsp">Painel
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -33,12 +33,17 @@
     <div class="container">
         <h1>Painel Administrativo</h1>
         <br/>
+        <ul class="list-group">
+            <h4>Situação atual do Time</h4>
+            <p>
+                Total de Atletas Vinculados: <span class="badge badge-primary badge-pill">codigoaqui</span><br/>
+                Total de Eventos na Agenda:  <span class="badge badge-primary badge-pill">codigoaqui</span>
+            </p>
+        </ul>
         <div class="list-group">
             <a href="pesquisaAtleta.jsp" class="list-group-item list-group-item-action">Relatório de Atletas</a>
             <a href="pesquisaEvento.jsp" class="list-group-item list-group-item-action">Relatório de Eventos</a>
             <a href="#" class="list-group-item list-group-item-action">Relatório Geral da Equipe</a>
-            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
         </div>
     </div>
 </section>

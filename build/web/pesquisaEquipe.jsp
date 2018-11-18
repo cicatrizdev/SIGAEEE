@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>Pesquisa de Equipe</h1>
+<br/>
 <table>
     <tr>
         <th>Código Equipe</th>

@@ -40,7 +40,7 @@
     <div class="row">
         <div class="col-sm-6 text-center">
             <div class="card " style="width: 30rem;">
-            <img class="card-img-top" src="" alt="Imagem">
+            <img class="card-img-top" src="" alt="">
                 <div class="card-body">
                     <h5 class="card-title">Cadastro de Gestor</h5>
                     <p class="card-text">Gerencie seus atletas e seu time! Organize sua agenda e tenha todos os dados em seu controle.</p>
@@ -50,7 +50,7 @@
         </div>
         <div class="col-sm-6 text-center">
             <div class="card " style="width: 30rem;">
-            <img class="card-img-top" src="" alt="Imagem">
+            <img class="card-img-top" src="" alt="">
                 <div class="card-body">
                     <h5 class="card-title">Cadastro de Atleta</h5>
                     <p class="card-text">Tenha acesso a todas as informações da sua equipe, esteja por dentro dos próximos compromissos.</p>
