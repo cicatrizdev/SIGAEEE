@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Evento;
-import dao.EventoDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Equipe;
+import model.TipoEvento;
 
 public class ManterEventoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -29,13 +30,14 @@ public class ManterEventoController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("Evento", Evento.lerTodosEventos());
+            request.setAttribute("tiposEvento",TipoEvento.lerTodosTiposEventos());
+            request.setAttribute("equipes",Equipe.lerTodasEquipes());
             if (!operacao.equals("Incluir")) {
-                int codCurso = Integer.parseInt(request.getParameter("codEvento"));
-                Evento evento = Evento.lerEvento(codCurso);
+                int idEvento = Integer.parseInt(request.getParameter("idEvento"));
+                Evento evento = Evento.lerEvento(idEvento);
                 request.setAttribute("evento", evento);
             }
-            RequestDispatcher view = request.getRequestDispatcher("/manterEvento.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/cadastroEvento.jsp");
             view.forward(request, response);
         } catch (ServletException e) {
             throw e;
@@ -46,25 +48,27 @@ public class ManterEventoController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        Integer idEvento = Integer.parseInt(request.getParameter("txtIdEvento"));
+        int idEvento = Integer.parseInt(request.getParameter("txtIdEvento"));
         String nomeEvento = request.getParameter("txtNomeEvento");
         String descricaoEvento = request.getParameter("txtDescricaoEvento");
         String dataEvento = request.getParameter("txtDataEvento");
         String logradouroEvento = request.getParameter("txtLogradouroEvento");
+        int idTipoEvento = Integer.parseInt(request.getParameter("intIdTipoEvento"));
+        int idEquipe = Integer.parseInt(request.getParameter("intIdEquipe"));
 
-        Evento evento = new Evento();
+       Evento evento = new Evento(idTipoEvento, idEvento, nomeEvento, descricaoEvento, dataEvento, logradouroEvento, idEquipe);
         if (operacao.equals("Incluir")) {
-            EventoDAO.inserir(evento);
+            evento.inserir();
         } else {
             if (operacao.equals("Editar")) {
-                EventoDAO.alterar(evento);
+                evento.alterar();
             } else {
                 if (operacao.equals("Excluir")) {
-                    EventoDAO.excluir(evento);
+                   evento.excluir();
                 }
             }
         } 
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaCursoController");
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaEventoController");
             view.forward(request, response);
         }
 

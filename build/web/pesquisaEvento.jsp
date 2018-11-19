@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <head>
     <meta charset="UTF-8">
@@ -40,12 +42,12 @@
         <th>Nome Evento</th>
         <th colspan=2>Ação</th>
     </tr>
-    <c:forEach itemm="${eventos}" var="evento">
+    <c:forEach items="${eventos}" var="evento">
         <tr>
             <td><c:out value="${evento.idEvento}"/></td>
             <td><c:out value="${evento.nomeEvento}" /></td>
-            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Editar&idEvento=<c:out value="${evento.idEvento}"/>>Editar</a></td>
-            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Excluir&idEvento=<c:out value="${evento.idEvento}"/>>Excluir</a></td>
+            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Editar&idEvento=<c:out value="${evento.idEvento}"/>">Editar</a></td>
+            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Excluir&idEvento=<c:out value="${evento.idEvento}"/>">Excluir</a></td>
         </tr>
     </c:forEach >
 </table>

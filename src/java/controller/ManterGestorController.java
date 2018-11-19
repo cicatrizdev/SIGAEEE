@@ -48,13 +48,13 @@ public class ManterGestorController extends HttpServlet {
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
         String operacao = request.getParameter("operacao");
         int idGestor = Integer.parseInt(request.getParameter("txtIdGestor"));
-        Gestor gestor = new Gestor();
+    //    Gestor gestor = new Gestor();
         if (operacao.equals("Incluir")) {
-            gestor.inserir();
+      //      gestor.inserir();
         } else if (operacao.equals("Editar")) {
-            gestor.alterar();
+        //    gestor.alterar();
         } else if (operacao.equals("Excluir")) {
-            gestor.excluir();
+          //  gestor.excluir();
         }
         request.getRequestDispatcher("PesquisaAtletaController").forward(request, response);
     }

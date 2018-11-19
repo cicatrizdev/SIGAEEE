@@ -104,13 +104,13 @@ public class EventoDAO {
     }
     
     private static Evento getFromDatabase(ResultSet rs) throws SQLException {
-        return new Evento(rs.getInt("tipo_evento_id"), // ta certo isso aqui??
-                rs.getString(rs.getString("tipo_evento_nome")),
-                rs.getInt(rs.getInt("id")),
+        return new Evento(rs.getInt("tipo_evento_id"),
+                rs.getInt("id"),
                 rs.getString("nome"),
                 rs.getString("descricao"),
                 rs.getString("data"),
-                rs.getString("logradouro")
+                rs.getString("local"),
+                rs.getInt("equipe_id")                
         );
     }
 }

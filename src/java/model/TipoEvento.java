@@ -1,6 +1,12 @@
 package model;
 
+import dao.TipoEventoDAO;
+
 public class TipoEvento {
+
+    public static Object lerTodosTiposEventos() throws ClassNotFoundException {
+        return TipoEventoDAO.lerTodosTiposEventos();
+    }
     private Integer idTipoEvento;
     private String nomeTipoEvento;
 
