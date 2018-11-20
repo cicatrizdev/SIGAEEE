@@ -24,6 +24,10 @@
         <servlet-name>PainelGestor</servlet-name>
         <servlet-class>controller.PainelGestor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PainelAtleta</servlet-name>
+        <servlet-class>controller.PainelAtleta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>PainelGestor</servlet-name>
         <url-pattern>/PainelGestor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PainelAtleta</servlet-name>
+        <url-pattern>/PainelAtleta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -62,7 +62,8 @@ public class Login extends HttpServlet {
         System.out.println(senha);
         Logar logar = new Logar(email, senha);
         System.out.println(logar.verificar());
-        if (logar.verificar() == "gestor") {
+        String entrar = logar.verificar();
+        if (entrar == "gestor") {
             List<Equipe> equipes = new ArrayList<Equipe>();
             List<Gestor> gestores = new ArrayList<Gestor>();
             List<Atleta> atletas = new ArrayList<Atleta>();
@@ -107,7 +108,12 @@ public class Login extends HttpServlet {
             System.out.println(equipe.getNomeEquipe()+"  aqui "+gestor.getNomeUsuario()+"  "+numeroAtletas+"  "+ numeroEventos);
             RequestDispatcher view = request.getRequestDispatcher("/PainelGestor");
             view.forward(request, response);
-        } else {
+        } else if(entrar == "atleta"){
+            RequestDispatcher view = request.getRequestDispatcher("/PainelAtleta");
+            view.forward(request, response);           
+        }else if (entrar == "error"){
+             RequestDispatcher view = request.getRequestDispatcher("/Error");
+            view.forward(request, response);           
         }
     }
 
