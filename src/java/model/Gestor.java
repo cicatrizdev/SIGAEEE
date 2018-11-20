@@ -2,6 +2,7 @@ package model;
 
 import dao.GestorDAO;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Gestor extends Usuario {
 
@@ -9,7 +10,7 @@ public class Gestor extends Usuario {
         return GestorDAO.lerGestor(id);
     }
 
-    public static Object lerTodosGestores() throws ClassNotFoundException, SQLException {
+    public static List<Gestor> lerTodosGestores() throws ClassNotFoundException, SQLException {
         return GestorDAO.lerTodosGestores();
     }
     private Integer idGestor;

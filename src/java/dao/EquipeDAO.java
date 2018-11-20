@@ -110,6 +110,7 @@ public class EquipeDAO {
     private static Equipe getFromDatabase(ResultSet rs) throws SQLException {
         return new Equipe(
                 rs.getInt("id"),
+                rs.getInt("id_gestor"),
                 rs.getString("nome"),
                 rs.getString("logo"),
                 rs.getString("playbook"),

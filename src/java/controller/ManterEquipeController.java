@@ -51,12 +51,12 @@ public class ManterEquipeController extends HttpServlet {
         String operacao = request.getParameter("operacao");
         int id_equipe = Integer.parseInt(request.getParameter("txtIdEquipe"));
         String nome = request.getParameter("txtNomeEquipe");
-
+        int id_gestor = Integer.parseInt(request.getParameter("txtIdEquipe"));
         String logo = request.getParameter("txtLogoEquipe");
         String playbook = request.getParameter("txtPlaybookEquipe");
         int id_esporte = Integer.parseInt(request.getParameter("txtIdEsporte"));
         try {
-            Equipe equipe = new Equipe(id_equipe, nome, logo, playbook, id_esporte);
+            Equipe equipe = new Equipe(id_equipe,id_gestor, nome, logo, playbook, id_esporte);
             if (operacao.equals("Incluir")) {
                 equipe.inserir();
             }else if (operacao.equals("Editar")){

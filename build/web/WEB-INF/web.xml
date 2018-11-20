@@ -20,6 +20,10 @@
         <servlet-name>Cadastro</servlet-name>
         <servlet-class>controller.Cadastro</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PainelGestor</servlet-name>
+        <servlet-class>controller.PainelGestor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>Cadastro</servlet-name>
         <url-pattern>/Cadastro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PainelGestor</servlet-name>
+        <url-pattern>/PainelGestor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

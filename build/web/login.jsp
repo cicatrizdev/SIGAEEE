@@ -37,19 +37,19 @@
     <div class="container">
         <h1>Login</h1>
         <br/>
-        <form>
+        <form action="Login?acao=logar" method="post" name="fmrLogin">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email">
+                <input type="email" class="form-control" id="email" name="txtEmail">
             </div>
             <div class="form-group">
                 <label for="pwd">Senha:</label>
-                <input type="password" class="form-control" id="pwd">
+                <input type="password" class="form-control" id="pwd" name="txtPwd">
             </div>
             <div class="checkbox">
                 <label><input type="checkbox">Lembrar-me</label>
             </div>
-            <button type="submit" class="btn btn-dark">Entrar</button>
+              <input type="submit" class="btn btn-dark" value="Entrar"/>
         </form>
     </div>
 </section>

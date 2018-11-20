@@ -13,10 +13,11 @@ public class AtletaDAO {
         Long id = 0L;
         try {
             conexao = BD.getConexao();
-            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha,tipo) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, atleta.getNomeUsuario());
             comando.setString(2, atleta.getEmail());
             comando.setString(3, atleta.getSenha());
+            comando.setInt(4,0);
             comando.execute();
             id = BD.returnId(comando);
         } catch (SQLException e) {

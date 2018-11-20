@@ -13,10 +13,11 @@ public class GestorDAO {
         Long id = 0L;
         try {
             conexao = BD.getConexao();
-            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha, tipo) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, gestor.getNomeUsuario());
             comando.setString(2, gestor.getEmail());
             comando.setString(3, gestor.getSenha());
+            comando.setInt(4, 1);
             comando.execute();
             id = BD.returnId(comando);
         } catch (SQLException e) {

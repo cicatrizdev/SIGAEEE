@@ -11,19 +11,29 @@ public class Equipe {
     }
 
     private int idEquipe;
+    private Integer idGestor;
     private String nomeEquipe;
     private String logo;
     private String playbook;
     private Esporte esporte;
     private int idEsporte;
 
-    public Equipe(int idEquipe, String nomeEquipe, String logo, String playbook, Esporte esporte) {
+    public Equipe(int idEquipe,int idGestor, String nomeEquipe, String logo, String playbook, Esporte esporte) {
         this.setIdEquipe(idEquipe);
         this.setNomeEquipe(nomeEquipe);
         this.setEsporte(esporte);
         this.setLogo(logo);
         this.setPlaybook(playbook);
         this.setIdEsporte(esporte.getIdEsporte());
+        this.setIdGestor(idGestor);
+    }
+
+    public Integer getIdGestor() {
+        return idGestor;
+    }
+
+    public void setIdGestor(Integer idGestor) {
+        this.idGestor = idGestor;
     }
 
     public int getIdEsporte() {
@@ -50,12 +60,13 @@ public class Equipe {
         this.playbook = playbook;
     }
 
-    public Equipe(int aInt, String string, String logo, String playbook, int esporte_id) {
+    public Equipe(int aInt,Integer idGestor, String string, String logo, String playbook, int esporte_id) {
         this.setIdEquipe(aInt);
         this.setNomeEquipe(string);
         this.setLogo(logo);
         this.setPlaybook(playbook);
         this.idEsporte = esporte_id;
+        this.setIdGestor(idGestor);
     }
 
     public Esporte getEsporte() {
