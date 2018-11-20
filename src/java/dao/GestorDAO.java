@@ -10,11 +10,10 @@ public class GestorDAO {
     public static void inserir(Gestor gestor) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
-        String sql;
         Long id = 0L;
         try {
-            sql = "INSERT INTO usuario (nome, email, senha) values (?,?,?)";
-            comando = conexao.prepareStatement(sql);
+            conexao = BD.getConexao();
+            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, gestor.getNomeUsuario());
             comando.setString(2, gestor.getEmail());
             comando.setString(3, gestor.getSenha());
@@ -24,12 +23,9 @@ public class GestorDAO {
             e.printStackTrace();
         }
         try {
-            sql = "INSERT INTO gestor (usuario_id) values (?)";
-            comando = conexao.prepareStatement(sql);
+            comando = conexao.prepareStatement("INSERT INTO gestor (usuario_id) values (?)");
             comando.setInt(1, Integer.parseInt(String.valueOf(id)));
-            ResultSet rs = comando.executeQuery(sql);
-            rs.first();
-            gestor.setId(rs.getInt("id"));
+            comando.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,6 +53,7 @@ public class GestorDAO {
             String sql = "DELETE FROM gestor WHERE id = ?";
             String sql2 = "DELETE FROM usuario WHERE id = ?";
             comando = conexao.prepareStatement(sql);
+            comando = conexao.prepareStatement(sql2);
             comando.setInt(1, gestor.getIdGestor());
             comando.execute();
         } catch (SQLException e) {
@@ -72,16 +69,13 @@ public class GestorDAO {
         Gestor gestor = null;
         try {
             conexao = BD.getConexao();
-            String sql = "SELECT * FROM gestor RIGHT JOIN usuario ON usuario.gestor_id = gestor.id WHERE id = ? "; // Arruma aqui o select com um select nomeado
+            String sql = "SELECT * FROM gestor RIGHT JOIN usuario ON gestor.usuario_id = usuario.id WHERE id_gestor = ? "; // Arruma aqui o select com um select nomeado
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, id);
-            ResultSet rs = comando.executeQuery(sql);
+            ResultSet rs = comando.executeQuery();
             rs.first();
-            gestor = new Gestor(rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("email"),
-                    rs.getString("senha"),
-                    (rs.getInt("id_gestor")));
+            gestor = getFromResultSet(rs);
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -93,25 +87,28 @@ public class GestorDAO {
     public static List<Gestor> lerTodosGestores() throws ClassNotFoundException, SQLException {
         Connection conexao = null;
         Statement comando = null;
-        List<Gestor> list = new ArrayList<Gestor>();
+        List<Gestor> gestores = new ArrayList<Gestor>();
         try {
             conexao = BD.getConexao();
-            String sql = "SELECT * FROM atleta RIGHT JOIN usuario ON usuario.atleta_id = atleta.id";
+            comando = conexao.createStatement();
+            String sql = "SELECT * FROM gestor LEFT JOIN usuario ON gestor.usuario_id = usuario.id";
             ResultSet rs = comando.executeQuery(sql);
             while (rs.next()) {
-                list.add(new Gestor(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        (rs.getInt("id_gestor"))
-                ));
+                gestores.add(getFromResultSet(rs));
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         } finally {
             BD.fecharConexao(conexao, comando);
         }
-        return list;
+        return gestores;
+    }
+
+    private static Gestor getFromResultSet(ResultSet rs) throws SQLException {
+            return new Gestor(rs.getInt("usuario_id"),
+                    rs.getString("nome"),
+                    rs.getString("email"),
+                    rs.getString("senha"),
+                    (rs.getInt("id_gestor")));
     }
 }

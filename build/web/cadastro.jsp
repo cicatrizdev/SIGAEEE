@@ -44,7 +44,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Cadastro de Gestor</h5>
                         <p class="card-text">Gerencie seus atletas e seu time! Organize sua agenda e tenha todos os dados em seu controle.</p>
-                        <a href="cadastroGestor.jsp" class="btn btn-primary">Cadastre-se</a>
+                        <a href="ManterGestorController?acao=prepararOperacao&operacao=Incluir" class="btn btn-primary">Cadastre-se</a>
                 </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Cadastro de Atleta</h5>
                         <p class="card-text">Tenha acesso a todas as informações da sua equipe, esteja por dentro dos próximos compromissos.</p>
-                        <a href="cadastroAtleta.jsp" class="btn btn-primary">Cadastre-se</a>
+                        <a href="ManterAtletaController?acao=prepararOperacao&operacao=Incluir" class="btn btn-primary">Cadastre-se</a>
                     </div>
                 </div>
             </div>

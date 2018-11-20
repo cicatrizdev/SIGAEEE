@@ -20,13 +20,13 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp">Home</a>
+                            <a class="nav-link" href="Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cadastroGestor.jsp">Cadastro</a>
+                            <a class="nav-link" href="ManterGestorController">Cadastro</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.jsp">Login</a>
+                            <a class="nav-link" href="Login">Login</a>
                         </li>
                     </ul>
                 </div>

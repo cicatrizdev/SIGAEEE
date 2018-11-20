@@ -1,19 +1,35 @@
 package model;
 
+import dao.GestorDAO;
+import java.sql.SQLException;
+
 public class Gestor extends Usuario {
+
+    public static Gestor lerGestor(int id) throws SQLException, ClassNotFoundException {
+        return GestorDAO.lerGestor(id);
+    }
+
+    public static Object lerTodosGestores() throws ClassNotFoundException, SQLException {
+        return GestorDAO.lerTodosGestores();
+    }
     private Integer idGestor;
 
 
     public Gestor(Integer idUsuario, String nomeUsuario, String email, String senha, Integer idGestor){
         super(idUsuario, nomeUsuario, email, senha);
-        this.idGestor = idGestor;
+        this.setIdGestor(idGestor);
+
     }
 
     public Integer getIdGestor() {
         return idGestor;
     }
 
-    public void setId(Integer idGestor) {
+    public void setIdGestor(Integer idGestor) {
         this.idGestor = idGestor;
+    }
+
+    public void inserir() throws SQLException, ClassNotFoundException {
+        GestorDAO.inserir(this);
     }
 }

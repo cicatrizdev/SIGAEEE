@@ -4,6 +4,22 @@
         <servlet-name>PesquisaEquipeController</servlet-name>
         <servlet-class>controller.PesquisaEquipeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManterGestorController</servlet-name>
+        <servlet-class>controller.ManterGestorController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>controller.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cadastro</servlet-name>
+        <servlet-class>controller.Cadastro</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
@@ -47,6 +63,22 @@
     <servlet-mapping>
         <servlet-name>ManterEventoController</servlet-name>
         <url-pattern>/ManterEventoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterGestorController</servlet-name>
+        <url-pattern>/ManterGestorController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cadastro</servlet-name>
+        <url-pattern>/Cadastro</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
