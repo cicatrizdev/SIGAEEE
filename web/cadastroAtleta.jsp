@@ -39,15 +39,15 @@
     <form action="ManterAtletaController?acao=confirmarOperacao&operacao=${operacao}" method="post">
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" name="txtNomeAtleta" value="${atleta.nome}" placeholder="Insira seu nome">
+            <input type="text" class="form-control" name="txtNomeAtleta" value="${atleta.nome}" placeholder="Insira seu nome" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" name="txtEmailAtleta" value="${atleta.email}" placeholder="exemplo@email.com">
+            <input type="email" class="form-control" name="txtEmailAtleta" value="${atleta.email}" placeholder="exemplo@email.com" required>
         </div>
         <div class="form-group">
             <label for="password">Senha</label>
-            <input type="password" class="form-control" name="txtSenhaAtleta" value="${atleta.senha}" placeholder="Password">
+            <input type="password" class="form-control" name="txtSenhaAtleta" value="${atleta.senha}" placeholder="Password" required>
         </div>
         <div class="form-group">
             <label for="nome">Data de Nascimento</label>
@@ -55,11 +55,11 @@
         </div>
         <div class="form-group">
             <label for="nome">Altura</label>
-            <input type="text" class="form-control" name="txtAlturaAtleta" value="${atleta.altura}" placeholder="ex.: 1.80">
+            <input type="text" class="form-control" name="txtAlturaAtleta" value="${atleta.altura}" placeholder="ex.: 1.80" required>
         </div>
         <div class="form-group">
             <label for="nome">Peso</label>
-            <input type="text" class="form-control" name="txtPesoAtleta" value="${atleta.peso}" placeholder="ex.: 85.7">
+            <input type="text" class="form-control" name="txtPesoAtleta" value="${atleta.peso}" placeholder="ex.: 85.7" required>
         </div>
         <div>
             <input type="submit" class="btn bg-dark text-white" value="${operacao}"/>
