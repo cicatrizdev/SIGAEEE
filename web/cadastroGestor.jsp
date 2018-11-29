@@ -41,15 +41,15 @@
         <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control"name="txtNomeGestor" value="${gestor.nome}" placeholder="Insira seu nome" required>
+                <input type="text" class="form-control"name="txtNomeGestor" required value="${gestor.nome}" placeholder="Insira seu nome" >
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" name="txtEmailGestor" value="${gestor.email}" placeholder="exemplo@email.com" required>
+                <input type="email" class="form-control" name="txtEmailGestor" required value="${gestor.email}" placeholder="exemplo@email.com">
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control"name="txtSenhaGestor" value="${gestor.senha}" placeholder="Password" required>
+                <input type="password" class="form-control"name="txtSenhaGestor" required value="${gestor.senha}" placeholder="Password">
             </div>
             <div>
                 <button type="button" input type="submit" class="btn bg-dark text-white">Enviar</button>
