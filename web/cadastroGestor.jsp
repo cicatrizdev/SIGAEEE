@@ -16,23 +16,24 @@
             var email = fmrGestor.txtEmailGestor.value;
             var senha = fmrGestor.txtSenhaGestor.value;
             
-            if(txtNomeGestor == ""){
+            if(nome == ""){
                 alert('Preencha o campo nome.');
                 fmrGestor.txtNomeGestor.focus();
                 return false;
             }
             
-            if(txtEmailGestor == "" || txtEmailGestor.indexOf('@') == -1 ){
+            if(email == "" || txtEmailGestor.indexOf('@') == -1 ){
                 alert('Preencha o campo E-mail.');
                 fmrGestor.txtEmailGestor.focus();
                 return false;
             }
             
-            if(txtSenhaGestor == "" || txtSenhaGestor.length <= 5){
+            if(senha == "" || txtSenhaGestor.length <= 5){
                 alert('Preencha o campo senha com minimo 6 caracteres');
                 fmrGestor.txtSenhaGestor.focus();
                 return false;
             }
+            return true;
         }
     </script>
 </head>

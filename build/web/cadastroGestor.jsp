@@ -9,6 +9,33 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">"
     <title>SIGAEE- Cadastro</title>
+   
+   <script type="text/javascript">
+        function validar(){
+            var nome = fmrGestor.txtNomeGestor.value;
+            var email = fmrGestor.txtEmailGestor.value;
+            var senha = fmrGestor.txtSenhaGestor.value;
+            
+            if(nome == ""){
+                alert('Preencha o campo nome.');
+                fmrGestor.txtNomeGestor.focus();
+                return false;
+            }
+            
+            if(email == "" || txtEmailGestor.indexOf('@') == -1 ){
+                alert('Preencha o campo E-mail.');
+                fmrGestor.txtEmailGestor.focus();
+                return false;
+            }
+            
+            if(senha == "" || txtSenhaGestor.length <= 5){
+                alert('Preencha o campo senha com minimo 6 caracteres');
+                fmrGestor.txtSenhaGestor.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -40,14 +67,14 @@
     <div class="container">
         <h1>Cadastro de Gestor</h1>
         <br/>
-        <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}" method="post">
+        <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="fmrGestor">
                      <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                         <label for="idEvento">Id Evento</label>
                         <input type="text" class="form-control" id="idGestor" name="txtIdGestor" <c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}"> value="${gestor.getIdGestor()}"  readonly</c:if> placeholder="Id">
                     </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control"name="txtNomeGestor" required value="${gestor.getNomeUsuario()}" placeholder="Insira seu nome" >
+                <input type="text" class="form-control"name="txtNomeGestor" value="${gestor.getNomeUsuario()}" placeholder="Insira seu nome" >
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -58,7 +85,7 @@
                 <input type="password" class="form-control"name="txtSenhaGestor" required value="${gestor.getSenha()}" placeholder="Password">
             </div>
             <div>
-                <input type="submit" class="btn bg-dark text-white" value="${operacao}"/>
+                <input type="submit" class="btn bg-dark text-white" onclick="return validar()" value="${operacao}"/>
             </div>
         </form>
     </div>
