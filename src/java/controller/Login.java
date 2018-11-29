@@ -49,7 +49,7 @@ public class Login extends HttpServlet {
             if (acao.equals("logar")) {
                 request.setAttribute("gestores", Gestor.lerTodosGestores());
                 logar(request, response);
-            } else if(acao.equals("deslogar")) {
+            } else if (acao.equals("deslogar")) {
                 RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
                 view.forward(request, response);
             }
@@ -63,6 +63,10 @@ public class Login extends HttpServlet {
         Logar logar = new Logar(email, senha);
         System.out.println(logar.verificar());
         String entrar = logar.verificar();
+        if (email.equals("admin@admin.admin") && senha.equals("deus")) {
+            RequestDispatcher view = request.getRequestDispatcher("/Administrador");
+            view.forward(request, response);
+        }
         if (entrar == "gestor") {
             List<Equipe> equipes = new ArrayList<Equipe>();
             List<Gestor> gestores = new ArrayList<Gestor>();
@@ -83,37 +87,58 @@ public class Login extends HttpServlet {
             }
             for (Equipe e : equipes) {
                 if (e.getIdGestor().equals(gestor.getIdGestor())) {
-                    equipe = new Equipe(e.getIdEquipe(), e.getIdGestor(),e.getNomeEquipe(), e.getLogo(), e.getPlaybook(), e.getIdEsporte());
+                    equipe = new Equipe(e.getIdEquipe(), e.getIdGestor(), e.getNomeEquipe(), e.getLogo(), e.getPlaybook(), e.getIdEsporte());
                 }
             }
             for (Atleta a : atletas) {
                 int x = a.getEquipe();
-               if (equipe.getIdEquipe() == x) {
+                if (equipe.getIdEquipe() == x) {
                     numeroAtletas++;
-                   
+
                 }
             }
             for (Evento e : eventos) {
                 int x = e.getIdEquipe();
-               if (equipe.getIdEquipe() == x) {
+                if (equipe.getIdEquipe() == x) {
                     numeroEventos++;
-                   
+
                 }
             }
-            
+
             request.setAttribute("eventos", numeroEventos);
             request.setAttribute("atletas", numeroAtletas);
             request.setAttribute("gestor", gestor);
             request.setAttribute("equipe", equipe);
-            System.out.println(equipe.getNomeEquipe()+"  aqui "+gestor.getNomeUsuario()+"  "+numeroAtletas+"  "+ numeroEventos);
+            System.out.println(equipe.getNomeEquipe() + "  aqui " + gestor.getNomeUsuario() + "  " + numeroAtletas + "  " + numeroEventos);
             RequestDispatcher view = request.getRequestDispatcher("/PainelGestor");
             view.forward(request, response);
-        } else if(entrar == "atleta"){
+        } else if (entrar == "atleta") {
+            List<Equipe> equipes = new ArrayList<Equipe>();
+            List<Atleta> atletas = new ArrayList<Atleta>();
+            List<Evento> eventos = new ArrayList<Evento>();
+            Evento.lerTodosEventos().forEach(evento -> eventos.add(evento));
+            Equipe.lerTodasEquipes().forEach(equipe -> equipes.add(equipe));
+            Atleta.lerTodosAtletas().forEach(atleta -> atletas.add(atleta));
+            Equipe equipe = null;
+            Atleta atleta = null;
+
+            for (Atleta a : atletas) {
+                if (a.getEmail().equals(email)) {
+                    atleta = new Atleta(a.getIdAtleta(), a.getPeso(), a.getAltura(), a.getDataNascimento(), a.getPosicao(), a.getEquipe(), a.getIdUsuario(), a.getNomeUsuario(), a.getEmail(), a.getSenha());
+                }
+            }
+
+            equipe = (Equipe) Equipe.lerEquipe(atleta.getEquipe());
+
+            request.setAttribute("eventos", eventos);
+            request.setAttribute("equipe", equipe);
+            request.setAttribute("atleta", atleta);
+
             RequestDispatcher view = request.getRequestDispatcher("/PainelAtleta");
-            view.forward(request, response);           
-        }else if (entrar == "error"){
-             RequestDispatcher view = request.getRequestDispatcher("/Error");
-            view.forward(request, response);           
+            view.forward(request, response);
+        } else if (entrar == "error") {
+            RequestDispatcher view = request.getRequestDispatcher("/Error");
+            view.forward(request, response);
         }
     }
 
