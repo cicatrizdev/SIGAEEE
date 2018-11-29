@@ -14,7 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import model.Atleta;
+import model.Equipe;
 import model.Gestor;
+import model.Posicao;
 
 
 public class ManterAtletaController extends HttpServlet {
@@ -43,6 +45,8 @@ public class ManterAtletaController extends HttpServlet {
                 Atleta atleta = Atleta.lerAtleta(id);
                 request.setAttribute("atleta", atleta);
             }
+            request.setAttribute("posicoes", Posicao.lerTodasPosicoes());
+            request.setAttribute("equipes", Equipe.lerTodasEquipes());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroAtleta.jsp");
             view.forward(request, response);
         } catch (ServletException e) {
@@ -56,21 +60,28 @@ public class ManterAtletaController extends HttpServlet {
         String operacao = request.getParameter("operacao");
         String nome = request.getParameter("txtNomeAtleta");
         int id = parseInt(request.getParameter("txtIdAtleta"));
-        int posicao = 0;
-        int equipe = 0;
+        int posicao = parseInt(request.getParameter("intIdEquipe"));
+        int equipe = parseInt(request.getParameter("intIdPosicao"));
         int idUsuario = 0;
         String email = request.getParameter("txtEmailAtleta");
         String senha = request.getParameter("txtSenhaAtleta");
         String data = request.getParameter("txtDataNascimentoAtleta");
         float altura = parseFloat(request.getParameter("txtAlturaAtleta"));
         float peso = parseFloat(request.getParameter("txtPesoAtleta"));
-        Atleta atleta = new Atleta(id, peso, altura, data, posicao, equipe, idUsuario,nome,email,senha);
-        if (operacao.equals("Incluir")) {
-            atleta.inserir();
-        } else if (operacao.equals("Editar")) {
-            atleta.alterar();
-        } else if (operacao.equals("Excluir")) {
-            atleta.excluir();
+        Atleta atleta = new Atleta(id, peso, altura, data, equipe, posicao, idUsuario,nome,email,senha);
+        switch (operacao) {
+            case "Incluir":
+                atleta.inserir();
+                break;
+            case "Editar":
+                atleta.alterar();
+                break;
+            case "Excluir":
+                System.out.println("Excluir"+atleta.getIdAtleta());
+                atleta.excluir();
+                break;
+            default:
+                break;
         }
         request.getRequestDispatcher("PesquisaAtletaController").forward(request, response);
     }

@@ -104,6 +104,7 @@ public class Atleta extends Usuario {
     }
 
     public void excluir() throws SQLException, ClassNotFoundException {
+        System.out.println("Excluir");
         AtletaDAO.excluir(this);
     }
 

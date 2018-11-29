@@ -43,13 +43,15 @@ public class AtletaDAO {
         Atleta a = AtletaDAO.lerAtleta(atleta.getIdAtleta());
         try {
             conexao = BD.getConexao();
-            String sql = "UPDATE atleta SET peso = ?, altura = ?, data_nascimento = ? WHERE id_atleta = ?";
+            String sql = "UPDATE `atleta` SET `peso`= ?,`altura`= ?,`data_nascimento`= ?,`posicao_id`= ?,`equipe_id`= ? WHERE atleta.id_atleta = ?";
             comando = conexao.prepareStatement(sql);
             comando.setDouble(1, atleta.getPeso());
             comando.setDouble(2, atleta.getAltura());
             comando.setString(3, atleta.getDataNascimento());
-            System.out.println("Entrou");
-            comando.setInt(4, atleta.getIdAtleta());
+            comando.setInt(4, atleta.getPosicao());
+            comando.setInt(5, atleta.getEquipe());
+            System.out.println("Posicao: " + atleta.getPosicao());
+            comando.setInt(6, atleta.getIdAtleta());
             comando.execute();
             BD.fecharConexao(conexao, comando);
         } catch (SQLException e) {
@@ -74,7 +76,9 @@ public class AtletaDAO {
     public static void excluir(Atleta a) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
+        System.out.println("Excluir"+a.getIdAtleta());
         Atleta atleta = AtletaDAO.lerAtleta(a.getIdAtleta());
+        System.out.println("Excluir2"+atleta.getIdAtleta());
         try {
             conexao = BD.getConexao();
             String sql = "DELETE FROM atleta, usuario USING atleta, usuario WHERE atleta.id_atleta = ? AND usuario.id = ?";
