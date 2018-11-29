@@ -1,6 +1,7 @@
 package model;
 
 import dao.EsporteDAO;
+import java.sql.SQLException;
 
 public class Esporte {
 
@@ -9,7 +10,7 @@ public class Esporte {
     }
 
     public static Object lerEsporte(Integer id) throws ClassNotFoundException {
-       return EsporteDAO.lerEsporte(id);
+        return EsporteDAO.lerEsporte(id);
     }
     private int idEsporte;
     private String nomeEsporte;
@@ -33,5 +34,17 @@ public class Esporte {
 
     public void setNomeEsporte(String nomeEsporte) {
         this.nomeEsporte = nomeEsporte;
+    }
+
+    public void inserir() throws SQLException, ClassNotFoundException {
+        EsporteDAO.inserir(this);
+    }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        EsporteDAO.alterar(this);
+    }
+
+    public void excluir() throws SQLException, ClassNotFoundException {
+        EsporteDAO.excluir(this);
     }
 }
