@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -38,21 +40,25 @@
     <div class="container">
         <h1>Cadastro de Gestor</h1>
         <br/>
-        <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}">
+        <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}" method="post">
+                     <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
+                        <label for="idEvento">Id Evento</label>
+                        <input type="text" class="form-control" id="idGestor" name="txtIdGestor" <c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}"> value="${gestor.getIdGestor()}"  readonly</c:if> placeholder="Id">
+                    </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control"name="txtNomeGestor" required value="${gestor.nome}" placeholder="Insira seu nome" >
+                <input type="text" class="form-control"name="txtNomeGestor" required value="${gestor.getNomeUsuario()}" placeholder="Insira seu nome" >
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" name="txtEmailGestor" required value="${gestor.email}" placeholder="exemplo@email.com">
+                <input type="email" class="form-control" name="txtEmailGestor" required value="${gestor.getEmail()}" placeholder="exemplo@email.com">
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control"name="txtSenhaGestor" required value="${gestor.senha}" placeholder="Password">
+                <input type="password" class="form-control"name="txtSenhaGestor" required value="${gestor.getSenha()}" placeholder="Password">
             </div>
             <div>
-                <button type="button" input type="submit" class="btn bg-dark text-white">Enviar</button>
+                <input type="submit" class="btn bg-dark text-white" value="${operacao}"/>
             </div>
         </form>
     </div>

@@ -37,12 +37,13 @@ public class ManterGestorController extends HttpServlet {
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         try {
             String operacao = request.getParameter("operacao");
-            request.setAttribute("operacao", "operacao");
-            request.setAttribute("Gestores", Gestor.lerTodosGestores());
+            request.setAttribute("operacao", operacao);
+            request.setAttribute("gestores", Gestor.lerTodosGestores());
             if (!operacao.equals("Incluir")) {
                 int id = Integer.parseInt(request.getParameter("idGestor"));
                 Gestor gestor = Gestor.lerGestor(id);
-                request.setAttribute("Gestor", gestor);
+                System.out.println(gestor.getNomeUsuario());
+                request.setAttribute("gestor", gestor);
             }
             RequestDispatcher view = request.getRequestDispatcher("/cadastroGestor.jsp");
             view.forward(request, response);
@@ -56,16 +57,22 @@ public class ManterGestorController extends HttpServlet {
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
         String operacao = request.getParameter("operacao");
         int idGestor = Integer.parseInt(request.getParameter("txtIdGestor"));
-        //    Gestor gestor = new Gestor();
+        String nomeGestor = request.getParameter("txtNomeGestor");
+        String EmaiGestor = request.getParameter("txtEmailGestor");
+        String senhaGestor = request.getParameter("txtSenhaGestor");
+        Gestor gestor = new Gestor(idGestor, nomeGestor, EmaiGestor, senhaGestor, idGestor);
+        System.out.println(gestor.getNomeUsuario());
         switch (operacao) {
-            //      gestor.inserir();
             case "Incluir":
-                break;
-            //    gestor.alterar();
+           
+               gestor.inserir();
+           break;
             case "Editar":
-                break;
-            //  gestor.excluir();
+                
+             gestor.alterar();
+            break;
             case "Excluir":
+                gestor.excluir();
                 break;
             default:
                 break;

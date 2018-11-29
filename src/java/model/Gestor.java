@@ -15,8 +15,7 @@ public class Gestor extends Usuario {
     }
     private Integer idGestor;
 
-
-    public Gestor(Integer idUsuario, String nomeUsuario, String email, String senha, Integer idGestor){
+    public Gestor(Integer idUsuario, String nomeUsuario, String email, String senha, Integer idGestor) {
         super(idUsuario, nomeUsuario, email, senha);
         this.setIdGestor(idGestor);
 
@@ -32,5 +31,15 @@ public class Gestor extends Usuario {
 
     public void inserir() throws SQLException, ClassNotFoundException {
         GestorDAO.inserir(this);
+    }
+
+    public void alterar() throws SQLException, ClassNotFoundException {
+        GestorDAO.alterar(this);
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void excluir() throws SQLException, ClassNotFoundException {
+        GestorDAO.excluir(this);
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

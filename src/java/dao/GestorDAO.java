@@ -35,10 +35,15 @@ public class GestorDAO {
     public static void alterar(Gestor gestor) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
+        Gestor g = GestorDAO.lerGestor(gestor.getIdGestor());
         try {
             conexao = BD.getConexao();
-            String sql = "UPDATE gestor SET idGestor = ? WHERE id = ?"; //ver query, essa merda TA MUITO ERRADA
+            String sql = "UPDATE usuario SET nome= ?,email= ?,senha= ? WHERE id = ?"; //ver query, essa merda TA MUITO ERRADA
             comando = conexao.prepareStatement(sql);
+            comando.setString(1, gestor.getNomeUsuario());
+            comando.setString(2, gestor.getEmail());
+            comando.setString(3, gestor.getSenha());
+            comando.setInt(4, g.getIdUsuario());
             comando.execute();
             BD.fecharConexao(conexao, comando);
         } catch (SQLException e) {
@@ -46,16 +51,16 @@ public class GestorDAO {
         }
     }
 
-    public static void excluir(Gestor gestor) throws SQLException, ClassNotFoundException {
+    public static void excluir(Gestor g) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
+        Gestor gestor = GestorDAO.lerGestor(g.getIdGestor());
         try {
             conexao = BD.getConexao();
-            String sql = "DELETE FROM gestor WHERE id = ?";
-            String sql2 = "DELETE FROM usuario WHERE id = ?";
+            String sql = "DELETE FROM gestor, usuario USING gestor, usuario WHERE gestor.id_gestor = ? AND usuario.id = ?";   
             comando = conexao.prepareStatement(sql);
-            comando = conexao.prepareStatement(sql2);
             comando.setInt(1, gestor.getIdGestor());
+            comando.setInt(2, gestor.getIdUsuario());
             comando.execute();
         } catch (SQLException e) {
             e.printStackTrace();
