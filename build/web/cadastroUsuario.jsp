@@ -39,18 +39,18 @@
         <form>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Insira seu nome">
+                <input type="text" class="form-control" id="nome" placeholder="Insira seu nome" required >
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="exemplo@email.com">
+                <input type="email" class="form-control" id="email" placeholder="exemplo@email.com" required>
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
             </div>
             <div class="form-group">
-                <label for="tipoUsuario">Tipo de Usuário</label>
+                <label for="tipoUsuario">Tipo de Usuï¿½rio</label>
                 <select class="form-control" id="tipoUsuario">
                     <option>Diretor Geral</option>
                     <option>Atleta</option>
