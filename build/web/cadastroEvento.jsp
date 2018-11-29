@@ -39,23 +39,23 @@
                 <form action="ManterEventoController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEvento">
                     <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                         <label for="idEvento">Id Evento</label>
-                        <input type="text" class="form-control" id="idEvento" value="${evento.getIdEvento()}" name="txtIdEvento" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id">
+                        <input type="text" class="form-control" id="idEvento" value="${evento.getIdEvento()}" name="txtIdEvento" required <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id">
                     </div>
                     <div class="form-group">
                         <label for="titulo">Nome</label>
-                        <input type="text" class="form-control" id="titulo" value="${evento.getNomeEvento()}" name="txtNomeEvento" placeholder="Insira o titulo para o evento">
+                        <input type="text" class="form-control" id="titulo" value="${evento.getNomeEvento()}" name="txtNomeEvento" placeholder="Insira o titulo para o evento" required>
                     </div>
                     <div class="form-group">
                         <label for="descricao">Descrição</label>
-                        <input type="text" class="form-control" id="descricao" value="${evento.getDescricaoEvento()}" name="txtDescricaoEvento" placeholder="Insira a descrição do evento">
+                        <input type="text" class="form-control" id="descricao" value="${evento.getDescricaoEvento()}" name="txtDescricaoEvento" placeholder="Insira a descrição do evento" >
                     </div>
                     <div class="form-group">
                         <label for="data">Data</label>
-                        <input type="text" class="form-control" id="data" value="${evento.getDataEvento()}" name="txtDataEvento">
+                        <input type="text" class="form-control" id="data" value="${evento.getDataEvento()}" name="txtDataEvento" required>
                     </div>
                     <div class="form-group">
                         <label for="logradouro">Local</label>
-                        <input type="text" class="form-control" id="logradouro" value="${evento.getLogradouroEvento()}" name="txtLougradouroEvento">
+                        <input type="text" class="form-control" id="logradouro" value="${evento.getLogradouroEvento()}" name="txtLougradouroEvento" required>
                     </div>
                     <div class="form-group">
                         <label for="tipoEvento">Tipo de Evento</label>
