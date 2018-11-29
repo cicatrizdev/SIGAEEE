@@ -28,6 +28,30 @@
         <servlet-name>PainelAtleta</servlet-name>
         <servlet-class>controller.PainelAtleta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Administrador</servlet-name>
+        <servlet-class>controller.Administrador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PesquisaGestorController</servlet-name>
+        <servlet-class>controller.PesquisaGestorController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PesquisaEsporteController</servlet-name>
+        <servlet-class>controller.PesquisaEsporteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterEsporteController</servlet-name>
+        <servlet-class>controller.ManterEsporteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PesquisaPosicaoController</servlet-name>
+        <servlet-class>controller.PesquisaPosicaoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterPosicaoController</servlet-name>
+        <servlet-class>controller.ManterPosicaoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
@@ -95,6 +119,30 @@
     <servlet-mapping>
         <servlet-name>PainelAtleta</servlet-name>
         <url-pattern>/PainelAtleta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Administrador</servlet-name>
+        <url-pattern>/Administrador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaGestorController</servlet-name>
+        <url-pattern>/PesquisaGestorController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaEsporteController</servlet-name>
+        <url-pattern>/PesquisaEsporteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterEsporteController</servlet-name>
+        <url-pattern>/ManterEsporteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaPosicaoController</servlet-name>
+        <url-pattern>/PesquisaPosicaoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterPosicaoController</servlet-name>
+        <url-pattern>/ManterPosicaoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
