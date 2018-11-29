@@ -12,10 +12,11 @@ public class PosicaoDAO {
         PreparedStatement comando = null;
         try {
             conexao = BD.getConexao();
-            String sql = "INSERT INTO posicao (id, nome) VALUES (?,?)";
+            String sql = "INSERT INTO `posicao` (`nome`, `esporte_id`) VALUES (?, ?);";
             comando = conexao.prepareStatement(sql);
-            comando.setInt(1, posicao.getIdPosicao());
-            comando.setString(2, posicao.getNomePosicao());
+            comando.setString(1, posicao.getNomePosicao());
+            System.out.println("idEsporte" + posicao.getIdEsporte());
+            comando.setInt(2, posicao.getIdEsporte());
             comando.execute();
             BD.fecharConexao(conexao, comando);
         } catch (SQLException e) {
@@ -43,8 +44,9 @@ public class PosicaoDAO {
         Connection conexao = null;
         PreparedStatement comando = null;
         try {
+            System.out.println("CHEGOU NA EXCLUÇÂO");
             conexao = BD.getConexao();
-            String sql = "DELETE * FROM posicao WHERE id = ? ";
+            String sql = "DELETE FROM `posicao` WHERE id = ?";
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, posicao.getIdPosicao());
             comando.execute();
@@ -98,7 +100,6 @@ public class PosicaoDAO {
 
     private static Posicao getFromDatabase(ResultSet rs) throws SQLException {
         return new Posicao(rs.getInt("esporte_id"),
-                rs.getString("esporte_nome"),
                 rs.getInt("id"),
                 rs.getString("nome")
         );
