@@ -39,14 +39,31 @@ public class AtletaDAO {
     public static void alterar(Atleta atleta) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
+        System.out.println(atleta.getIdAtleta());
+        Atleta a = AtletaDAO.lerAtleta(atleta.getIdAtleta());
         try {
             conexao = BD.getConexao();
-            String sql = "UPDATE atleta SET peso = ?, altura = ?, data_nascimento = ? WHERE id = ?";
+            String sql = "UPDATE atleta SET peso = ?, altura = ?, data_nascimento = ? WHERE id_atleta = ?";
             comando = conexao.prepareStatement(sql);
             comando.setDouble(1, atleta.getPeso());
             comando.setDouble(2, atleta.getAltura());
             comando.setString(3, atleta.getDataNascimento());
+            System.out.println("Entrou");
             comando.setInt(4, atleta.getIdAtleta());
+            comando.execute();
+            BD.fecharConexao(conexao, comando);
+        } catch (SQLException e) {
+            throw e;
+        }
+        try {
+            System.out.println("Entrou2");
+            conexao = BD.getConexao();
+            String sql = "UPDATE usuario SET nome= ?,email= ?,senha= ? WHERE id = ?"; //ver query, essa merda TA MUITO ERRADA
+            comando = conexao.prepareStatement(sql);
+            comando.setString(1, atleta.getNomeUsuario());
+            comando.setString(2, atleta.getEmail());
+            comando.setString(3, atleta.getSenha());
+            comando.setInt(4, a.getIdUsuario());
             comando.execute();
             BD.fecharConexao(conexao, comando);
         } catch (SQLException e) {
@@ -54,14 +71,16 @@ public class AtletaDAO {
         }
     }
 
-    public static void excluir(Atleta atleta) throws SQLException, ClassNotFoundException {
+    public static void excluir(Atleta a) throws SQLException, ClassNotFoundException {
         Connection conexao = null;
         PreparedStatement comando = null;
+        Atleta atleta = AtletaDAO.lerAtleta(a.getIdAtleta());
         try {
             conexao = BD.getConexao();
-            String sql = "DELETE FROM atleta WHERE id_at = ?";
+            String sql = "DELETE FROM atleta, usuario USING atleta, usuario WHERE atleta.id_atleta = ? AND usuario.id = ?";
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, atleta.getIdAtleta());
+            comando.setInt(2, atleta.getIdUsuario());
             comando.execute();
         } catch (SQLException e) {
             throw e;
@@ -110,7 +129,7 @@ public class AtletaDAO {
         try {
             conexao = BD.getConexao();
             comando = conexao.createStatement();
-            String sql = "SELECT * FROM atleta RIGHT JOIN usuario ON atleta.usuario_id = usuario.id";
+            String sql = "SELECT * FROM atleta LEFT JOIN usuario ON atleta.usuario_id = usuario.id";
             ResultSet rs = comando.executeQuery(sql);
             while (rs.next()) {
                 atletas.add(getFromResultSet(rs));

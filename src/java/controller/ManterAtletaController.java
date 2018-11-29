@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import model.Atleta;
+import model.Gestor;
 
 
 public class ManterAtletaController extends HttpServlet {
@@ -31,12 +33,16 @@ public class ManterAtletaController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         try {
-                    System.out.println("AQUI3");
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            //request.setAttribute("atletas", Atleta.lerTodosAtletas());
+            request.setAttribute("atletas", Atleta.lerTodosAtletas());
+            if (!operacao.equals("Incluir")) {
+                int id = Integer.parseInt(request.getParameter("idAtleta"));
+                Atleta atleta = Atleta.lerAtleta(id);
+                request.setAttribute("atleta", atleta);
+            }
             RequestDispatcher view = request.getRequestDispatcher("/cadastroAtleta.jsp");
             view.forward(request, response);
         } catch (ServletException e) {
@@ -49,12 +55,16 @@ public class ManterAtletaController extends HttpServlet {
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
         String operacao = request.getParameter("operacao");
         String nome = request.getParameter("txtNomeAtleta");
+        int id = parseInt(request.getParameter("txtIdAtleta"));
+        int posicao = 0;
+        int equipe = 0;
+        int idUsuario = 0;
         String email = request.getParameter("txtEmailAtleta");
         String senha = request.getParameter("txtSenhaAtleta");
         String data = request.getParameter("txtDataNascimentoAtleta");
         float altura = parseFloat(request.getParameter("txtAlturaAtleta"));
         float peso = parseFloat(request.getParameter("txtPesoAtleta"));
-        Atleta atleta = new Atleta(nome, email, senha, data, altura, peso );
+        Atleta atleta = new Atleta(id, peso, altura, data, posicao, equipe, idUsuario,nome,email,senha);
         if (operacao.equals("Incluir")) {
             atleta.inserir();
         } else if (operacao.equals("Editar")) {

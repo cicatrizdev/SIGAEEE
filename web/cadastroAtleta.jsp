@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -37,71 +39,39 @@
     <h1> Cadastro Atleta ${operacao}</h1>
     <br/>
     <form action="ManterAtletaController?acao=confirmarOperacao&operacao=${operacao}" method="post">
+                            <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
+                        <label for="idEvento">Id Evento</label>
+                        <input type="text" class="form-control" id="idEvento"  name="txtIdAtleta" <c:if test="${operacao == 'Incluir'}">value = "0"</c:if> <c:if test="${operacao != 'Incluir'}">value="${atleta.getIdAtleta()}" readonly</c:if> placeholder="Id">
+                    </div>
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" name="txtNomeAtleta" value="${atleta.nome}" placeholder="Insira seu nome" required>
+            <input type="text" class="form-control" name="txtNomeAtleta" value="${atleta.getNomeUsuario()}" placeholder="Insira seu nome" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" name="txtEmailAtleta" value="${atleta.email}" placeholder="exemplo@email.com" required>
+            <input type="email" class="form-control" name="txtEmailAtleta" value="${atleta.getEmail()}" placeholder="exemplo@email.com" required>
         </div>
         <div class="form-group">
             <label for="password">Senha</label>
-            <input type="password" class="form-control" name="txtSenhaAtleta" value="${atleta.senha}" placeholder="Password" required>
+            <input type="password" class="form-control" name="txtSenhaAtleta" value="${atleta.getSenha()}" placeholder="Password" required>
         </div>
         <div class="form-group">
             <label for="nome">Data de Nascimento</label>
-            <input type="text" class="form-control" name="txtDataNascimentoAtleta" value="${atleta.dataNascimento}" placeholder="01/01/2000">
+            <input type="text" class="form-control" name="txtDataNascimentoAtleta" value="${atleta.getDataNascimento()}" placeholder="01/01/2000">
         </div>
         <div class="form-group">
             <label for="nome">Altura</label>
-            <input type="text" class="form-control" name="txtAlturaAtleta" value="${atleta.altura}" placeholder="ex.: 1.80" required>
+            <input type="text" class="form-control" name="txtAlturaAtleta" value="${atleta.getAltura()}" placeholder="ex.: 1.80" required>
         </div>
         <div class="form-group">
             <label for="nome">Peso</label>
-            <input type="text" class="form-control" name="txtPesoAtleta" value="${atleta.peso}" placeholder="ex.: 85.7" required>
+            <input type="text" class="form-control" name="txtPesoAtleta" value="${atleta.getPeso()}" placeholder="ex.: 85.7" required>
         </div>
         <div>
             <input type="submit" class="btn bg-dark text-white" value="${operacao}"/>
         </div>
-        <!--
-        <table>
-            <tr>
-                <td>Código Atleta</td>
-                <td><input type="text" name="txtIdAtleta" value="${atleta.id}"></td>
-            </tr>
-            <tr>
-                <td>Nome</td>
-                <td><input type="text" name="txtNomeAtleta" value="${atleta.nome}"></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="text" name="txtEmailAtleta" value="${atleta.email}"></td>
-            </tr>
-            <tr>
-                <td>Senha</td>
-                <td><input type="password" name="txtSenhaAtleta" value="${atleta.senha}"></td>
-            </tr>
-            <tr>
-                <td>Peso</td>
-                <td><input type="text" name="txtPesoAtleta" value="${atleta.peso}"></td>
-            </tr>
-            <tr>
-                <td>Altura</td>
-                <td><input type="text" name="txtAlturaAtleta" value="${atleta.altura}"></td>
-            </tr>
-            <tr>
-                <td>Data Nascimento</td>
-                <td><input type="text" name="txtDataNascimentoAtleta" value="${atleta.dataNascimento}"></td>
-            </tr>
-        </table>
-        --> 
     </form>
-    <!--
-    <div>
-        <button type="button" class="btn bg-dark text-white">Enviar</button>
-    </div>
-    -->
+
     </div>
 </section>
 </body>
