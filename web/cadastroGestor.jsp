@@ -12,9 +12,9 @@
    
    <script type="text/javascript">
         function validar(){
-            var nome = fmrGestor.txtNomeGestor.value;
-            var email = fmrGestor.txtEmailGestor.value;
-            var senha = fmrGestor.txtSenhaGestor.value;
+            var txtNomeGestor = fmrGestor.txtNomeGestor.value;
+            var txtEmailGestor = fmrGestor.txtEmailGestor.value;
+            var txtSenhaGestor = fmrGestor.txtSenhaGestor.value;
             
             if(txtNomeGestor == ""){
                 alert('Preencha o campo nome.');
