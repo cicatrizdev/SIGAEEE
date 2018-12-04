@@ -12,28 +12,27 @@
    
    <script type="text/javascript">
         function validar(){
-            var txtNomeGestor = fmrGestor.txtNomeGestor.value;
-            var txtEmailGestor = fmrGestor.txtEmailGestor.value;
-            var txtSenhaGestor = fmrGestor.txtSenhaGestor.value;
+            var nome = fmrGestor.txtNomeGestor.value;
+            var email = fmrGestor.txtEmailGestor.value;
+            var senha = fmrGestor.txtSenhaGestor.value;
             
-            if(nome == ""){
+            if(txtNomeGestor == ""){
                 alert('Preencha o campo nome.');
                 fmrGestor.txtNomeGestor.focus();
                 return false;
             }
             
-            if(email == "" || txtEmailGestor.indexOf('@') == -1 ){
+            if(txtEmailGestor == "" || txtEmailGestor.indexOf('@') == -1 ){
                 alert('Preencha o campo E-mail.');
                 fmrGestor.txtEmailGestor.focus();
                 return false;
             }
             
-            if(senha == "" || txtSenhaGestor.length <= 5){
+            if(senha == "" || senha.length <= 5){
                 alert('Preencha o campo senha com minimo 6 caracteres');
-                fmrGestor.txtSenhaGestor.focus();
+                fmrGestor.senha.focus();
                 return false;
             }
-            return true;
         }
     </script>
 </head>
