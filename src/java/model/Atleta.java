@@ -22,6 +22,10 @@ public class Atleta extends Usuario implements Serializable {
         
     }
 
+    public Atleta(int id, float peso, float altura, String data, int equipe, int posicao, int idUsuario, String nome, String email, String senha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void save() {
         AtletaDAO.getInstance().save(this);
     }
@@ -36,5 +40,21 @@ public class Atleta extends Usuario implements Serializable {
 
     public static List<Atleta> findAll() {
         return AtletaDAO.getInstance().findAll();
+    }
+
+    public void inserir() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void alterar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getIdAtleta() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void excluir() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
