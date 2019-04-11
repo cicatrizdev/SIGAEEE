@@ -1,20 +1,38 @@
 package model;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuario {
-    private Integer idUsuario;
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idUsuario;
     private String nomeUsuario;
     private String email;
     private String senha;
     
-    public Usuario(){
+    public Usuario () {
         
     }
+    
+    public Usuario(Long idUsuario){
+        this.idUsuario = idUsuario;
+    }
 
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -42,7 +60,7 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public Usuario(Integer idUsuario, String nomeUsuario, String email, String senha) {
+    public Usuario(Long idUsuario, String nomeUsuario, String email, String senha) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.email = email;

@@ -9,6 +9,25 @@
         <link rel="stylesheet" href="/css/bootstrap.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">"
         <title>SIGAEE- Cadastro de Posicao - ${operacao}</title>
+        <script type="text/javascript">
+            function validar(){
+                var nome = fmrPosicao.txtNomePosicao.value;
+                var idPosicao = fmrPosicao.txtIdPosicao.value;
+                                
+                if(txtNomePosicao == ""){
+                    alert('Preencha o campo nome.');
+                    fmrPosicao.nome.focus();
+                    return false;
+                }
+                
+                if(senha == "" ){
+                    alert('Preencha o campo id da Posicao');
+                    fmrPosicao.idPosicao.focus();
+                    return false;
+                }
+            }
+        </script>
+    
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -59,7 +78,7 @@
             <div class="form-group">
             </div>
             <div>
-                <input type="submit" class="btn bg-dark text-white" name="btnConfirmar" value="${operacao}"/>
+                <input type="submit" class="btn bg-dark text-white" onclick="return validar()" name="btnConfirmar" value="${operacao}"/>
             </div>
         </form>
     </div>

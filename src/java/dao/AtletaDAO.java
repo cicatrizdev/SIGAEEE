@@ -1,150 +1,98 @@
 package dao;
 
 import model.Atleta;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
 
 public class AtletaDAO {
-
-    public static void inserir(Atleta atleta) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        Long id = 0L;
-        try {
-            conexao = BD.getConexao();
-            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha,tipo) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            comando.setString(1, atleta.getNomeUsuario());
-            comando.setString(2, atleta.getEmail());
-            comando.setString(3, atleta.getSenha());
-            comando.setInt(4,0);
-            comando.execute();
-            id = BD.returnId(comando);
-        } catch (SQLException e) {
-            throw e;
-        }
-        try {
-            comando = conexao.prepareStatement("INSERT INTO atleta (peso, altura, data_nascimento, usuario_id) values (?,?,?,?)");
-            comando.setDouble(1, atleta.getPeso());
-            comando.setDouble(2, atleta.getAltura());
-            comando.setString(3, atleta.getDataNascimento());
-            comando.setInt(4, Integer.parseInt(String.valueOf(id)));
-            comando.execute();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+    private static AtletaDAO instance = new AtletaDAO();
+    public static AtletaDAO getInstance(){
+        return instance;
+    }
+    private AtletaDAO(){
+        
     }
 
-    public static void alterar(Atleta atleta) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        System.out.println(atleta.getIdAtleta());
-        Atleta a = AtletaDAO.lerAtleta(atleta.getIdAtleta());
+    public void save(Atleta atleta)  {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            conexao = BD.getConexao();
-            String sql = "UPDATE `atleta` SET `peso`= ?,`altura`= ?,`data_nascimento`= ?,`posicao_id`= ?,`equipe_id`= ? WHERE atleta.id_atleta = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setDouble(1, atleta.getPeso());
-            comando.setDouble(2, atleta.getAltura());
-            comando.setString(3, atleta.getDataNascimento());
-            comando.setInt(4, atleta.getPosicao());
-            comando.setInt(5, atleta.getEquipe());
-            System.out.println("Posicao: " + atleta.getPosicao());
-            comando.setInt(6, atleta.getIdAtleta());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
+            tx.begin();
+            if(atleta.getIdUsuario() != null){
+                em.merge(atleta);
+            }else{
+            em.persist(atleta);
         }
-        try {
-            System.out.println("Entrou2");
-            conexao = BD.getConexao();
-            String sql = "UPDATE usuario SET nome= ?,email= ?,senha= ? WHERE id = ?"; //ver query, essa merda TA MUITO ERRADA
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, atleta.getNomeUsuario());
-            comando.setString(2, atleta.getEmail());
-            comando.setString(3, atleta.getSenha());
-            comando.setInt(4, a.getIdUsuario());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-
-    public static void excluir(Atleta a) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        System.out.println("Excluir"+a.getIdAtleta());
-        Atleta atleta = AtletaDAO.lerAtleta(a.getIdAtleta());
-        System.out.println("Excluir2"+atleta.getIdAtleta());
-        try {
-            conexao = BD.getConexao();
-            String sql = "DELETE FROM atleta, usuario USING atleta, usuario WHERE atleta.id_atleta = ? AND usuario.id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, atleta.getIdAtleta());
-            comando.setInt(2, atleta.getIdUsuario());
-            comando.execute();
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            BD.fecharConexao(conexao, comando);
-        }
-    }
-
-    public static Atleta lerAtleta(int id) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "SELECT * FROM atleta JOIN usuario ON usuario.id = atleta.usuario_id WHERE atleta.id_atleta = ? ";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, id);
-            ResultSet rs = comando.executeQuery();
-            rs.first();
-            Atleta atleta = getFromResultSet(rs);
-            BD.fecharConexao(conexao, comando);
-            return atleta;
-        } catch (SQLException e) {
-            BD.fecharConexao(conexao, comando);
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private static Atleta getFromResultSet(ResultSet rs) throws SQLException {
-        return new Atleta(rs.getInt("id_atleta"),
-                rs.getFloat("peso"),
-                rs.getFloat("altura"),
-                rs.getString("data_nascimento"),
-                rs.getInt("posicao_id"),
-                rs.getInt("equipe_id"),
-                rs.getInt("usuario_id"),
-                rs.getString("nome"),
-                rs.getString("email"),
-                rs.getString("senha"));
-    }
-
-    public static List<Atleta> lerTodosAtletas() throws ClassNotFoundException, SQLException {
-        Connection conexao = null;
-        Statement comando = null;
-        ArrayList<Atleta> atletas = new ArrayList<>();
-        try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            String sql = "SELECT * FROM atleta LEFT JOIN usuario ON atleta.usuario_id = usuario.id";
-            ResultSet rs = comando.executeQuery(sql);
-            while (rs.next()) {
-                atletas.add(getFromResultSet(rs));
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
             }
-            BD.fecharConexao(conexao, comando);
-            return atletas;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
-        return new ArrayList<>();
+       
     }
+    public void remove(Atleta atleta) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(Atleta.class, atleta.getIdUsuario()));
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+    }
+
+    public Atleta find(Long id) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Atleta atleta = null;
+        try {
+            tx.begin();
+            atleta = em.find(Atleta.class, id);
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return atleta;
+        
+    }
+    public List<Atleta> findAll(){
+       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Atleta> atletas = null;
+        try {
+           tx.begin();
+           TypedQuery<Atleta> query = em.createQuery("select a From atleta a", Atleta.class);
+           atletas = query.getResultList();
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return atletas;
+        
+    }
+
+    
 }

@@ -9,6 +9,32 @@
         <link rel="stylesheet" href="/css/bootstrap.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">"
         <title>SIGAEE- Cadastro de Atleta</title>
+
+        <script type="text/javascript">
+            function validar(){
+                var nome = fmrAtleta.txtNomeAtleta.value;
+                var email = fmrAtleta.txtEmailAtleta.value;
+                var senha = fmrAtleta.txtSenhaAtleta.value;
+                
+                if(nome == ""){
+                    alert('Preencha o campo nome.');
+                    fmrAtleta.txtNomeAtleta.focus();
+                    return false;
+                }
+                
+                if(email == "" || txtEmailAtleta.indexOf('@') == -1 ){
+                    alert('Preencha o campo E-mail.');
+                    fmrAtleta.txtEmailAtleta.focus();
+                    return false;
+                }
+                
+                if(senha == "" || txtSenhaAtleta.length <= 5){
+                    alert('Preencha o campo senha com minimo 6 caracteres');
+                    fmrGestor.txtSenhaAtleta.focus();
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -88,7 +114,7 @@
 
                     </div>
                     <div>
-                        <input type="submit" class="btn bg-dark text-white" value="${operacao}"/>
+                        <input type="submit" class="btn bg-dark text-white" onclick="return validar()" value="${operacao}"/>
                     </div>
                 </form>
 
