@@ -1,120 +1,97 @@
 package dao;
 
 import model.Gestor;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
 
 public class GestorDAO {
+    private static GestorDAO instance = new GestorDAO();
+    public static GestorDAO getInstance(){
+        return instance;
+    }
+    private GestorDAO(){
+        
+    }
 
-    public static void inserir(Gestor gestor) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        Long id = 0L;
+    public void save(Gestor gestor)  {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            conexao = BD.getConexao();
-            comando = conexao.prepareStatement("INSERT INTO usuario (nome, email, senha, tipo) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            comando.setString(1, gestor.getNomeUsuario());
-            comando.setString(2, gestor.getEmail());
-            comando.setString(3, gestor.getSenha());
-            comando.setInt(4, 1);
-            comando.execute();
-            id = BD.returnId(comando);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx.begin();
+            if(gestor.getIdUsuario() != null){
+                em.merge(gestor);
+            }else{
+            em.persist(gestor);
         }
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+       
+    }
+    public void remove(Gestor gestor) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            comando = conexao.prepareStatement("INSERT INTO gestor (usuario_id) values (?)");
-            comando.setInt(1, Integer.parseInt(String.valueOf(id)));
-            comando.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx.begin();
+            em.remove(em.getReference(Gestor.class, gestor.getIdUsuario()));
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
     }
 
-    public static void alterar(Gestor gestor) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        Gestor g = GestorDAO.lerGestor(gestor.getIdGestor());
-        try {
-            conexao = BD.getConexao();
-            String sql = "UPDATE usuario SET nome= ?,email= ?,senha= ? WHERE id = ?"; //ver query, essa merda TA MUITO ERRADA
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, gestor.getNomeUsuario());
-            comando.setString(2, gestor.getEmail());
-            comando.setString(3, gestor.getSenha());
-            comando.setInt(4, g.getIdUsuario());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-
-    public static void excluir(Gestor g) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        Gestor gestor = GestorDAO.lerGestor(g.getIdGestor());
-        try {
-            conexao = BD.getConexao();
-            String sql = "DELETE FROM gestor, usuario USING gestor, usuario WHERE gestor.id_gestor = ? AND usuario.id = ?";   
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, gestor.getIdGestor());
-            comando.setInt(2, gestor.getIdUsuario());
-            comando.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
-        }
-    }
-
-    public static Gestor lerGestor(Integer id) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public Gestor find(Long id) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Gestor gestor = null;
         try {
-            conexao = BD.getConexao();
-            String sql = "SELECT * FROM gestor RIGHT JOIN usuario ON gestor.usuario_id = usuario.id WHERE id_gestor = ? "; // Arruma aqui o select com um select nomeado
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, id);
-            ResultSet rs = comando.executeQuery();
-            rs.first();
-            gestor = getFromResultSet(rs);
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            tx.begin();
+            gestor = em.find(Gestor.class, id);
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return gestor;
+        
     }
-
-    public static List<Gestor> lerTodosGestores() throws ClassNotFoundException, SQLException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Gestor> gestores = new ArrayList<Gestor>();
+    public List<Gestor> findAll(){
+       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Gestor> gestores = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            String sql = "SELECT * FROM gestor LEFT JOIN usuario ON gestor.usuario_id = usuario.id";
-            ResultSet rs = comando.executeQuery(sql);
-            while (rs.next()) {
-                gestores.add(getFromResultSet(rs));
+           tx.begin();
+           TypedQuery<Gestor> query = em.createQuery("select g From gestor g", Gestor.class);
+           gestores = query.getResultList();
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return gestores;
+        
     }
-
-    private static Gestor getFromResultSet(ResultSet rs) throws SQLException {
-            return new Gestor(rs.getInt("usuario_id"),
-                    rs.getString("nome"),
-                    rs.getString("email"),
-                    rs.getString("senha"),
-                    (rs.getInt("id_gestor")));
-    }
+    
 }

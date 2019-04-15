@@ -1,102 +1,97 @@
 package dao;
 
 import model.TipoEvento;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
 
 public class TipoEventoDAO {
+    private static TipoEventoDAO instance = new TipoEventoDAO();
+    public static TipoEventoDAO getInstance(){
+        return instance;
+    }
+    private TipoEventoDAO(){
+        
+    }
 
-    public static void inserir(TipoEvento tipoEvento) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public void save(TipoEvento tipoEvento)  {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            conexao = BD.getConexao();
-            String sql = "INSERT INTO tipo_evento (id, nome) VALUES (?,?)";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, tipoEvento.getIdTipoEvento());
-            comando.setString(2, tipoEvento.getNomeTipoEvento());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
+            tx.begin();
+            if(tipoEvento.getIdTipoEvento() != null){
+                em.merge(tipoEvento);
+            }else{
+            em.persist(tipoEvento);
+        }
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+       
+    }
+    public void remove(TipoEvento tipoEvento) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(TipoEvento.class, tipoEvento.getIdTipoEvento()));
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
     }
 
-    public static void alterar(TipoEvento tipoEvento) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "UPDATE tipo_evento SET nome = ? WHERE id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, tipoEvento.getNomeTipoEvento());
-            comando.setInt(2, tipoEvento.getIdTipoEvento());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void excluir(TipoEvento tipoEvento) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "DELETE * FROM tipo_evento WHERE id = ? ";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, tipoEvento.getIdTipoEvento());
-            comando.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
-        }
-    }
-
-    public static TipoEvento lerTipoEvento(Integer idTipoEvento) throws ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public TipoEvento find(Long id) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         TipoEvento tipoEvento = null;
         try {
-            conexao = BD.getConexao();
-            String sql = "SELECT * FROM tipo_evento WHERE id= ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, idTipoEvento);
-            ResultSet rs = comando.executeQuery();
-            rs.first();
-            tipoEvento = new TipoEvento(rs.getInt("id"),
-                    rs.getString("nome")
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            tx.begin();
+            tipoEvento = em.find(TipoEvento.class, id);
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return tipoEvento;
+        
     }
-
-    public static List<TipoEvento> lerTodosTiposEventos() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<TipoEvento> tipoEventos = new ArrayList<TipoEvento>();
+    public List<TipoEvento> findAll(){
+       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<TipoEvento> tipoEventos = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            String sql = "SELECT * FROM tipo_evento";
-            ResultSet rs = comando.executeQuery(sql);
-            while (rs.next()) {
-                TipoEvento tipoEvento = new TipoEvento(rs.getInt("id"),
-                        rs.getString("nome")
-                );
-                tipoEventos.add(tipoEvento);
+           tx.begin();
+           TypedQuery<TipoEvento> query = em.createQuery("select te From tipoEvento te", TipoEvento.class);
+           tipoEventos = query.getResultList();
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return tipoEventos;
+        
     }
+    
 }

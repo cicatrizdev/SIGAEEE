@@ -1,107 +1,97 @@
 package dao;
 
 import model.Posicao;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
 
 public class PosicaoDAO {
+    private static PosicaoDAO instance = new PosicaoDAO();
+    public static PosicaoDAO getInstance(){
+        return instance;
+    }
+    private PosicaoDAO(){
+        
+    }
 
-    public static void inserir(Posicao posicao) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public void save(Posicao posicao)  {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            conexao = BD.getConexao();
-            String sql = "INSERT INTO `posicao` (`nome`, `esporte_id`) VALUES (?, ?);";
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, posicao.getNomePosicao());
-            System.out.println("idEsporte" + posicao.getIdEsporte());
-            comando.setInt(2, posicao.getIdEsporte());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx.begin();
+            if(posicao.getIdPosicao() != null){
+                em.merge(posicao);
+            }else{
+            em.persist(posicao);
+        }
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+       
+    }
+    public void remove(Posicao posicao) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(Posicao.class, posicao.getIdPosicao()));
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
     }
 
-    public static void alterar(Posicao posicao) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "UPDATE posicao SET nome = ? WHERE id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, posicao.getNomePosicao());
-            comando.setInt(2, posicao.getIdPosicao());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void excluir(Posicao posicao) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            System.out.println("CHEGOU NA EXCLUÇÂO");
-            conexao = BD.getConexao();
-            String sql = "DELETE FROM `posicao` WHERE id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, posicao.getIdPosicao());
-            comando.execute();
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            BD.fecharConexao(conexao, comando);
-        }
-    }
-
-    public static Posicao lerPosicao(Integer id) throws ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public Posicao find(Long id) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Posicao posicao = null;
-
         try {
-            conexao = BD.getConexao();
-            String sql = "SELECT * FROM posicao WHERE id= ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, id);
-            ResultSet rs = comando.executeQuery();
-            rs.first();
-            posicao = getFromDatabase(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            tx.begin();
+            posicao = em.find(Posicao.class, id);
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return posicao;
+        
     }
-
-    public static List<Posicao> lerTodasPosicoes() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Posicao> posicoes = new ArrayList<Posicao>();
+    public List<Posicao> findAll(){
+       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Posicao> posicoes = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            String sql = "SELECT * FROM posicao";
-            ResultSet rs = comando.executeQuery(sql);
-            while (rs.next()) {
-                posicoes.add(getFromDatabase(rs));
+           tx.begin();
+           TypedQuery<Posicao> query = em.createQuery("select p From posicao p", Posicao.class);
+           posicoes = query.getResultList();
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return posicoes;
+        
     }
-
-    private static Posicao getFromDatabase(ResultSet rs) throws SQLException {
-        return new Posicao(rs.getInt("esporte_id"),
-                rs.getInt("id"),
-                rs.getString("nome")
-        );
-    }
+    
 }

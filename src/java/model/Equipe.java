@@ -1,10 +1,13 @@
 package model;
 
 import dao.EquipeDAO;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.Serializable;
 
-public class Equipe {
+import java.util.List;
+import javax.persistence.Entity;
+
+@Entity
+public class Equipe implements Serializable {
 
     public static Object lerEquipe(Integer id) throws ClassNotFoundException {
         return EquipeDAO.lerEquipe(id);

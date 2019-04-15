@@ -1,104 +1,97 @@
 package dao;
 
 import model.Esporte;
-
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import model.Equipe;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
 
 public class EsporteDAO {
+    private static EsporteDAO instance = new EsporteDAO();
+    public static EsporteDAO getInstance(){
+        return instance;
+    }
+    private EsporteDAO(){
+        
+    }
 
-    public static void inserir(Esporte esporte) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public void save(Esporte esporte)  {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            conexao = BD.getConexao();
-
-            String sql = "INSERT INTO esporte (id, nome) VALUES (?,?)";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, esporte.getIdEsporte());
-            comando.setString(2, esporte.getNomeEsporte());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx.begin();
+            if(esporte.getIdEsporte() != null){
+                em.merge(esporte);
+            }else{
+            em.persist(esporte);
+        }
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+       
+    }
+    public void remove(Esporte esporte) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(Esporte.class, esporte.getIdEsporte()));
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
     }
 
-    public static void alterar(Esporte esporte) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "UPDATE evento SET nome = ? WHERE id = ? ";
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, esporte.getNomeEsporte());
-            comando.setInt(2, esporte.getIdEsporte());
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-
-    public static void excluir(Esporte esporte) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "DELETE FROM esporte where id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setLong(1, esporte.getIdEsporte());
-            comando.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Esporte lerEsporte(Integer idEsporte) throws ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public Esporte find(Long id) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Esporte esporte = null;
         try {
-            conexao = BD.getConexao();
-            String sql = "SELECT * FROM esporte WHERE id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, idEsporte);
-            ResultSet rs = comando.executeQuery();
-            rs.first();
-            esporte = getFromDatabase(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            tx.begin();
+            esporte = em.find(Esporte.class, id);
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return esporte;
+        
     }
-
-    public static List<Esporte> lerTodosEsportes() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Esporte> esportes = new ArrayList<Esporte>();
+    public List<Esporte> findAll(){
+       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Esporte> esportes = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            String sql = "SELECT * FROM esporte";
-            ResultSet rs = comando.executeQuery(sql);
-            while (rs.next()) {
-                esportes.add(getFromDatabase(rs));
+           tx.begin();
+           TypedQuery<Esporte> query = em.createQuery("select e From esporte e", Esporte.class);
+           esportes = query.getResultList();
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return esportes;
+        
     }
-    private static Esporte getFromDatabase(ResultSet rs) throws SQLException {
-        return new Esporte(
-                rs.getInt("id"),
-                rs.getString("nome")
-        );
-    }
+    
 }

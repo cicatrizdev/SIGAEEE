@@ -1,121 +1,97 @@
 package dao;
 
 import model.Equipe;
-
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
 
 public class EquipeDAO {
+    private static EquipeDAO instance = new EquipeDAO();
+    public static EquipeDAO getInstance(){
+        return instance;
+    }
+    private EquipeDAO(){
+        
+    }
 
-    /**
-     *
-     * @param equipe
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public static void inserir(Equipe equipe) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public void save(Equipe equipe)  {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            conexao = BD.getConexao();
-            String sql = "INSERT INTO `equipe` (`nome`, `logo`, `playbook`, `esporte_id`) VALUES (?, ?, ?, ?)";
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, equipe.getNomeEquipe());
-            comando.setString(2, equipe.getLogo());
-            comando.setString(3, equipe.getPlaybook());
-            comando.setInt(4, equipe.getIdEsporte());
-            comando.execute();
-        } catch (SQLException e) {
-            throw e;
+            tx.begin();
+            if(equipe.getIdEquipe() != null){
+                em.merge(equipe);
+            }else{
+            em.persist(equipe);
+        }
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+       
+    }
+    public void remove(Equipe equipe) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.getReference(Equipe.class, equipe.getIdEquipe()));
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
     }
 
-    public static void alterar(Equipe equipe) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "UPDATE equipe SET nome = ?, logo = ?, playbook = ?, esporte_id = ? WHERE equipe.id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setString(1, equipe.getNomeEquipe());
-            comando.setString(2, equipe.getLogo());
-            comando.setString(3, equipe.getPlaybook());
-            comando.setInt(4, equipe.getIdEsporte());
-            comando.setInt(5, equipe.getIdEquipe());
-
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-
-    public static void excluir(Equipe equipe) throws SQLException, ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
-        try {
-            conexao = BD.getConexao();
-            String sql = "DELETE FROM `equipe` WHERE `equipe`.`id` = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, equipe.getIdEquipe());
-
-            comando.execute();
-            BD.fecharConexao(conexao, comando);
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-
-    public static Equipe lerEquipe(Integer idEquipe) throws ClassNotFoundException {
-        Connection conexao = null;
-        PreparedStatement comando = null;
+    public Equipe find(Long id) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Equipe equipe = null;
         try {
-            conexao = BD.getConexao();
-            String sql = "SELECT * FROM equipe WHERE id = ?";
-            comando = conexao.prepareStatement(sql);
-            comando.setInt(1, idEquipe);
-            ResultSet rs = comando.executeQuery();
-            rs.first();
-            equipe = getFromDatabase(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            tx.begin();
+            equipe = em.find(Equipe.class, id);
+            tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return equipe;
+        
     }
-
-    public static List<Equipe> lerTodasEquipes() throws ClassNotFoundException {
-        Connection conexao = null;
-        Statement comando = null;
-        List<Equipe> equipes = new ArrayList<Equipe>();
+    public List<Equipe> findAll(){
+       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Equipe> equipes = null;
         try {
-            conexao = BD.getConexao();
-            comando = conexao.createStatement();
-            String sql = "SELECT * FROM equipe";
-            ResultSet rs = comando.executeQuery(sql);
-            while (rs.next()) {
-                equipes.add(getFromDatabase(rs));
+           tx.begin();
+           TypedQuery<Equipe> query = em.createQuery("select e From equipe e", Equipe.class);
+           equipes = query.getResultList();
+         tx.commit();       
+        } catch (Exception e) {
+            if(tx != null && tx.isActive()){
+                tx.rollback();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            BD.fecharConexao(conexao, comando);
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
         }
         return equipes;
+        
     }
-
-    private static Equipe getFromDatabase(ResultSet rs) throws SQLException {
-        return new Equipe(
-                rs.getInt("id"),
-                rs.getInt("id_gestor"),
-                rs.getString("nome"),
-                rs.getString("logo"),
-                rs.getString("playbook"),
-                rs.getInt("esporte_id")
-        );
-    }
-
+    
 }

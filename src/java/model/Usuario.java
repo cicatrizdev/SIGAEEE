@@ -10,13 +10,13 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario {
+public abstract class Usuario implements Serializable{
     
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
-    private String nomeUsuario;
+    private Long id;
+    private String nome;
     private String email;
     private String senha;
     
@@ -24,24 +24,24 @@ public abstract class Usuario {
         
     }
     
-    public Usuario(Long idUsuario){
-        this.idUsuario = idUsuario;
+    public Usuario(Long id){
+        this.id = id;
     }
 
     public Long getIdUsuario() {
-        return idUsuario;
+        return id;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdUsuario(Long id) {
+        this.id = id;
     }
 
     public String getNomeUsuario() {
-        return nomeUsuario;
+        return nome;
     }
 
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
+    public void setNomeUsuario(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {
@@ -60,9 +60,9 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public Usuario(Long idUsuario, String nomeUsuario, String email, String senha) {
-        this.idUsuario = idUsuario;
-        this.nomeUsuario = nomeUsuario;
+    public Usuario(Long id, String nome, String email, String senha) {
+        this.id = id;
+        this.nome = nome;
         this.email = email;
         this.senha = senha;
     }
