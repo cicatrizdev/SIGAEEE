@@ -2,113 +2,73 @@ package model;
 
 import dao.EquipeDAO;
 import java.io.Serializable;
-
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Equipe implements Serializable {
-
-    public static Object lerEquipe(Integer id) throws ClassNotFoundException {
-        return EquipeDAO.lerEquipe(id);
-    }
-
-    private int idEquipe;
-    private Integer idGestor;
-    private String nomeEquipe;
-    private String logo;
-    private String playbook;
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Equipe implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String nome;
+    @ManyToOne
+    private Atleta atleta;
+    @ManyToOne
+    private Gestor gestor;
+    @ManyToOne
     private Esporte esporte;
-    private int idEsporte;
-
-    public Equipe(int idEquipe,int idGestor, String nomeEquipe, String logo, String playbook, Esporte esporte) {
-        this.setIdEquipe(idEquipe);
-        this.setNomeEquipe(nomeEquipe);
-        this.setEsporte(esporte);
-        this.setLogo(logo);
-        this.setPlaybook(playbook);
-        this.setIdEsporte(esporte.getIdEsporte());
-        this.setIdGestor(idGestor);
+    
+    public Equipe () {
+        
     }
-
-    public Integer getIdGestor() {
-        return idGestor;
-    }
-
-    public void setIdGestor(Integer idGestor) {
-        this.idGestor = idGestor;
-    }
-
-    public int getIdEsporte() {
-        return idEsporte;
-    }
-
-    public void setIdEsporte(int idEsporte) {
-        this.idEsporte = idEsporte;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getPlaybook() {
-        return playbook;
-    }
-
-    public void setPlaybook(String playbook) {
-        this.playbook = playbook;
-    }
-
-    public Equipe(int aInt,Integer idGestor, String string, String logo, String playbook, int esporte_id) {
-        this.setIdEquipe(aInt);
-        this.setNomeEquipe(string);
-        this.setLogo(logo);
-        this.setPlaybook(playbook);
-        this.idEsporte = esporte_id;
-        this.setIdGestor(idGestor);
-    }
-
-    public Esporte getEsporte() {
-        return esporte;
-    }
-
-    public void setEsporte(Esporte esporte) {
+    
+    public Equipe(String nome, Atleta atleta, Gestor gestor, Esporte esporte){
+        this.nome = nome;
+        this.atleta = atleta;
+        this.gestor = gestor;
         this.esporte = esporte;
     }
-
-    public int getIdEquipe() {
-        return idEquipe;
+    
+    public void save() {
+        EquipeDAO.getInstance().save(this);
     }
 
-    public void setIdEquipe(int idEquipe) {
-        this.idEquipe = idEquipe;
+    public void remove() {
+        EquipeDAO.getInstance().remove(this);
+    }
+
+    public static Equipe find(Long id) {
+        return EquipeDAO.getInstance().find(id);
+    }
+
+    public static List<Equipe> findAll() {
+        return EquipeDAO.getInstance().findAll();
+    }
+
+    public Long getIdEquipe() {
+        return id;
+    }
+
+    public void setIdEquipe(Long id) {
+        this.id = id;
     }
 
     public String getNomeEquipe() {
-        return nomeEquipe;
+        return nome;
     }
 
-    public void setNomeEquipe(String nomeEquipe) {
-        this.nomeEquipe = nomeEquipe;
+    public void setNomeEquipe(String nome) {
+        this.nome = nome;
     }
 
-    public void inserir() throws SQLException, ClassNotFoundException {
-        EquipeDAO.inserir(this);
-    }
-
-    public static List<Equipe> lerTodasEquipes() throws ClassNotFoundException, SQLException {
-        return EquipeDAO.lerTodasEquipes();
-    }
-
-    public void alterar() throws SQLException, ClassNotFoundException {
-        EquipeDAO.alterar(this);
-    }
-
-    public void excluir() throws SQLException, ClassNotFoundException{
-        EquipeDAO.excluir(this);
-    }
 }
+

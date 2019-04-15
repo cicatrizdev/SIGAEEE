@@ -1,45 +1,34 @@
 package model;
 
 import dao.GestorDAO;
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
 
-public class Gestor extends Usuario {
+@Entity
+public abstract class Gestor extends Usuario implements Serializable {
 
-    public static Gestor lerGestor(int id) throws SQLException, ClassNotFoundException {
-        return GestorDAO.lerGestor(id);
+    public Gestor () {
+        
+    }
+    
+    public Gestor(String nome, String email, String senha) {
+        super(nome,  email, senha);
+    }
+    
+    public void save() {
+        GestorDAO.getInstance().save(this);
     }
 
-    public static List<Gestor> lerTodosGestores() throws ClassNotFoundException, SQLException {
-        return GestorDAO.lerTodosGestores();
+    public void remove() {
+        GestorDAO.getInstance().remove(this);
     }
-    private Integer idGestor;
-
-    public Gestor(Integer idUsuario, String nomeUsuario, String email, String senha, Integer idGestor) {
-        super(idUsuario, nomeUsuario, email, senha);
-        this.setIdGestor(idGestor);
-
+    
+    public static Gestor find(Long id){
+        return GestorDAO.getInstance().find(id);
     }
-
-    public Integer getIdGestor() {
-        return idGestor;
-    }
-
-    public void setIdGestor(Integer idGestor) {
-        this.idGestor = idGestor;
-    }
-
-    public void inserir() throws SQLException, ClassNotFoundException {
-        GestorDAO.inserir(this);
-    }
-
-    public void alterar() throws SQLException, ClassNotFoundException {
-        GestorDAO.alterar(this);
-        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void excluir() throws SQLException, ClassNotFoundException {
-        GestorDAO.excluir(this);
-        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    public static List<Gestor> findAll(){
+        return GestorDAO.getInstance().findAll();
+    } 
 }

@@ -1,59 +1,66 @@
 package model;
 
 import dao.PosicaoDAO;
-import java.sql.SQLException;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
-public class Posicao {
-
-    public static Object lerTodasPosicoes() throws ClassNotFoundException {
-        return PosicaoDAO.lerTodasPosicoes();
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Posicao implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String nome;
+    @ManyToOne
+    private Esporte esporte;
+    
+    public Posicao () {
+        
     }
-    public static Object lerPosicao(int id) throws ClassNotFoundException {
-        return PosicaoDAO.lerPosicao(id);
+    
+    public Posicao(String nome, Esporte esporte){
+        this.nome = nome;
+        this.esporte = esporte;
     }
-    private Integer idPosicao;
-    private Integer idEsporte;
-    private String nomePosicao;
-
-    public Posicao(Integer idEsporte, Integer idPosicao, String nomePosicao) {
-        this.setIdEsporte(idEsporte);
-        this.setIdPosicao(idPosicao);
-        this.setNomePosicao(nomePosicao);
-    }
-
-    public Integer getIdEsporte() {
-        return idEsporte;
-    }
-
-    public void setIdEsporte(Integer idEsporte) {
-        this.idEsporte = idEsporte;
-    }
-
-    public Integer getIdPosicao() {
-        return idPosicao;
-    }
-
-    public void setIdPosicao(Integer idPosicao) {
-        this.idPosicao = idPosicao;
-    }
-
-    public String getNomePosicao() {
-        return nomePosicao;
+    
+    public void save() {
+        PosicaoDAO.getInstance().save(this);
     }
 
-    public void setNomePosicao(String nomePosicao) {
-        this.nomePosicao = nomePosicao;
+    public void remove() {
+        PosicaoDAO.getInstance().remove(this);
+    }
+    
+    public static Posicao find(Long id){
+        return PosicaoDAO.getInstance().find(id);
+    }
+    
+    public static List<Posicao> findAll(){
+        return PosicaoDAO.getInstance().findAll();
+    } 
+    
+    public Long getIdPosicao(){
+        return id;
+    }
+    
+    public void setIdPosica(Long id){
+        this.id = id;
+    }
+    
+    public String getNome() {
+        return nome;
     }
 
-    public void inserir() throws SQLException, ClassNotFoundException {
-        PosicaoDAO.inserir(this);
-    }
-
-    public void alterar() throws SQLException, ClassNotFoundException {
-        PosicaoDAO.alterar(this);
-    }
-
-    public void excluir() throws SQLException, ClassNotFoundException {
-        PosicaoDAO.excluir(this);
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

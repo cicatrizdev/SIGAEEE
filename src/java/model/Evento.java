@@ -1,108 +1,99 @@
 package model;
 
 import dao.EventoDAO;
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
-
-
-public class Evento{
-    private Integer idEvento;
-    private String nomeEvento;
-    private String descricaoEvento;
-    private String dataEvento;
-    private String logradouroEvento;
-    private Integer idTipoEvento;
-    private Integer idEquipe;
-
-    public Evento(int idTipoEvento, int idEvento, String nomeEvento, String descricaoEvento, String dataEvento, String logradouroEvento, int idEquipe) {
-      this.setIdTipoEvento(idTipoEvento);
-      this.setIdEvento(idEvento);
-      this.setNomeEvento(nomeEvento);
-      this.setDescricaoEvento(descricaoEvento);
-      this.setDataEvento(dataEvento);
-      this.setLogradouroEvento(logradouroEvento);
-      this.setIdEquipe(idEquipe);
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Evento implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String nome;
+    private String descricao;
+    private String data;
+    private String local;
+    @ManyToOne
+    private TipoEvento tipoEvento;
+    @ManyToOne
+    private Equipe equipe;
+    
+    public Evento () {
+        
+    }
+    
+    public Evento (String nome, String descricao, String data, String local, TipoEvento tipoEvento, Equipe equipe){
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+        this.local = local;
+        this.tipoEvento = tipoEvento;
+        this.equipe = equipe;
+    }
+    
+     public void save() {
+        EventoDAO.getInstance().save(this);
     }
 
-
-
-
-
-    public Integer getIdEvento() {
-        return idEvento;
+    public void remove() {
+        EventoDAO.getInstance().remove(this);
     }
 
-    public void setIdEvento(Integer idEvento) {
-        this.idEvento = idEvento;
+    public static Evento find(Long id) {
+        return EventoDAO.getInstance().find(id);
+    }
+
+    public static List<Evento> findAll() {
+        return EventoDAO.getInstance().findAll();
+    }
+
+    public Long getIdEvento() {
+        return id;
+    }
+
+    public void setIdEvento(Long id) {
+        this.id = id;
     }
 
     public String getNomeEvento() {
-        return nomeEvento;
+        return nome;
     }
 
-    public void setNomeEvento(String nomeEvento) {
-        this.nomeEvento = nomeEvento;
+    public void setNomeEvento(String nome) {
+        this.nome = nome;
     }
-
+    
     public String getDescricaoEvento() {
-        return descricaoEvento;
+        return descricao;
     }
 
-    public void setDescricaoEvento(String descricaoEvento) {
-        this.descricaoEvento = descricaoEvento;
+    public void setDescricaoEvento(String descricao) {
+        this.descricao = descricao;
+    }
+    public String getLocalEvento() {
+        return local;
     }
 
+    public void setLocalEvento(String local) {
+        this.local = local;
+    }
+    
     public String getDataEvento() {
-        return dataEvento;
+        return data;
     }
 
-    public void setDataEvento(String dataEvento) {
-        this.dataEvento = dataEvento;
+    public void setDataEvento(String data) {
+        this.data = data;
     }
 
-    public String getLogradouroEvento() {
-        return logradouroEvento;
-    }
-
-    public void setLogradouroEvento(String logradouroEvento) {
-        this.logradouroEvento = logradouroEvento;
-    }
-
-    public Integer getIdTipoEvento() {
-        return idTipoEvento;
-    }
-
-    public void setIdTipoEvento(Integer idTipoEvento) {
-        this.idTipoEvento = idTipoEvento;
-    }
-
-    public Integer getIdEquipe() {
-        return idEquipe;
-    }
-
-    public void setIdEquipe(Integer idEquipe) {
-        this.idEquipe = idEquipe;
-    }
-    
-    
-    public static Evento lerEvento(int idEvento) throws SQLException, ClassNotFoundException {
-        return EventoDAO.lerEvento(idEvento);
-    }
-
-    public static List<Evento> lerTodosEventos() throws ClassNotFoundException, SQLException {
-        return EventoDAO.lerTodosEventos();
-    }
-
-    public void inserir() throws SQLException, ClassNotFoundException {
-        EventoDAO.inserir(this);
-    }
-
-    public void alterar() throws SQLException, ClassNotFoundException {
-        EventoDAO.alterar(this);
-    }
-
-    public void excluir() throws SQLException, ClassNotFoundException{
-        EventoDAO.excluir(this);
-    }
 }
