@@ -29,3 +29,4 @@ nbproject/private/private.xml
 *.properties
 /dist/
 nbproject/
+build/
