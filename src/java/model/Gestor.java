@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-public abstract class Gestor extends Usuario implements Serializable {
+public class Gestor extends Usuario implements Serializable {
 
     public Gestor () {
         

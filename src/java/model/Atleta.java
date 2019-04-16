@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-public abstract class Atleta extends Usuario implements Serializable {
+public class Atleta extends Usuario implements Serializable {
     private float peso;
     private float altura;
     private String dataNascimento;

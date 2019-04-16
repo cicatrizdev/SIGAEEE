@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Equipe implements Serializable{
+public class Equipe implements Serializable{
     
     private static final long serialVersionUID = 1L;
     @Id
