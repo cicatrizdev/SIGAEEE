@@ -27,6 +27,10 @@ public class Esporte implements Serializable{
     public Esporte(Long id){
         this.id = id;
     }
+
+    public Esporte(Long id, String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void save() {
         EsporteDAO.getInstance().save(this);

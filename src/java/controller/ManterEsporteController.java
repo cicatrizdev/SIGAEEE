@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +31,8 @@ public class ManterEsporteController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         String acao = request.getParameter("acao");
@@ -49,13 +51,13 @@ public class ManterEsporteController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Integer idEsporte = Integer.parseInt(request.getParameter("idEsporte"));
-                request.setAttribute("esporte", Esporte.lerEsporte(idEsporte));
+                Long idEsporte = Long.parseLong(request.getParameter("idEsporte"));
+                request.setAttribute("esporte", Esporte.find(idEsporte));
 
             }
 
             request.setAttribute("operacao", operacao);
-            request.setAttribute("esportes", Esporte.lerTodosEsportes());
+            request.setAttribute("esportes", Esporte.findAll());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEsporte.jsp");
             view.forward(request, response);
         } catch (IOException e) {
@@ -66,19 +68,19 @@ public class ManterEsporteController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        int id = parseInt(request.getParameter("intIdEsporte"));
+        Long id = parseLong(request.getParameter("intIdEsporte"));
         String nome = request.getParameter("txtNomeEsporte");
         try {
             Esporte esporte = new Esporte(id,nome);
             switch (operacao) {
                 case "Incluir":
-                    esporte.inserir();
+                    esporte.save();
                     break;
                 case "Editar":
-                    esporte.alterar();
+                    esporte.save();
                     break;
                 case "Excluir":
-                    esporte.excluir();
+                    esporte.remove();
                     break;
                 default:
                     break;
