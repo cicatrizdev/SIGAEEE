@@ -32,13 +32,13 @@ public class ManterEquipeController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Integer idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
-                request.setAttribute("equipe", Equipe.lerEquipe(idEquipe));
+                Long idEquipe = Long.parseLong(request.getParameter("idEquipe"));
+                request.setAttribute("equipe", Equipe.find(idEquipe));
 
             }
 
             request.setAttribute("operacao", operacao);
-            request.setAttribute("esportes", Esporte.lerTodosEsportes());
+            request.setAttribute("esportes", Esporte.findAll());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEquipe.jsp");
             view.forward(request, response);
         } catch (IOException e) {
@@ -49,20 +49,20 @@ public class ManterEquipeController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        int id_equipe = Integer.parseInt(request.getParameter("txtIdEquipe"));
+        Long id_equipe = Long.parseLong(request.getParameter("txtIdEquipe"));
         String nome = request.getParameter("txtNomeEquipe");
-        int id_gestor = Integer.parseInt(request.getParameter("txtIdEquipe"));
+        Long id_gestor = Long.parseLong(request.getParameter("txtIdEquipe"));
         String logo = request.getParameter("txtLogoEquipe");
         String playbook = request.getParameter("txtPlaybookEquipe");
-        int id_esporte = Integer.parseInt(request.getParameter("txtIdEsporte"));
+        Long id_esporte = Long.parseLong(request.getParameter("txtIdEsporte"));
         try {
-            Equipe equipe = new Equipe(id_equipe,id_gestor, nome, logo, playbook, id_esporte);
+            Equipe equipe = new Equipe(nome, id_gestor, id_esporte);
             if (operacao.equals("Incluir")) {
-                equipe.inserir();
+                equipe.save();
             }else if (operacao.equals("Editar")){
-                equipe.alterar();
+                equipe.save();
             }else if (operacao.equals("Excluir")){
-                equipe.excluir();
+                equipe.remove();
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaEquipeController");
             view.forward(request, response);

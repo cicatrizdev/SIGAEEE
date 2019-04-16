@@ -37,6 +37,10 @@ public class Equipe implements Serializable{
         this.gestor = gestor;
         this.esporte = esporte;
     }
+
+    public Equipe(String nome, Long id_gestor, Long id_esporte) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void save() {
         EquipeDAO.getInstance().save(this);

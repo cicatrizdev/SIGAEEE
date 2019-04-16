@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,12 +40,12 @@ public class ManterAtletaController extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
-                int id = Integer.parseInt(request.getParameter("idAtleta"));
+                Long id = Long.parseLong(request.getParameter("idAtleta"));
                 Atleta atleta = Atleta.find(Long.parseLong(request.getParameter("id")));
                 request.setAttribute("atleta", atleta);
             }
-            request.setAttribute("posicoes", Posicao.lerTodasPosicoes());
-            request.setAttribute("equipes", Equipe.lerTodasEquipes());
+            request.setAttribute("posicoes", Posicao.findAll());
+            request.setAttribute("equipes", Equipe.findAll());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroAtleta.jsp");
             view.forward(request, response);
         } catch (ServletException e) {
@@ -57,26 +58,25 @@ public class ManterAtletaController extends HttpServlet {
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
         String operacao = request.getParameter("operacao");
         String nome = request.getParameter("txtNomeAtleta");
-        int id = parseInt(request.getParameter("txtIdAtleta"));
-        int posicao = parseInt(request.getParameter("intIdEquipe"));
-        int equipe = parseInt(request.getParameter("intIdPosicao"));
-        int idUsuario = 0;
+        Long id = parseLong(request.getParameter("txtIdAtleta"));
+        Long posicao = parseLong(request.getParameter("intIdEquipe"));
+        Long equipe = parseLong(request.getParameter("intIdPosicao"));
         String email = request.getParameter("txtEmailAtleta");
         String senha = request.getParameter("txtSenhaAtleta");
         String data = request.getParameter("txtDataNascimentoAtleta");
         float altura = parseFloat(request.getParameter("txtAlturaAtleta"));
         float peso = parseFloat(request.getParameter("txtPesoAtleta"));
-        Atleta atleta = new Atleta(id, peso, altura, data, equipe, posicao, idUsuario,nome,email,senha);
+        Atleta atleta = new Atleta(peso, altura, data, nome, email, senha);
         switch (operacao) {
             case "Incluir":
-                atleta.inserir();
+                atleta.save();
                 break;
             case "Editar":
-                atleta.alterar();
+                atleta.save();
                 break;
             case "Excluir":
-                System.out.println("Excluir"+atleta.getIdAtleta());
-                atleta.excluir();
+                System.out.println("Excluir"+atleta.getIdUsuario());
+                atleta.remove();
                 break;
             default:
                 break;
