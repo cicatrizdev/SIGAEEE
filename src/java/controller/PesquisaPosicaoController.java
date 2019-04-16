@@ -34,7 +34,7 @@ public class PesquisaPosicaoController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        request.setAttribute("posicoes",Posicao.lerTodasPosicoes());
+        request.setAttribute("posicoes",Posicao.findAll());
                     RequestDispatcher view = request.getRequestDispatcher("/pesquisaPosicao.jsp");
             view.forward(request, response);
     }

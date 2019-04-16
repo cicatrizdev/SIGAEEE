@@ -6,8 +6,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,13 +51,13 @@ public class ManterPosicaoController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Integer idPosicao = Integer.parseInt(request.getParameter("idPosicao"));
-                request.setAttribute("posicao", Posicao.lerPosicao(idPosicao));
+                Long idPosicao = Long.parseLong(request.getParameter("idPosicao"));
+                request.setAttribute("posicao", Posicao.find(idPosicao));
 
             }
 
             request.setAttribute("operacao", operacao);
-            request.setAttribute("esportes", Esporte.lerTodosEsportes());
+            request.setAttribute("esportes", Esporte.findAll());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroPosicao.jsp");
             view.forward(request, response);
         } catch (IOException e) {
@@ -70,23 +68,23 @@ public class ManterPosicaoController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        int id = parseInt(request.getParameter("txtIdPosicao"));
-        int idEsporte = parseInt(request.getParameter("txtIdEsporte"));
+        Long id = Long.parseLong(request.getParameter("txtIdPosicao"));
+        Long idEsporte = Long.parseLong(request.getParameter("txtIdEsporte"));
         System.out.println("idEsporte - " + idEsporte);
         String nome = request.getParameter("txtNomePosicao");
         Posicao posicao = new Posicao(idEsporte, id, nome);
         try {
             
-            System.out.println("idEsporte: " + posicao.getIdEsporte());
+            System.out.println("idEsporte: " + posicao.getIdPosicao());
             switch (operacao) {
                 case "Incluir":
-                    posicao.inserir();
+                    posicao.save();
                     break;
                 case "Editar":
-                    posicao.alterar();
+                    posicao.save();
                     break;
                 case "Excluir":
-                    posicao.excluir();
+                    posicao.remove();
                     break;
                 default:
                     break;

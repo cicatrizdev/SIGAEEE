@@ -33,14 +33,9 @@ public class PesquisaEsporteController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            request.setAttribute("esportes", Esporte.lerTodosEsportes());
-            RequestDispatcher view = request.getRequestDispatcher("/pesquisaEsporte.jsp");
-            view.forward(request, response);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
-        }
+        request.setAttribute("esportes", Esporte.findAll());
+        RequestDispatcher view = request.getRequestDispatcher("/pesquisaEsporte.jsp");
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

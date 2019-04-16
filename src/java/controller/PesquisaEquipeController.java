@@ -30,14 +30,9 @@ public class PesquisaEquipeController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            request.setAttribute("equipes", Equipe.lerTodasEquipes());
-            RequestDispatcher view = request.getRequestDispatcher("/pesquisaEquipe.jsp");
-            view.forward(request, response);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
-        }
+        request.setAttribute("equipes", Equipe.findAll());
+        RequestDispatcher view = request.getRequestDispatcher("/pesquisaEquipe.jsp");
+        view.forward(request, response);
 
     }
 

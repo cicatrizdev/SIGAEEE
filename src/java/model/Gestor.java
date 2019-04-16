@@ -15,6 +15,10 @@ public class Gestor extends Usuario implements Serializable {
     public Gestor(String nome, String email, String senha) {
         super(nome,  email, senha);
     }
+
+    public Gestor(Long idGestor, String nomeGestor, String emaiGestor, String senhaGestor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void save() {
         GestorDAO.getInstance().save(this);

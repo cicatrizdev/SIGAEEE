@@ -12,15 +12,9 @@ import javax.servlet.http.HttpServlet;
 
 public class PesquisaAtletaController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        try {
-            request.setAttribute("atletas", Atleta.lerTodosAtletas());
-            RequestDispatcher view = request.getRequestDispatcher("/pesquisaAtleta.jsp");
-            view.forward(request, response);
-        } catch (ClassNotFoundException e) {
-            throw new ServletException(e);
-        } catch (SQLException e) {
-            throw new ServletException(e);
-        }
+        request.setAttribute("atletas", Atleta.findAll());
+        RequestDispatcher view = request.getRequestDispatcher("/pesquisaAtleta.jsp");
+        view.forward(request, response);
     }
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {

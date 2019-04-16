@@ -13,12 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class PesquisaEventoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            request.setAttribute("eventos", Evento.lerTodosEventos());
-            request.getRequestDispatcher("/pesquisaEvento.jsp").forward(request, response);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("eventos", Evento.findAll());
+        request.getRequestDispatcher("/pesquisaEvento.jsp").forward(request, response);
     }
 
     @Override

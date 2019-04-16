@@ -1,5 +1,7 @@
 package controller;
 
+import dao.EquipeDAO;
+import dao.TipoEventoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -30,18 +32,18 @@ public class ManterEventoController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("tiposEvento",TipoEvento.lerTodosTiposEventos());
-            request.setAttribute("equipes",Equipe.lerTodasEquipes());
+            request.setAttribute("tiposEvento",TipoEvento.findAll());
+            request.setAttribute("equipes",Equipe.findAll());
             if (!operacao.equals("Incluir")) {
-                int idEvento = Integer.parseInt(request.getParameter("idEvento"));
-                Evento evento = Evento.lerEvento(idEvento);
+                Long idEvento = Long.parseLong(request.getParameter("idEvento"));
+                Evento evento = Evento.find(idEvento);
                 request.setAttribute("evento", evento);
             }
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEvento.jsp");
             view.forward(request, response);
         } catch (ServletException e) {
             throw e;
-        } catch (IOException | SQLException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new ServletException(e);
         }
     }
@@ -53,18 +55,20 @@ public class ManterEventoController extends HttpServlet {
         String descricaoEvento = request.getParameter("txtDescricaoEvento");
         String dataEvento = request.getParameter("txtDataEvento");
         String logradouroEvento = request.getParameter("txtLogradouroEvento");
-        int idTipoEvento = Integer.parseInt(request.getParameter("intIdTipoEvento"));
-        int idEquipe = Integer.parseInt(request.getParameter("intIdEquipe"));
-
-       Evento evento = new Evento(idTipoEvento, idEvento, nomeEvento, descricaoEvento, dataEvento, logradouroEvento, idEquipe);
+        Long idTipoEvento = Long.parseLong(request.getParameter("intIdTipoEvento"));
+        Long idEquipe = Long.parseLong(request.getParameter("intIdEquipe"));
+        
+       TipoEvento tipoEvento = TipoEventoDAO.getInstance().find(idTipoEvento);
+       Equipe equipe = EquipeDAO.getInstance().find(idEquipe);
+       Evento evento = new Evento (nomeEvento, descricaoEvento, dataEvento, logradouroEvento, tipoEvento, equipe);
         if (operacao.equals("Incluir")) {
-            evento.inserir();
+            evento.save();
         } else {
             if (operacao.equals("Editar")) {
-                evento.alterar();
+                evento.save();
             } else {
                 if (operacao.equals("Excluir")) {
-                   evento.excluir();
+                   evento.remove();
                 }
             }
         } 
