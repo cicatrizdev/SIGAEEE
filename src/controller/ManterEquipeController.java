@@ -32,9 +32,8 @@ public class ManterEquipeController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Long idEquipe = Long.parseLong(request.getParameter("idEquipe"));
-                request.setAttribute("equipe", Equipe.find(idEquipe));
-
+                Long id = Long.parseLong(request.getParameter("id"));
+                request.setAttribute("equipe", Equipe.find(id));
             }
 
             request.setAttribute("operacao", operacao);
@@ -49,14 +48,16 @@ public class ManterEquipeController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        Long id_equipe = Long.parseLong(request.getParameter("txtIdEquipe"));
+        if (!operacao.equals("Incluir")) {
+        Long id = Long.parseLong(request.getParameter("txtIdEquipe"));
+        }
         String nome = request.getParameter("txtNomeEquipe");
-        Long id_gestor = Long.parseLong(request.getParameter("txtIdEquipe"));
         String logo = request.getParameter("txtLogoEquipe");
         String playbook = request.getParameter("txtPlaybookEquipe");
-        Long id_esporte = Long.parseLong(request.getParameter("txtIdEsporte"));
+        Long gestor = Long.parseLong(request.getParameter("txtIdGestor"));
+        Long esporte = Long.parseLong(request.getParameter("txtIdEsporte"));
         try {
-            Equipe equipe = new Equipe(nome, id_gestor, id_esporte);
+            Equipe equipe = new Equipe(nome, gestor, esporte);
             if (operacao.equals("Incluir")) {
                 equipe.save();
             }else if (operacao.equals("Editar")){

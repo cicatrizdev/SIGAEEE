@@ -40,7 +40,7 @@ public class ManterAtletaController extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("idAtleta"));
+                Long id = Long.parseLong(request.getParameter("id"));
                 Atleta atleta = Atleta.find(Long.parseLong(request.getParameter("id")));
                 request.setAttribute("atleta", atleta);
             }
@@ -58,9 +58,11 @@ public class ManterAtletaController extends HttpServlet {
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
         String operacao = request.getParameter("operacao");
         String nome = request.getParameter("txtNomeAtleta");
-        Long id = parseLong(request.getParameter("txtIdAtleta"));
-        Long posicao = parseLong(request.getParameter("intIdEquipe"));
-        Long equipe = parseLong(request.getParameter("intIdPosicao"));
+        if (!operacao.equals("Incluir")) {
+            Long id = parseLong(request.getParameter("txtIdAtleta"));
+            Long equipe = parseLong(request.getParameter("intIdEquipe"));
+            Long posicao = parseLong(request.getParameter("intIdPosicao"));
+        }
         String email = request.getParameter("txtEmailAtleta");
         String senha = request.getParameter("txtSenhaAtleta");
         String data = request.getParameter("txtDataNascimentoAtleta");

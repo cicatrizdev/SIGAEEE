@@ -17,10 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Esporte;
 import model.Posicao;
 
-/**
- *
- * @author Familia
- */
 public class ManterPosicaoController extends HttpServlet {
 
     /**
@@ -51,8 +47,8 @@ public class ManterPosicaoController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Long idPosicao = Long.parseLong(request.getParameter("idPosicao"));
-                request.setAttribute("posicao", Posicao.find(idPosicao));
+                Long id = Long.parseLong(request.getParameter("id"));
+                request.setAttribute("posicao", Posicao.find(id));
 
             }
 
@@ -68,11 +64,13 @@ public class ManterPosicaoController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        Long id = Long.parseLong(request.getParameter("txtIdPosicao"));
-        Long idEsporte = Long.parseLong(request.getParameter("txtIdEsporte"));
-        System.out.println("idEsporte - " + idEsporte);
+        if (!operacao.equals("Incluir")) {
+            Long id = Long.parseLong(request.getParameter("txtIdPosicao"));
+        }
+        Long esporte = Long.parseLong(request.getParameter("txtIdEsporte"));
+        System.out.println("id - " + esporte);
         String nome = request.getParameter("txtNomePosicao");
-        Posicao posicao = new Posicao(idEsporte, id, nome);
+        Posicao posicao = new Posicao(esporte, nome);
         try {
             
             System.out.println("idEsporte: " + posicao.getIdPosicao());

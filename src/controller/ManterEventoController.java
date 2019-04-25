@@ -35,8 +35,8 @@ public class ManterEventoController extends HttpServlet {
             request.setAttribute("tiposEvento",TipoEvento.findAll());
             request.setAttribute("equipes",Equipe.findAll());
             if (!operacao.equals("Incluir")) {
-                Long idEvento = Long.parseLong(request.getParameter("idEvento"));
-                Evento evento = Evento.find(idEvento);
+                Long id = Long.parseLong(request.getParameter("id"));
+                Evento evento = Evento.find(id);
                 request.setAttribute("evento", evento);
             }
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEvento.jsp");
@@ -50,17 +50,19 @@ public class ManterEventoController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        int idEvento = Integer.parseInt(request.getParameter("txtIdEvento"));
-        String nomeEvento = request.getParameter("txtNomeEvento");
-        String descricaoEvento = request.getParameter("txtDescricaoEvento");
-        String dataEvento = request.getParameter("txtDataEvento");
-        String logradouroEvento = request.getParameter("txtLogradouroEvento");
-        Long idTipoEvento = Long.parseLong(request.getParameter("intIdTipoEvento"));
-        Long idEquipe = Long.parseLong(request.getParameter("intIdEquipe"));
+        if (!operacao.equals("Incluir")) {
+            Long id = Long.parseLong(request.getParameter("txtIdEvento"));
+        }
+        String nome = request.getParameter("txtNomeEvento");
+        String descricao = request.getParameter("txtDescricaoEvento");
+        String data = request.getParameter("txtDataEvento");
+        String logradouro = request.getParameter("txtLogradouroEvento");
+        Long tipoEvento = Long.parseLong(request.getParameter("intIdTipoEvento"));
+        Long equipe = Long.parseLong(request.getParameter("intIdEquipe"));
         
-       TipoEvento tipoEvento = TipoEventoDAO.getInstance().find(idTipoEvento);
-       Equipe equipe = EquipeDAO.getInstance().find(idEquipe);
-       Evento evento = new Evento (nomeEvento, descricaoEvento, dataEvento, logradouroEvento, tipoEvento, equipe);
+       TipoEvento tipoEventoo = TipoEventoDAO.getInstance().find(tipoEvento);
+       Equipe equipee = EquipeDAO.getInstance().find(equipe);
+       Evento evento = new Evento (nome, descricao, data, logradouro, tipoEventoo, equipee);
         if (operacao.equals("Incluir")) {
             evento.save();
         } else {

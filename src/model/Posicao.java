@@ -35,6 +35,10 @@ public class Posicao implements Serializable{
     public Posicao(Long idEsporte, Long id, String nome) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public Posicao(Long esporte, String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void save() {
         PosicaoDAO.getInstance().save(this);

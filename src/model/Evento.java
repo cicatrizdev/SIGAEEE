@@ -40,6 +40,10 @@ public class Evento implements Serializable{
         this.tipoEvento = tipoEvento;
         this.equipe = equipe;
     }
+
+    public Evento(String nome, String descricao, String data, String logradouro, Long tipoEvento, Long equipe) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
      public void save() {
         EventoDAO.getInstance().save(this);

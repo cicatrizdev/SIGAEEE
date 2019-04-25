@@ -17,10 +17,6 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import model.Esporte;
 
-/**
- *
- * @author Familia
- */
 public class ManterEsporteController extends HttpServlet {
 
     /**
@@ -51,8 +47,8 @@ public class ManterEsporteController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Long idEsporte = Long.parseLong(request.getParameter("idEsporte"));
-                request.setAttribute("esporte", Esporte.find(idEsporte));
+                Long id = Long.parseLong(request.getParameter("id"));
+                request.setAttribute("esporte", Esporte.find(id));
 
             }
 
@@ -68,10 +64,14 @@ public class ManterEsporteController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
-        Long id = parseLong(request.getParameter("intIdEsporte"));
+        
+        if (!operacao.equals("Incluir")) {
+            Long id = parseLong(request.getParameter("intIdEsporte"));
+        }
+        
         String nome = request.getParameter("txtNomeEsporte");
         try {
-            Esporte esporte = new Esporte(id,nome);
+            Esporte esporte = new Esporte(nome);
             switch (operacao) {
                 case "Incluir":
                     esporte.save();

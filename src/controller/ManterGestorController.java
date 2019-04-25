@@ -16,10 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Gestor;
 
-/**
- *
- * @author Familia
- */
 public class ManterGestorController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, IOException {
@@ -40,7 +36,7 @@ public class ManterGestorController extends HttpServlet {
             request.setAttribute("operacao", operacao);
             request.setAttribute("gestores", Gestor.findAll());
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("idGestor"));
+                Long id = Long.parseLong(request.getParameter("id"));
                 Gestor gestor = Gestor.find(id);
                 System.out.println(gestor.getNomeUsuario());
                 request.setAttribute("gestor", gestor);
@@ -56,12 +52,14 @@ public class ManterGestorController extends HttpServlet {
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
         String operacao = request.getParameter("operacao");
-        Long idGestor = Long.parseLong(request.getParameter("txtIdGestor"));
-        String nomeGestor = request.getParameter("txtNomeGestor");
-        String emaiGestor = request.getParameter("txtEmailGestor");
-        String senhaGestor = request.getParameter("txtSenhaGestor");
+        if (!operacao.equals("Incluir")) {
+            Long id = Long.parseLong(request.getParameter("txtIdGestor"));
+        }
+        String nome = request.getParameter("txtNomeGestor");
+        String emai = request.getParameter("txtEmailGestor");
+        String senha = request.getParameter("txtSenhaGestor");
         
-        Gestor gestor = new Gestor(idGestor, nomeGestor,emaiGestor, senhaGestor);
+        Gestor gestor = new Gestor(nome,emai, senha);
         System.out.println(gestor.getNomeUsuario());
         switch (operacao) {
             case "Incluir":
