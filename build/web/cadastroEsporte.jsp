@@ -40,11 +40,11 @@
                 <form action="ManterEsporteController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterEsporte">
                     <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                         <%--@declare id="nomeequipe"--%><label for="idEsporte">Id Esporte</label>
-                        <input type="text" class="form-control" id="idEsporte"  value="${esporte.getIdEsporte()}" name="intIdEsporte" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id" >
+                        <input type="text" class="form-control" id="idEsporte"  value="${esporte.getId()}" name="intIdEsporte" <c:if test="${operacao != 'Incluir'}"> readonly</c:if> placeholder="Id" >
                         </div>
                         <div class="form-group">
                         <%--@declare id="nomeequipe"--%><label for="nomeEsporte">Nome da Esporte</label>
-                        <input type="text" class="form-control" id="nome" required <c:if test="${operacao != 'Incluir'}"> value="${esporte.getNomeEsporte()}" </c:if> name = "txtNomeEsporte"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
+                        <input type="text" class="form-control" id="nome" required <c:if test="${operacao != 'Incluir'}"> value="${esporte.getNome()}" </c:if> name = "txtNomeEsporte"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
                         </div>
                         
                     <div>

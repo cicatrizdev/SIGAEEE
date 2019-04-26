@@ -50,10 +50,10 @@
     </tr>
     <c:forEach items="${posicoes}" var="posicao">
         <tr>
-            <td><c:out value="${posicao.getIdPosicao()}"/></td>
-            <td><c:out value="${posicao.getNomePosicao()}" /></td>
-            <td><a href="ManterPosicaoController?acao=prepararOperacao&operacao=Editar&idPosicao=<c:out value="${posicao.getIdPosicao()}"/>">Editar</a></td>
-            <td><a href="ManterPosicaoController?acao=prepararOperacao&operacao=Excluir&idPosicao=<c:out value="${posicao.getIdPosicao()}"/>">Excluir</a></td>
+            <td><c:out value="${posicao.getId()}"/></td>
+            <td><c:out value="${posicao.getNome()}" /></td>
+            <td><a href="ManterPosicaoController?acao=prepararOperacao&operacao=Editar&idPosicao=<c:out value="${posicao.getId()}"/>">Editar</a></td>
+            <td><a href="ManterPosicaoController?acao=prepararOperacao&operacao=Excluir&idPosicao=<c:out value="${posicao.getId()}"/>">Excluir</a></td>
         </tr>
     </c:forEach >
 </table>

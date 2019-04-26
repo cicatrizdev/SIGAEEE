@@ -30,6 +30,46 @@ public class Equipe implements Serializable{
     public Equipe () {
         
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Atleta getAtleta() {
+        return atleta;
+    }
+
+    public void setAtleta(Atleta atleta) {
+        this.atleta = atleta;
+    }
+
+    public Gestor getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(Gestor gestor) {
+        this.gestor = gestor;
+    }
+
+    public Esporte getEsporte() {
+        return esporte;
+    }
+
+    public void setEsporte(Esporte esporte) {
+        this.esporte = esporte;
+    }
     
     public Equipe(String nome, Atleta atleta, Gestor gestor, Esporte esporte){
         this.nome = nome;

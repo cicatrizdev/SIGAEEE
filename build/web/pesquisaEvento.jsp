@@ -44,10 +44,10 @@
     </tr>
     <c:forEach items="${eventos}" var="evento">
         <tr>
-            <td><c:out value="${evento.idEvento}"/></td>
-            <td><c:out value="${evento.nomeEvento}" /></td>
-            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Editar&idEvento=<c:out value="${evento.idEvento}"/>">Editar</a></td>
-            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Excluir&idEvento=<c:out value="${evento.idEvento}"/>">Excluir</a></td>
+            <td><c:out value="${evento.getId()}"/></td>
+            <td><c:out value="${evento.getNome()}" /></td>
+            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Editar&idEvento=<c:out value="${evento.getId()}"/>">Editar</a></td>
+            <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Excluir&idEvento=<c:out value="${evento.getId()}"/>">Excluir</a></td>
         </tr>
     </c:forEach >
 </table>
