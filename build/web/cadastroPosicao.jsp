@@ -58,18 +58,18 @@
                 <form action="ManterPosicaoController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterPosicao">
                     <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                             <label for="idPosicao">Id Posicao</label>
-                            <input type="text" class="form-control" id="idPosicao"  name="txtIdPosicao"<c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}">  value="${posicao.getId()}" readonly</c:if> placeholder="Id">
+                            <input type="text" class="form-control" id="idPosicao"  name="txtIdPosicao"<c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}">  value="${posicao.getIdPosicao()}" readonly</c:if> placeholder="Id">
                         </div>
                         <div class="form-group">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" value="${posicao.getNome()}" name="txtNomePosicao" <c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da posicao" required>
+                            <input type="text" class="form-control" id="nome" value="${posicao.getNomePosicao()}" name="txtNomePosicao" <c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da posicao" required>
                     </div>
                     <div class="form-group">
                         <label> Esporte</label>
                         <select class="form-control" name="txtIdEsporte" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>> 
                                 <option value="" disabled selected>Selecione o esporte</option>
                             <c:forEach items="${esportes}" var="esporte">
-                                <option value="${esporte.getId()}"<c:if test="${posicao.getId() == esporte.getId()}"> selected</c:if>>${esporte.getNome()}</option>  
+                                <option value="${esporte.getIdEsporte()}"<c:if test="${posicao.getIdEsporte() == esporte.getIdEsporte()}"> selected</c:if>>${esporte.getNomeEsporte()}</option>  
                             </c:forEach>
                         </select>
                     </div>

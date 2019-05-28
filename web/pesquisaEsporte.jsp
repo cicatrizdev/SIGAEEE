@@ -50,10 +50,10 @@
     </tr>
     <c:forEach items="${esportes}" var="esporte">
         <tr>
-            <td><c:out value="${esporte.getId()}"/></td>
-            <td><c:out value="${esporte.getNome()}" /></td>
-            <td><a href="ManterEsporteController?acao=prepararOperacao&operacao=Editar&idEsporte=<c:out value="${esporte.getId()}"/>">Editar</a></td>
-            <td><a href="ManterEsporteController?acao=prepararOperacao&operacao=Excluir&idEsporte=<c:out value="${esporte.getId()}"/>">Excluir</a></td>
+            <td><c:out value="${esporte.getIdEsporte()}"/></td>
+            <td><c:out value="${esporte.getNomeEsporte()}" /></td>
+            <td><a href="ManterEsporteController?acao=prepararOperacao&operacao=Editar&idEsporte=<c:out value="${esporte.getIdEsporte()}"/>">Editar</a></td>
+            <td><a href="ManterEsporteController?acao=prepararOperacao&operacao=Excluir&idEsporte=<c:out value="${esporte.getIdEsporte()}"/>">Excluir</a></td>
         </tr>
     </c:forEach >
 </table>
