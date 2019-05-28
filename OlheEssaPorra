@@ -1,0 +1,6 @@
+Pedido p = PedidoDao.getInstance().getPedidoById(idPedido);     // implementar de forma abstrata
+try {
+    Class classe = Class.forName("State.Pedido");
+    Object objeto = p;
+    Method metodo = classe.getMethod("set"+estado);
+    metodo.invoke(objeto);
