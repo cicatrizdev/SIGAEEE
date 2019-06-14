@@ -21,4 +21,16 @@ public abstract class CRUD {
 
         metodo.invoke(objeto);
     }
+
+    public static String returnMethod(String operacao) {
+        String metodo = null;
+        if (operacao.equals("Incluir")) {
+            metodo = "save";
+        } else if (operacao.equals("Editar")) {
+            metodo = "save";
+        } else if (operacao.equals("Excluir")) {
+            metodo = "remove";
+        }
+        return metodo;
+    }
 }

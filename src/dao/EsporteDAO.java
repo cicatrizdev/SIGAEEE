@@ -21,6 +21,7 @@ public class EsporteDAO {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            System.out.println(esporte.getIdEsporte());
             if(esporte.getIdEsporte() != null){
                 em.merge(esporte);
             }else{

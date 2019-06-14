@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import static java.lang.Long.parseLong;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import model.Esporte;
+import utils.CRUD;
 
 public class ManterEsporteController extends HttpServlet {
 
@@ -30,7 +32,7 @@ public class ManterEsporteController extends HttpServlet {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String acao = request.getParameter("acao");
 
         if (acao.equals("confirmarOperacao")) {
@@ -47,8 +49,10 @@ public class ManterEsporteController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("id"));
+                Long id = Long.parseLong(request.getParameter("idEsporte"));
                 request.setAttribute("esporte", Esporte.find(id));
+                Esporte esporte = Esporte.find(id);
+                System.out.println(esporte.getNomeEsporte() + "id: "+ esporte.getIdEsporte());
 
             }
 
@@ -62,29 +66,21 @@ public class ManterEsporteController extends HttpServlet {
 
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String operacao = request.getParameter("operacao");
-        
-        if (!operacao.equals("Incluir")) {
-            Long id = parseLong(request.getParameter("intIdEsporte"));
-        }
-        
         String nome = request.getParameter("txtNomeEsporte");
+        Long id = null;
+        if (!operacao.equals("Incluir")) {
+            id = parseLong(request.getParameter("intIdEsporte"));
+        }
+
+        
         try {
-            Esporte esporte = new Esporte(nome);
-            switch (operacao) {
-                case "Incluir":
-                    esporte.save();
-                    break;
-                case "Editar":
-                    esporte.save();
-                    break;
-                case "Excluir":
-                    esporte.remove();
-                    break;
-                default:
-                    break;
-            }
+            Esporte esporte = new Esporte(id, nome);
+            String metodo = CRUD.returnMethod(operacao);
+            System.out.println(metodo);
+            System.out.println(esporte.getNomeEsporte() + "  id: "+ esporte.getIdEsporte());
+            CRUD.InvokeMethod("Esporte", metodo, esporte);
             RequestDispatcher view = request.getRequestDispatcher("PesquisaEsporteController");
             view.forward(request, response);
         } catch (IOException e) {
@@ -106,9 +102,7 @@ public class ManterEsporteController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -126,9 +120,7 @@ public class ManterEsporteController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
