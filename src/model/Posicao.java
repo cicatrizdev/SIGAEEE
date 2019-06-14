@@ -71,4 +71,21 @@ public class Posicao implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Esporte getEsporte() {
+        return esporte;
+    }
+
+    public void setEsporte(Esporte esporte) {
+        this.esporte = esporte;
+    }
+    
 }
