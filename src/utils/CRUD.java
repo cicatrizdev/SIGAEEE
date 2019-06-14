@@ -12,12 +12,12 @@ import java.lang.reflect.Method;
  *
  * @author admin
  */
-public class CRUD {
+public abstract class CRUD {
 
-    public void CRUD(String nomeClasse, String operacao, Object p) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Class classe = Class.forName("State." + nomeClasse);
+    public static void CRUD(String nomeClasse, String operacao, Object p) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        Class classe = Class.forName("model." + nomeClasse);
         Object objeto = p;
-        Method metodo = classe.getMethod("set" + operacao);
+        Method metodo = classe.getMethod(operacao);
 
         metodo.invoke(objeto);
     }
