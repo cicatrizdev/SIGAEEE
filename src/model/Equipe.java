@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name="equipe")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -21,8 +22,6 @@ public class Equipe implements Serializable{
     private Long id;
     private String nome;
     @ManyToOne
-    private Atleta atleta;
-    @ManyToOne
     private Gestor gestor;
     @ManyToOne
     private Esporte esporte;
@@ -33,7 +32,6 @@ public class Equipe implements Serializable{
     
     public Equipe(String nome, Atleta atleta, Gestor gestor, Esporte esporte){
         this.nome = nome;
-        this.atleta = atleta;
         this.gestor = gestor;
         this.esporte = esporte;
     }
@@ -58,21 +56,38 @@ public class Equipe implements Serializable{
         return EquipeDAO.getInstance().findAll();
     }
 
-    public Long getIdEquipe() {
+    public Long getId() {
         return id;
     }
 
-    public void setIdEquipe(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNomeEquipe() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNomeEquipe(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public Gestor getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(Gestor gestor) {
+        this.gestor = gestor;
+    }
+
+    public Esporte getEsporte() {
+        return esporte;
+    }
+
+    public void setEsporte(Esporte esporte) {
+        this.esporte = esporte;
+    }
+
 
 }
 
