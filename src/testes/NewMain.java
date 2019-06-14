@@ -29,7 +29,7 @@ public class NewMain {
         equipe.setNome(nome);
         System.out.println(equipe.getNome());
         
-        CRUD.CRUD("Equipe","save",equipe);
+        CRUD.InvokeMethod("Equipe","save",equipe);
      
     }
     
