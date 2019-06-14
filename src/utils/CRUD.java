@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  */
 public abstract class CRUD {
 
-    public static void CRUD(String nomeClasse, String operacao, Object p) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public static void InvokeMethod(String nomeClasse, String operacao, Object p) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Class classe = Class.forName("model." + nomeClasse);
         Object objeto = p;
         Method metodo = classe.getMethod(operacao);
