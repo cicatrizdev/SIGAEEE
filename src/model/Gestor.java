@@ -51,5 +51,12 @@ public class Gestor extends Usuario implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    public Long getIdGestor() {
+        return id;
+    }
+
+    public void setIdGestor(Long id) {
+        this.id = id;
+    }
     
 }

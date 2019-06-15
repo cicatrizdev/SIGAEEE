@@ -21,7 +21,7 @@ public class EquipeDAO {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            if(equipe.getId() != null){
+            if(equipe.getIdEquipe() != null){
                 em.merge(equipe);
             }else{
             em.persist(equipe);
@@ -42,7 +42,7 @@ public class EquipeDAO {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.remove(em.getReference(Equipe.class, equipe.getId()));
+            em.remove(em.getReference(Equipe.class, equipe.getIdEquipe()));
             tx.commit();       
         } catch (Exception e) {
             if(tx != null && tx.isActive()){

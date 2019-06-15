@@ -26,8 +26,8 @@ public class NewMain {
         // TODO code application logic here
         Equipe equipe = new Equipe();
         String nome ="Cruzeiro";
-        equipe.setNome(nome);
-        System.out.println(equipe.getNome());
+        equipe.setNomeEquipe(nome);
+        System.out.println(equipe.getNomeEquipe());
         
         CRUD.InvokeMethod("Equipe","save",equipe);
      

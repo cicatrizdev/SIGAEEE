@@ -44,8 +44,8 @@
     </tr>
     <c:forEach items="${eventos}" var="evento">
         <tr>
-            <td><c:out value="${evento.idEvento}"/></td>
-            <td><c:out value="${evento.nomeEvento}" /></td>
+            <td><c:out value="${evento.getIdEvento()}"/></td>
+            <td><c:out value="${evento.getNomeEvento()}" /></td>
             <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Editar&idEvento=<c:out value="${evento.idEvento}"/>">Editar</a></td>
             <td><a href="ManterEventoController?acao=prepararOperacao&operacao=Excluir&idEvento=<c:out value="${evento.idEvento}"/>">Excluir</a></td>
         </tr>

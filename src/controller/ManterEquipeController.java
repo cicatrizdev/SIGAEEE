@@ -1,17 +1,19 @@
 package controller;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import model.Equipe;
 import model.Esporte;
+import model.Gestor;
+import utils.CRUD;
 
 public class ManterEquipeController extends HttpServlet {
 
@@ -19,7 +21,11 @@ public class ManterEquipeController extends HttpServlet {
         String acao = request.getParameter("acao");
 
         if (acao.equals("confirmarOperacao")) {
-            confirmarOperacao(request, response);
+            try {
+                confirmarOperacao(request, response);
+            } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(ManterEquipeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             if (acao.equals("prepararOperacao")) {
@@ -32,12 +38,13 @@ public class ManterEquipeController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("id"));
+                Long id = Long.parseLong(request.getParameter("idEquipe"));
                 request.setAttribute("equipe", Equipe.find(id));
             }
 
             request.setAttribute("operacao", operacao);
             request.setAttribute("esportes", Esporte.findAll());
+            request.setAttribute("gestores", Gestor.findAll());
             RequestDispatcher view = request.getRequestDispatcher("/cadastroEquipe.jsp");
             view.forward(request, response);
         } catch (IOException e) {
@@ -46,25 +53,30 @@ public class ManterEquipeController extends HttpServlet {
 
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String operacao = request.getParameter("operacao");
+        Long idGestor = Long.parseLong(request.getParameter("txtIdGestor"));
+        Long idEsporte = Long.parseLong(request.getParameter("txtIdEsporte"));
+        Long id = null;
+        String nome = null;
+        String logo = null;
+        String playbook = null;
+        Gestor gestor = null;
+        Esporte esporte = null;
         if (!operacao.equals("Incluir")) {
-        Long id = Long.parseLong(request.getParameter("txtIdEquipe"));
+            id = Long.parseLong(request.getParameter("txtIdEquipe"));
+            System.out.println(id);
         }
-        String nome = request.getParameter("txtNomeEquipe");
-        String logo = request.getParameter("txtLogoEquipe");
-        String playbook = request.getParameter("txtPlaybookEquipe");
-        Long gestor = Long.parseLong(request.getParameter("txtIdGestor"));
-        Long esporte = Long.parseLong(request.getParameter("txtIdEsporte"));
+        nome = request.getParameter("txtNomeEquipe");
+        logo = request.getParameter("txtLogoEquipe");
+        playbook = request.getParameter("txtPlaybookEquipe");
+        gestor = Gestor.find(idGestor);
+        esporte = Esporte.find(idEsporte);
         try {
-            Equipe equipe = new Equipe(nome, gestor, esporte);
-            if (operacao.equals("Incluir")) {
-                equipe.save();
-            }else if (operacao.equals("Editar")){
-                equipe.save();
-            }else if (operacao.equals("Excluir")){
-                equipe.remove();
-            }
+            Equipe equipe = new Equipe(id, nome, logo, playbook, gestor, esporte);
+            System.out.println("Id Equipe" + equipe.getIdEquipe());
+            String metodo = CRUD.returnMethod(operacao);
+            CRUD.InvokeMethod("Equipe", metodo, equipe);
             RequestDispatcher view = request.getRequestDispatcher("PesquisaEquipeController");
             view.forward(request, response);
         } catch (IOException e) {

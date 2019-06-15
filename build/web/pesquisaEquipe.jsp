@@ -16,10 +16,10 @@
     </tr>
     <c:forEach items="${equipes}" var="equipe">
         <tr>
-            <td><c:out value="${equipe.idEquipe}"/></td>
-            <td><c:out value="${equipe.nomeEquipe}" /></td>
-            <td><a href="ManterEquipeController?acao=prepararOperacao&operacao=Editar&idEquipe=<c:out value="${equipe.idEquipe}"/>">Editar</a></td>
-            <td><a href="ManterEquipeController?acao=prepararOperacao&operacao=Excluir&idEquipe=<c:out value="${equipe.idEquipe}"/>">Excluir</a></td>
+            <td><c:out value="${equipe.getId()}"/></td>
+            <td><c:out value="${equipe.getNome()}" /></td>
+            <td><a href="ManterEquipeController?acao=prepararOperacao&operacao=Editar&idEquipe=<c:out value="${equipe.getId()}"/>">Editar</a></td>
+            <td><a href="ManterEquipeController?acao=prepararOperacao&operacao=Excluir&idEquipe=<c:out value="${equipe.getId()}"/>">Excluir</a></td>
         </tr>
     </c:forEach >
 </table>

@@ -46,6 +46,15 @@
                         <%--@declare id="nomeequipe"--%><label for="nomeEquipe">Nome da Equipe</label>
                         <input type="text" class="form-control" id="nome" required <c:if test="${operacao != 'Incluir'}"> value="${equipe.getNomeEquipe()}" </c:if> name = "txtNomeEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da equipe">
                         </div>
+                              <div class="form-group">
+                        <label>Gestor</label>
+                        <select class="form-control" name="txtIdGestor" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>> 
+                            <option value="null" disabled selected>Selecione o Gestor</option>
+                                <c:forEach items="${gestores}" var="gestor">
+                                    <option value="${gestor.getIdGestor()}"<c:if test="${equipe.gestor.getIdGestor() == gestor.getIdGestor()}"> selected</c:if>>${gestor.getNomeUsuario()}</option>  
+                                </c:forEach>
+                            </select>
+                        </div>
                         <div class="form-group">
                         <%--@declare id="equipelogo"--%><label for="equipeLogo">Team Logo</label><br>
                         <input type="text" class="form-control" id="nome" required <c:if test="${operacao != 'Incluir'}"> value="${equipe.getLogo()}" </c:if> name = "txtLogoEquipe"<c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira a url da logo">              
@@ -64,7 +73,7 @@
                         <select class="form-control" name="txtIdEsporte" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>> 
                             <option value="" disabled selected>Selecione o esporte</option>
                                 <c:forEach items="${esportes}" var="esporte">
-                                    <option value="${esporte.getIdEsporte()}"<c:if test="${equipe.getIdEsporte() == esporte.getIdEsporte()}"> selected</c:if>>${esporte.getNomeEsporte()}</option>  
+                                    <option value="${esporte.getIdEsporte()}"<c:if test="${equipe.esporte.getIdEsporte() == esporte.getIdEsporte()}"> selected</c:if>>${esporte.getNomeEsporte()}</option>  
                                 </c:forEach>
                             </select>
                         </div>
