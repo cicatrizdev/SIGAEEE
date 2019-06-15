@@ -47,7 +47,7 @@
             <a href="PesquisaEventoController" class="list-group-item list-group-item-action">Mostrar Eventos</a>
             <a href="PesquisaEsporteController" class="list-group-item list-group-item-action">Mostrar Esportes</a>
             <a href="PesquisaPosicaoController" class="list-group-item list-group-item-action">Mostrar Posições</a>
-            <a href="PesquisaTipoEventoController" class="list-group-item list-group-item-action">Mostrar Tipo de Eventos</a>
+            <a href="PesquisaTipoEvento" class="list-group-item list-group-item-action">Mostrar Tipo de Eventos</a>
         </div>
     </div>
 </section>

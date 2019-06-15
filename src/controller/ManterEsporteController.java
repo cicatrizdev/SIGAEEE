@@ -51,9 +51,6 @@ public class ManterEsporteController extends HttpServlet {
             if (!operacao.equals("Incluir")) {
                 Long id = Long.parseLong(request.getParameter("idEsporte"));
                 request.setAttribute("esporte", Esporte.find(id));
-                Esporte esporte = Esporte.find(id);
-                System.out.println(esporte.getNomeEsporte() + "id: "+ esporte.getIdEsporte());
-
             }
 
             request.setAttribute("operacao", operacao);
@@ -74,12 +71,9 @@ public class ManterEsporteController extends HttpServlet {
             id = parseLong(request.getParameter("intIdEsporte"));
         }
 
-        
         try {
             Esporte esporte = new Esporte(id, nome);
             String metodo = CRUD.returnMethod(operacao);
-            System.out.println(metodo);
-            System.out.println(esporte.getNomeEsporte() + "  id: "+ esporte.getIdEsporte());
             CRUD.InvokeMethod("Esporte", metodo, esporte);
             RequestDispatcher view = request.getRequestDispatcher("PesquisaEsporteController");
             view.forward(request, response);
