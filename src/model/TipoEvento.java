@@ -24,8 +24,9 @@ public class TipoEvento implements Serializable{
         
     }
     
-    public TipoEvento(Long id){
-        this.id = id;
+    public TipoEvento(Long id, String nome){
+        this.setIdTipoEvento(id);
+        this.setNomeTipoEvento(nome);
     }
     
     public void save() {

@@ -52,6 +52,14 @@
         <servlet-name>ManterPosicaoController</servlet-name>
         <servlet-class>controller.ManterPosicaoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PesquisaTipoEvento</servlet-name>
+        <servlet-class>controller.PesquisaTipoEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterTipoEventoController</servlet-name>
+        <servlet-class>controller.ManterTipoEventoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
@@ -144,11 +152,19 @@
         <servlet-name>ManterPosicaoController</servlet-name>
         <url-pattern>/ManterPosicaoController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaTipoEvento</servlet-name>
+        <url-pattern>/PesquisaTipoEvento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterTipoEventoController</servlet-name>
+        <url-pattern>/ManterTipoEventoController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
-    </session-config>	
+    </session-config>
     <resource-ref>
         <description>JDBC Connection Pool</description>
         <res-ref-name>jdbc/SIGAEEEPU</res-ref-name>
