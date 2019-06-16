@@ -1,8 +1,7 @@
 package controller;
 
-import dao.EquipeDAO;
-import dao.TipoEventoDAO;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,10 +13,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Equipe;
 import model.TipoEvento;
+import utils.CRUD;
 
 public class ManterEventoController extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String acao = request.getParameter("acao");
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
@@ -32,10 +33,10 @@ public class ManterEventoController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("tiposEvento",TipoEvento.findAll());
-            request.setAttribute("equipes",Equipe.findAll());
+            request.setAttribute("tiposEvento", TipoEvento.findAll());
+            request.setAttribute("equipes", Equipe.findAll());
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("id"));
+                Long id = Long.parseLong(request.getParameter("idEvento"));
                 Evento evento = Evento.find(id);
                 request.setAttribute("evento", evento);
             }
@@ -48,51 +49,68 @@ public class ManterEventoController extends HttpServlet {
         }
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String operacao = request.getParameter("operacao");
+        Long id = null;
+        String nome = null;
+        String descricao = null;
+        String data = null;
+        String logradouro = null;
+        Long idTipoEvento = Long.parseLong(request.getParameter("intIdTipoEvento"));
+        Long idEquipe = Long.parseLong(request.getParameter("intIdEquipe"));
         if (!operacao.equals("Incluir")) {
-            Long id = Long.parseLong(request.getParameter("txtIdEvento"));
+            id = Long.parseLong(request.getParameter("txtIdEvento"));
+            System.out.println("pegou" + id);
         }
-        String nome = request.getParameter("txtNomeEvento");
-        String descricao = request.getParameter("txtDescricaoEvento");
-        String data = request.getParameter("txtDataEvento");
-        String logradouro = request.getParameter("txtLogradouroEvento");
-        Long tipoEvento = Long.parseLong(request.getParameter("intIdTipoEvento"));
-        Long equipe = Long.parseLong(request.getParameter("intIdEquipe"));
-        
-       TipoEvento tipoEventoo = TipoEventoDAO.getInstance().find(tipoEvento);
-       Equipe equipee = EquipeDAO.getInstance().find(equipe);
-       Evento evento = new Evento (nome, descricao, data, logradouro, tipoEventoo, equipee);
-        if (operacao.equals("Incluir")) {
-            evento.save();
-        } else {
-            if (operacao.equals("Editar")) {
-                evento.save();
-            } else {
-                if (operacao.equals("Excluir")) {
-                   evento.remove();
-                }
-            }
-        } 
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaEventoController");
-            view.forward(request, response);
-        }
+        nome = request.getParameter("txtNomeEvento");
+        descricao = request.getParameter("txtDescricaoEvento");
+        data = request.getParameter("txtDataEvento");
+        logradouro = request.getParameter("txtLocalEvento");
+        System.out.println("pegou2" + logradouro);
+        TipoEvento tipoEvento = TipoEvento.find(idTipoEvento);
+        Equipe equipe = Equipe.find(idEquipe);
+
+        Evento evento = new Evento(id, nome, descricao, data, logradouro, tipoEvento, equipe);
+        System.out.println("pegou" + evento.getId());
+        System.out.println("pegou" + evento.getIdEvento());
+        String metodo = CRUD.returnMethod(operacao);
+
+        CRUD.InvokeMethod("Evento", metodo, evento);
+        RequestDispatcher view = request.getRequestDispatcher("PesquisaEventoController");
+        view.forward(request, response);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            try {
+                try {
+                    processRequest(request, response);
+                } catch (IllegalArgumentException | InvocationTargetException ex) {
+                    Logger.getLogger(ManterEventoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (NoSuchMethodException | IllegalAccessException ex) {
+                Logger.getLogger(ManterEventoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManterEventoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-            
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            try {
+                try {
+                    processRequest(request, response);
+                } catch (IllegalArgumentException | InvocationTargetException ex) {
+                    Logger.getLogger(ManterEventoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (NoSuchMethodException | IllegalAccessException ex) {
+                Logger.getLogger(ManterEventoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManterEventoController.class.getName()).log(Level.SEVERE, null, ex);
         }
