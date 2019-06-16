@@ -60,19 +60,16 @@ public class ManterEventoController extends HttpServlet {
         Long idEquipe = Long.parseLong(request.getParameter("intIdEquipe"));
         if (!operacao.equals("Incluir")) {
             id = Long.parseLong(request.getParameter("txtIdEvento"));
-            System.out.println("pegou" + id);
+
         }
         nome = request.getParameter("txtNomeEvento");
         descricao = request.getParameter("txtDescricaoEvento");
         data = request.getParameter("txtDataEvento");
         logradouro = request.getParameter("txtLocalEvento");
-        System.out.println("pegou2" + logradouro);
         TipoEvento tipoEvento = TipoEvento.find(idTipoEvento);
         Equipe equipe = Equipe.find(idEquipe);
 
         Evento evento = new Evento(id, nome, descricao, data, logradouro, tipoEvento, equipe);
-        System.out.println("pegou" + evento.getId());
-        System.out.println("pegou" + evento.getIdEvento());
         String metodo = CRUD.returnMethod(operacao);
 
         CRUD.InvokeMethod("Evento", metodo, evento);
