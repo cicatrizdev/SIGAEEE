@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Esporte;
 import model.Posicao;
+import utils.CRUD;
 
 public class ManterPosicaoController extends HttpServlet {
 
@@ -29,8 +31,11 @@ public class ManterPosicaoController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.NoSuchMethodException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String acao = request.getParameter("acao");
 
         if (acao.equals("confirmarOperacao")) {
@@ -47,7 +52,7 @@ public class ManterPosicaoController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("id"));
+                Long id = Long.parseLong(request.getParameter("idPosicao"));
                 request.setAttribute("posicao", Posicao.find(id));
 
             }
@@ -62,36 +67,21 @@ public class ManterPosicaoController extends HttpServlet {
 
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
         String operacao = request.getParameter("operacao");
+        Long id = null;
+        String nome = null;
+        Long idEsporte = Long.parseLong(request.getParameter("txtIdEsporte"));
         if (!operacao.equals("Incluir")) {
-            Long id = Long.parseLong(request.getParameter("txtIdPosicao"));
+            id = Long.parseLong(request.getParameter("txtIdPosicao"));
         }
-        Long esporte = Long.parseLong(request.getParameter("txtIdEsporte"));
-        System.out.println("id - " + esporte);
-        String nome = request.getParameter("txtNomePosicao");
-        Posicao posicao = new Posicao(esporte, nome);
-        try {
-            
-            System.out.println("idEsporte: " + posicao.getIdPosicao());
-            switch (operacao) {
-                case "Incluir":
-                    posicao.save();
-                    break;
-                case "Editar":
-                    posicao.save();
-                    break;
-                case "Excluir":
-                    posicao.remove();
-                    break;
-                default:
-                    break;
-            }
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaPosicaoController");
-            view.forward(request, response);
-        } catch (IOException e) {
-            throw new ServletException(e);
-        }
+        Esporte esporte = Esporte.find(idEsporte);
+        nome = request.getParameter("txtNomePosicao");
+        Posicao posicao = new Posicao(id, nome, esporte);
+        String metodo = CRUD.returnMethod(operacao);
+        CRUD.InvokeMethod("Posicao", metodo, posicao);
+        RequestDispatcher view = request.getRequestDispatcher("PesquisaPosicaoController");
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -107,10 +97,12 @@ public class ManterPosicaoController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            try {
+                processRequest(request, response);
+            } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(ManterPosicaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -128,10 +120,10 @@ public class ManterPosicaoController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterEsporteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(ManterPosicaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -9,25 +9,7 @@
         <link rel="stylesheet" href="/css/bootstrap.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">"
         <title>SIGAEE- Cadastro de Posicao - ${operacao}</title>
-        <script type="text/javascript">
-            function validar(){
-                var nome = fmrPosicao.txtNomePosicao.value;
-                var idPosicao = fmrPosicao.txtIdPosicao.value;
-                                
-                if(txtNomePosicao == ""){
-                    alert('Preencha o campo nome.');
-                    fmrPosicao.nome.focus();
-                    return false;
-                }
-                
-                if(senha == "" ){
-                    alert('Preencha o campo id da Posicao');
-                    fmrPosicao.idPosicao.focus();
-                    return false;
-                }
-            }
-        </script>
-    
+
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -58,18 +40,18 @@
                 <form action="ManterPosicaoController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="frmManterPosicao">
                     <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                             <label for="idPosicao">Id Posicao</label>
-                            <input type="text" class="form-control" id="idPosicao"  name="txtIdPosicao"<c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}">  value="${posicao.getIdPosicao()}" readonly</c:if> placeholder="Id">
+                            <input type="text" class="form-control" id="idPosicao"  name="txtIdPosicao"<c:if test="${operacao == 'Incluir'}"> value ="" </c:if> <c:if test="${operacao != 'Incluir'}">  value="${posicao.getIdPosicao()}" readonly</c:if> placeholder="Id">
                         </div>
                         <div class="form-group">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" value="${posicao.getNomePosicao()}" name="txtNomePosicao" <c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da posicao" required>
-                    </div>
-                    <div class="form-group">
-                        <label> Esporte</label>
-                        <select class="form-control" name="txtIdEsporte" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>> 
+                                <input type="text" class="form-control" id="nome" value="${posicao.getNomePosicao()}" name="txtNomePosicao" <c:if test="${operacao == 'Excluir'}"> readonly</c:if> placeholder="Insira o nome da posicao" required>
+                        </div>
+                        <div class="form-group">
+                            <label> Esporte</label>
+                            <select class="form-control" name="txtIdEsporte" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>> 
                                 <option value="" disabled selected>Selecione o esporte</option>
                             <c:forEach items="${esportes}" var="esporte">
-                                <option value="${esporte.getIdEsporte()}"<c:if test="${posicao.getIdEsporte() == esporte.getIdEsporte()}"> selected</c:if>>${esporte.getNomeEsporte()}</option>  
+                                <option value="${esporte.getIdEsporte()}"<c:if test="${posicao.esporte.getIdEsporte() == esporte.getIdEsporte()}"> selected</c:if>>${esporte.getNomeEsporte()}</option>  
                             </c:forEach>
                         </select>
                     </div>
