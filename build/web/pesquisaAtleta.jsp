@@ -44,10 +44,10 @@
                 </tr>
                 <c:forEach items="${atletas}" var="atleta">
                     <tr>
-                        <td><c:out value="${atleta.idAtleta}"/></td>
-                        <td><c:out value="${atleta.nomeUsuario}" /></td>
-                        <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Editar&idAtleta=<c:out value="${atleta.idAtleta}"/>">Editar</a></td>
-                        <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Excluir&idAtleta=<c:out value="${atleta.idAtleta}"/>">Excluir</a></td>
+                        <td><c:out value="${atleta.getIdUsuario()}"/></td>
+                        <td><c:out value="${atleta.getNomeUsuario()}" /></td>
+                        <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Editar&idAtleta=<c:out value="${atleta.getIdUsuario()}"/>">Editar</a></td>
+                        <td><a href="ManterAtletaController?acao=prepararOperacao&operacao=Excluir&idAtleta=<c:out value="${atleta.getIdUsuario()}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach >
             </table>

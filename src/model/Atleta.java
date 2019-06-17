@@ -4,9 +4,6 @@ import dao.AtletaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "atleta")
@@ -25,12 +22,14 @@ public class Atleta extends Usuario implements Serializable {
 
     }
 
-    public Atleta(float peso, float altura, String dataNascimento, String nome, String email, String senha) {
-        super(nome, email, senha);
+    public Atleta(Long id,float peso, float altura, String dataNascimento, String nome, String email, String senha, Equipe equipe, Posicao posicao) {
+        super(id, nome, email, senha);
         this.peso = peso;
         this.altura = altura;
         this.dataNascimento = dataNascimento;
-    }
+        this.setEquipe(equipe);
+        this.setPosicao(posicao);
+    }   
 
     public void save() {
         AtletaDAO.getInstance().save(this);

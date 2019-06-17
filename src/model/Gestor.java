@@ -38,6 +38,8 @@ public class Gestor extends Usuario implements Serializable {
     public static List<Gestor> findAll() {
         return GestorDAO.getInstance().findAll();
     }
-
+public Long getIdGestor(){
+    return this.getIdUsuario();
+}
    
 }
