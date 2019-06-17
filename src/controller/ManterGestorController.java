@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,10 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Gestor;
+import utils.CRUD;
 
 public class ManterGestorController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, IOException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String acao = request.getParameter("acao");
         String operacao = request.getParameter("operacao");
         request.setAttribute("operacao", operacao);
@@ -36,10 +38,8 @@ public class ManterGestorController extends HttpServlet {
             request.setAttribute("operacao", operacao);
             request.setAttribute("gestores", Gestor.findAll());
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("id"));
-                Gestor gestor = Gestor.find(id);
-                System.out.println(gestor.getNomeUsuario());
-                request.setAttribute("gestor", gestor);
+                Long id = Long.parseLong(request.getParameter("idGestor"));
+                request.setAttribute("gestor", Gestor.find(id));
             }
             RequestDispatcher view = request.getRequestDispatcher("/cadastroGestor.jsp");
             view.forward(request, response);
@@ -50,54 +50,40 @@ public class ManterGestorController extends HttpServlet {
         }
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String operacao = request.getParameter("operacao");
+        Long id = null;
+        String nome = null;
+        String email = null;
+        String senha = null;
         if (!operacao.equals("Incluir")) {
-            Long id = Long.parseLong(request.getParameter("txtIdGestor"));
+            id = Long.parseLong(request.getParameter("txtIdGestor"));
         }
-        String nome = request.getParameter("txtNomeGestor");
-        String emai = request.getParameter("txtEmailGestor");
-        String senha = request.getParameter("txtSenhaGestor");
-        
-        Gestor gestor = new Gestor(nome,emai, senha);
-        System.out.println(gestor.getNomeUsuario());
-        switch (operacao) {
-            case "Incluir":
-           
-               gestor.save();
-           break;
-            case "Editar":
-                
-             gestor.save();
-            break;
-            case "Excluir":
-                gestor.remove();
-                break;
-            default:
-                break;
-        }
+        nome = request.getParameter("txtNomeGestor");
+        email = request.getParameter("txtEmailGestor");
+        senha = request.getParameter("txtSenhaGestor");
+
+        Gestor gestor = new Gestor(id, nome, email, senha);
+        String metodo = CRUD.returnMethod(operacao);
+        CRUD.InvokeMethod("Gestor", metodo, gestor);
         request.getRequestDispatcher("PesquisaGestorController").forward(request, response);
     }
 
-
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManterGestorController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ManterGestorController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -111,13 +97,11 @@ public class ManterGestorController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManterGestorController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ManterGestorController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -128,7 +112,7 @@ public class ManterGestorController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

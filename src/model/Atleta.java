@@ -12,10 +12,6 @@ import javax.persistence.ManyToOne;
 @Entity(name = "atleta")
 public class Atleta extends Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private float peso;
     private float altura;
     private String dataNascimento;
@@ -50,14 +46,6 @@ public class Atleta extends Usuario implements Serializable {
 
     public static List<Atleta> findAll() {
         return AtletaDAO.getInstance().findAll();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public float getPeso() {

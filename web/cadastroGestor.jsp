@@ -16,23 +16,21 @@
             var email = fmrGestor.txtEmailGestor.value;
             var senha = fmrGestor.txtSenhaGestor.value;
             
-            if(txtNomeGestor == ""){
+            if(nome  === ""){
                 alert('Preencha o campo nome.');
                 fmrGestor.txtNomeGestor.focus();
                 return false;
-            }
-            
-            if(txtEmailGestor == "" || txtEmailGestor.indexOf('@') == -1 ){
-                alert('Preencha o campo E-mail.');
+            } else if(email === "" || email.indexOf('@') === -1 ){
+                alert('Preencha o campo E-mail corretamente.');
                 fmrGestor.txtEmailGestor.focus();
                 return false;
-            }
-            
-            if(senha == "" || senha.length <= 5){
+            }else if(senha === "" || senha.length <= 5){
                 alert('Preencha o campo senha com minimo 6 caracteres');
                 fmrGestor.senha.focus();
                 return false;
-            }
+            }else{
+             return true;
+         }
         }
     </script>
 </head>
@@ -69,7 +67,7 @@
         <form action="ManterGestorController?acao=confirmarOperacao&operacao=${operacao}" method="post" name="fmrGestor">
                      <div class="form-group" <c:if test="${operacao == 'Incluir'}"> style="display:none" </c:if>>
                         <label for="idEvento">Id Evento</label>
-                        <input type="text" class="form-control" id="idGestor" name="txtIdGestor" <c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}"> value="${gestor.getIdGestor()}"  readonly</c:if> placeholder="Id">
+                        <input type="text" class="form-control" id="idGestor" name="txtIdGestor" <c:if test="${operacao == 'Incluir'}"> value ="0" </c:if> <c:if test="${operacao != 'Incluir'}"> value="${gestor.getIdUsuario()}"  readonly</c:if> placeholder="Id">
                     </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
@@ -84,7 +82,7 @@
                 <input type="password" class="form-control"name="txtSenhaGestor" required value="${gestor.getSenha()}" placeholder="Password">
             </div>
             <div>
-                <input type="submit" class="btn bg-dark text-white" onclick="return validar()" value="${operacao}"/>
+                <input type="submit" class="btn bg-dark text-white" value="${operacao}"/>
             </div>
         </form>
     </div>

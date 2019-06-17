@@ -50,10 +50,10 @@
     </tr>
     <c:forEach items="${gestores}" var="gestor">
         <tr>
-            <td><c:out value="${gestor.getIdGestor()}"/></td>
+            <td><c:out value="${gestor.getIdUsuario()}"/></td>
             <td><c:out value="${gestor.getNomeUsuario()}" /></td>
-            <td><a href="ManterGestorController?acao=prepararOperacao&operacao=Editar&idGestor=<c:out value="${gestor.getIdGestor()}"/>">Editar</a></td>
-            <td><a href="ManterGestorController?acao=prepararOperacao&operacao=Excluir&idGestor=<c:out value="${gestor.getIdGestor()}"/>">Excluir</a></td>
+            <td><a href="ManterGestorController?acao=prepararOperacao&operacao=Editar&idGestor=<c:out value="${gestor.getIdUsuario()}"/>">Editar</a></td>
+            <td><a href="ManterGestorController?acao=prepararOperacao&operacao=Excluir&idGestor=<c:out value="${gestor.getIdUsuario()}"/>">Excluir</a></td>
         </tr>
     </c:forEach >
 </table>

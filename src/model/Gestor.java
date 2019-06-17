@@ -11,11 +11,6 @@ import javax.persistence.Id;
 @Entity(name = "gestor")
 public class Gestor extends Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     public Gestor() {
 
     }
@@ -25,7 +20,7 @@ public class Gestor extends Usuario implements Serializable {
     }
 
     public Gestor(Long idGestor, String nomeGestor, String emaiGestor, String senhaGestor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(idGestor, nomeGestor, emaiGestor, senhaGestor);
     }
 
     public void save() {
@@ -44,19 +39,5 @@ public class Gestor extends Usuario implements Serializable {
         return GestorDAO.getInstance().findAll();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getIdGestor() {
-        return id;
-    }
-
-    public void setIdGestor(Long id) {
-        this.id = id;
-    }
-    
+   
 }
