@@ -32,12 +32,16 @@ public class Posicao implements Serializable{
         this.esporte = esporte;
     }
 
-    public Posicao(Long idEsporte, Long id, String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Posicao(Long id, String nome, Esporte esporte) {
+        this.setId(id);
+        this.setNome(nome);
+        this.setEsporte(esporte);
     }
 
-    public Posicao(Long esporte, String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Posicao(Long idEsporte, String nome) {
+        this.setNome(nome);
+        Esporte esporte = Esporte.find(idEsporte);
+        this.setEsporte(esporte);
     }
     
     public void save() {
@@ -60,7 +64,7 @@ public class Posicao implements Serializable{
         return id;
     }
     
-    public void setIdPosica(Long id){
+    public void setIdPosicao(Long id){
         this.id = id;
     }
     
@@ -71,4 +75,28 @@ public class Posicao implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
+    public String getNomePosicao() {
+        return nome;
+    }
+
+    public void setNomePosicao(String nome) {
+        this.nome = nome;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Esporte getEsporte() {
+        return esporte;
+    }
+
+    public void setEsporte(Esporte esporte) {
+        this.esporte = esporte;
+    }
+    
 }

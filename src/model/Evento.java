@@ -41,8 +41,14 @@ public class Evento implements Serializable{
         this.equipe = equipe;
     }
 
-    public Evento(String nome, String descricao, String data, String logradouro, Long tipoEvento, Long equipe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Evento(Long id, String nome, String descricao, String data, String logradouro, TipoEvento tipoEvento, Equipe equipe) {
+        this.setId(id);
+        this.setNome(nome);
+        this.setDescricao(descricao);
+        this.setData(data);
+        this.setLocal(logradouro);
+        this.setTipoEvento(tipoEvento);
+        this.setEquipe(equipe);
     }
     
      public void save() {
@@ -98,6 +104,62 @@ public class Evento implements Serializable{
 
     public void setDataEvento(String data) {
         this.data = data;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public TipoEvento getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(TipoEvento tipoEvento) {
+        this.tipoEvento = tipoEvento;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
     }
 
 }

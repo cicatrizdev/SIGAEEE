@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 import static java.lang.Float.parseFloat;
-import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Atleta;
 import model.Equipe;
-import model.Gestor;
 import model.Posicao;
+import utils.CRUD;
 
 @WebServlet(name = "ManterAtletaController", urlPatterns = "/ManterAtletaController")
 public class ManterAtletaController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException, IOException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String acao = request.getParameter("acao");
         String operacao = request.getParameter("operacao");
         request.setAttribute("operacao", operacao);
@@ -30,7 +30,7 @@ public class ManterAtletaController extends HttpServlet {
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
         } else if (acao.equals("prepararOperacao")) {
-        System.out.println("AQUI2");
+            System.out.println("AQUI2");
             prepararOperacao(request, response);
         }
     }
@@ -40,9 +40,8 @@ public class ManterAtletaController extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
-                Long id = Long.parseLong(request.getParameter("id"));
-                Atleta atleta = Atleta.find(Long.parseLong(request.getParameter("id")));
-                request.setAttribute("atleta", atleta);
+                Long id = Long.parseLong(request.getParameter("idAtleta"));
+                request.setAttribute("atleta", Atleta.find(id));
             }
             request.setAttribute("posicoes", Posicao.findAll());
             request.setAttribute("equipes", Equipe.findAll());
@@ -55,34 +54,35 @@ public class ManterAtletaController extends HttpServlet {
         }
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException, SQLException, IOException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         String operacao = request.getParameter("operacao");
-        String nome = request.getParameter("txtNomeAtleta");
+        Long id = null;
+        String nome = null;
+        String email = null;
+        String senha = null;
+        String data = null;
+        float altura = 0;
+        float peso = 0;
+        Long idEquipe = null;
+        Long idPosicao = null;
         if (!operacao.equals("Incluir")) {
-            Long id = parseLong(request.getParameter("txtIdAtleta"));
-            Long equipe = parseLong(request.getParameter("intIdEquipe"));
-            Long posicao = parseLong(request.getParameter("intIdPosicao"));
+            id = parseLong(request.getParameter("txtIdAtleta"));
         }
-        String email = request.getParameter("txtEmailAtleta");
-        String senha = request.getParameter("txtSenhaAtleta");
-        String data = request.getParameter("txtDataNascimentoAtleta");
-        float altura = parseFloat(request.getParameter("txtAlturaAtleta"));
-        float peso = parseFloat(request.getParameter("txtPesoAtleta"));
-        Atleta atleta = new Atleta(peso, altura, data, nome, email, senha);
-        switch (operacao) {
-            case "Incluir":
-                atleta.save();
-                break;
-            case "Editar":
-                atleta.save();
-                break;
-            case "Excluir":
-                System.out.println("Excluir"+atleta.getIdUsuario());
-                atleta.remove();
-                break;
-            default:
-                break;
-        }
+
+        nome = request.getParameter("txtNomeAtleta");
+        email = request.getParameter("txtEmailAtleta");
+        senha = request.getParameter("txtSenhaAtleta");
+        data = request.getParameter("txtDataNascimentoAtleta");
+        altura = parseFloat(request.getParameter("txtAlturaAtleta"));
+        peso = parseFloat(request.getParameter("txtPesoAtleta"));
+        idEquipe = parseLong(request.getParameter("txtIdEquipe"));
+        idPosicao = parseLong(request.getParameter("txtIdPosicao"));
+        Equipe equipe = Equipe.find(idEquipe);
+        Posicao posicao = Posicao.find(idPosicao);
+
+        Atleta atleta = new Atleta(id, peso, altura, data, nome, email, senha, equipe, posicao);
+        String metodo = CRUD.returnMethod(operacao);
+        CRUD.InvokeMethod("Atleta", metodo, atleta);
         request.getRequestDispatcher("PesquisaAtletaController").forward(request, response);
     }
 
@@ -100,10 +100,10 @@ public class ManterAtletaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManterEquipeController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterEquipeController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(ManterAtletaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -121,10 +121,10 @@ public class ManterAtletaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManterEquipeController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterEquipeController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(ManterAtletaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

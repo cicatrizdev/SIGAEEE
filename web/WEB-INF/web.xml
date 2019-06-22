@@ -52,6 +52,70 @@
         <servlet-name>ManterPosicaoController</servlet-name>
         <servlet-class>controller.ManterPosicaoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PesquisaTipoEvento</servlet-name>
+        <servlet-class>controller.PesquisaTipoEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterTipoEventoController</servlet-name>
+        <servlet-class>controller.ManterTipoEventoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportAtletaParametro</servlet-name>
+        <servlet-class>relatorio.ReportAtletaParametro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportAtletaController</servlet-name>
+        <servlet-class>ReportAtletaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportEquipeParametro</servlet-name>
+        <servlet-class>relatorio.ReportEquipeParametro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportEquipeController</servlet-name>
+        <servlet-class>relatorio.ReportEquipe</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportEsporteParametro</servlet-name>
+        <servlet-class>relatorio.ReportEsporteParametro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportEsporteController</servlet-name>
+        <servlet-class>relatorio.ReportEsporte</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportEventoController</servlet-name>
+        <servlet-class>relatorio.ReportEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportEventoParametro</servlet-name>
+        <servlet-class>relatorio.ReportEventoParametro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportGestorController</servlet-name>
+        <servlet-class>relatorio.ReportGestor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportGestorParametro</servlet-name>
+        <servlet-class>relatorio.ReportGestorParametro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportPosicaoController</servlet-name>
+        <servlet-class>relatorio.ReportPosicao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportPosicaoParametro</servlet-name>
+        <servlet-class>relatorio.ReportPosicaoParametro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportTipoEventoController</servlet-name>
+        <servlet-class>relatorio.ReportTipoEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportTipoEventoParametro</servlet-name>
+        <servlet-class>relatorio.ReportTipoEventoParametro</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PesquisaEquipeController</servlet-name>
         <url-pattern>/PesquisaEquipeController</url-pattern>
@@ -144,11 +208,75 @@
         <servlet-name>ManterPosicaoController</servlet-name>
         <url-pattern>/ManterPosicaoController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaTipoEvento</servlet-name>
+        <url-pattern>/PesquisaTipoEvento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterTipoEventoController</servlet-name>
+        <url-pattern>/ManterTipoEventoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportAtletaParametro</servlet-name>
+        <url-pattern>/ReportAtletaParametro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportAtletaController</servlet-name>
+        <url-pattern>/ReportAtletaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportEquipeParametro</servlet-name>
+        <url-pattern>/ReportEquipeParametro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportEquipeController</servlet-name>
+        <url-pattern>/ReportEquipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportEsporteParametro</servlet-name>
+        <url-pattern>/ReportEsporteParametro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportEsporteController</servlet-name>
+        <url-pattern>/ReportEsporteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportEventoController</servlet-name>
+        <url-pattern>/ReportEventoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportEventoParametro</servlet-name>
+        <url-pattern>/ReportEventoParametro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportGestorController</servlet-name>
+        <url-pattern>/ReportGestorController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportGestorParametro</servlet-name>
+        <url-pattern>/ReportGestorParametro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportPosicaoController</servlet-name>
+        <url-pattern>/ReportPosicaoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportPosicaoParametro</servlet-name>
+        <url-pattern>/ReportPosicaoParametro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportTipoEventoController</servlet-name>
+        <url-pattern>/ReportTipoEventoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportTipoEventoParametro</servlet-name>
+        <url-pattern>/ReportTipoEventoParametro</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
-    </session-config>	
+    </session-config>
     <resource-ref>
         <description>JDBC Connection Pool</description>
         <res-ref-name>jdbc/SIGAEEEPU</res-ref-name>

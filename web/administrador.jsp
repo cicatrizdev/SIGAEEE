@@ -41,13 +41,49 @@
     <div class="container">
         <h1>Painel Administrativo</h1>
         <div class="list-group">
+            
             <a href="PesquisaAtletaController" class="list-group-item list-group-item-action">Mostrar Atletas</a>
-            <a href="PesquisaGestorController" class="list-group-item list-group-item-action">Mostrar Gestores</a>
-            <a href="PesquisaEquipeController" class="list-group-item list-group-item-action">Mostrar Equipes</a>
-            <a href="PesquisaEventoController" class="list-group-item list-group-item-action">Mostrar Eventos</a>
-            <a href="PesquisaEsporteController" class="list-group-item list-group-item-action">Mostrar Esportes</a>
-            <a href="PesquisaPosicaoController" class="list-group-item list-group-item-action">Mostrar Posições</a>
-            <a href="PesquisaTipoEventoController" class="list-group-item list-group-item-action">Mostrar Tipo de Eventos</a>
+            <label>
+            <form action = "ReportAtleta" method = "post">
+                <input type="submit" name ="btnReport" class="btn btn-primary" value="Relatório Atleta">
+            </form>
+            </label>
+            <a href="PesquisaGestor" class="list-group-item list-group-item-action">Mostrar Gestores</a>
+            <label>
+            <form action = "ReportGestor" method = "post">
+                <input type="submit" name ="btnReport" class="btn btn-primary" value="Relatório Gestores">
+            </form>
+            </label>
+            
+            <a href="PesquisaEquipe" class="list-group-item list-group-item-action">Mostrar Equipes</a>
+            <label>
+            <form action = "ReportEquipe" method = "post">
+                <input type="submit" name ="btnReport" class="btn btn-primary" value="Relatório Equipes">
+            </form>
+            </label>
+            
+            <a href="PesquisaEvento" class="list-group-item list-group-item-action">Mostrar Eventos</a>
+            <label>
+            <form action = "ReportEvento" method = "post">
+                <input type="submit" name ="btnReport" class="btn btn-primary" value="Relatório Evento">
+            </form>
+            </label>
+            
+            <a href="PesquisaEsporte" class="list-group-item list-group-item-action">Mostrar Esportes</a>
+            <label>
+            <form action = "ReportEsporte" method = "post">
+                <input type="submit" name ="btnReport" class="btn btn-primary" value="Relatório Esportes">
+            </form>
+            </label>
+            
+            <a href="PesquisaPosicao" class="list-group-item list-group-item-action">Mostrar Posições</a>
+            <label>
+            <form action = "ReportPosicao" method = "post">
+                <input type="submit" name ="btnReport" class="btn btn-primary" value="Relatório Posicao">
+            </form>
+            </label>
+            
+            <a href="PesquisaTipoEvento" class="list-group-item list-group-item-action">Mostrar Tipo de Eventos</a>
         </div>
     </div>
 </section>
