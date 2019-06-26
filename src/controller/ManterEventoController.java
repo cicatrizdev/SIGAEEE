@@ -29,7 +29,7 @@ public class ManterEventoController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, ClassNotFoundException {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);

@@ -1,6 +1,6 @@
 package model;
 
-import dao.EsporteDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -34,23 +34,23 @@ public class Esporte implements Serializable{
     }
 
     public Esporte(String nome) {
-        setNomeEsporte(nome); //To change body of generated methods, choose Tools | Templates.
+        setNomeEsporte(nome);
     }
     
-    public void save() {
-        EsporteDAO.getInstance().save(this);
+    public void save() throws NoSuchMethodException {
+        DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        EsporteDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
 
-    public static Esporte find(Long id) {
-        return EsporteDAO.getInstance().find(id);
+    public static Esporte find(Long id) throws ClassNotFoundException {
+        return (Esporte) DAO.getInstance().find(id);
     }
 
-    public static List<Esporte> findAll() {
-        return EsporteDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException {
+        return DAO.getInstance().findAll();
     }
 
     public Long getIdEsporte() {

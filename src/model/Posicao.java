@@ -1,6 +1,6 @@
 package model;
 
-import dao.PosicaoDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -38,26 +38,26 @@ public class Posicao implements Serializable{
         this.setEsporte(esporte);
     }
 
-    public Posicao(Long idEsporte, String nome) {
+    public Posicao(Long idEsporte, String nome) throws ClassNotFoundException {
         this.setNome(nome);
         Esporte esporte = Esporte.find(idEsporte);
         this.setEsporte(esporte);
     }
     
-    public void save() {
-        PosicaoDAO.getInstance().save(this);
+    public void save() throws NoSuchMethodException {
+        DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        PosicaoDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
     
-    public static Posicao find(Long id){
-        return PosicaoDAO.getInstance().find(id);
+    public static Posicao find(Long id) throws ClassNotFoundException{
+        return (Posicao) DAO.getInstance().find(id);
     }
     
-    public static List<Posicao> findAll(){
-        return PosicaoDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException{
+        return DAO.getInstance().findAll();
     } 
     
     public Long getIdPosicao(){

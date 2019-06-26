@@ -1,6 +1,6 @@
 package model;
 
-import dao.TipoEventoDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -29,20 +29,20 @@ public class TipoEvento implements Serializable{
         this.setNomeTipoEvento(nome);
     }
     
-    public void save() {
-        TipoEventoDAO.getInstance().save(this);
+    public void save() throws NoSuchMethodException {
+        DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        TipoEventoDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
 
-    public static TipoEvento find(Long id) {
-        return TipoEventoDAO.getInstance().find(id);
+    public static TipoEvento find(Long id) throws ClassNotFoundException {
+        return(TipoEvento) DAO.getInstance().find(id);
     }
 
-    public static List<TipoEvento> findAll() {
-        return TipoEventoDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException {
+        return DAO.getInstance().findAll();
     }
 
     public Long getIdTipoEvento() {

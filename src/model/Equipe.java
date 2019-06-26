@@ -1,6 +1,6 @@
 package model;
 
-import dao.EquipeDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -44,20 +44,20 @@ public class Equipe implements Serializable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void save() {
-        EquipeDAO.getInstance().save(this);
+    public void save() throws NoSuchMethodException {
+        DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        EquipeDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
 
-    public static Equipe find(Long id) {
-        return EquipeDAO.getInstance().find(id);
+    public static Equipe find(Long id) throws ClassNotFoundException {
+        return (Equipe) DAO.getInstance().find(id);
     }
 
-    public static List<Equipe> findAll() {
-        return EquipeDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException {
+        return DAO.getInstance().findAll();
     }
 
     public Long getId() {

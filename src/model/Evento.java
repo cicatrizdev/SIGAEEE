@@ -1,6 +1,6 @@
 package model;
 
-import dao.EventoDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -51,20 +51,20 @@ public class Evento implements Serializable{
         this.setEquipe(equipe);
     }
     
-     public void save() {
-        EventoDAO.getInstance().save(this);
+     public void save() throws NoSuchMethodException {
+       DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        EventoDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
 
-    public static Evento find(Long id) {
-        return EventoDAO.getInstance().find(id);
+    public static Evento find(Long id) throws ClassNotFoundException {
+        return (Evento) DAO.getInstance().find(id);
     }
 
-    public static List<Evento> findAll() {
-        return EventoDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException {
+        return DAO.getInstance().findAll();
     }
 
     public Long getIdEvento() {

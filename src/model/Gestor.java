@@ -1,6 +1,6 @@
 package model;
 
-import dao.GestorDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -23,20 +23,20 @@ public class Gestor extends Usuario implements Serializable {
         super(idGestor, nomeGestor, emaiGestor, senhaGestor);
     }
 
-    public void save() {
-        GestorDAO.getInstance().save(this);
+    public void save() throws NoSuchMethodException {
+        DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        GestorDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
 
-    public static Gestor find(Long id) {
-        return GestorDAO.getInstance().find(id);
+    public static Gestor find(Long id) throws ClassNotFoundException {
+        return (Gestor) DAO.getInstance().find(id);
     }
 
-    public static List<Gestor> findAll() {
-        return GestorDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException {
+        return DAO.getInstance().findAll();
     }
 public Long getIdGestor(){
     return this.getIdUsuario();

@@ -1,6 +1,6 @@
 package model;
 
-import dao.AtletaDAO;
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -31,20 +31,20 @@ public class Atleta extends Usuario implements Serializable {
         this.setPosicao(posicao);
     }   
 
-    public void save() {
-        AtletaDAO.getInstance().save(this);
+    public void save() throws NoSuchMethodException {
+        DAO.getInstance().save(this);
     }
 
-    public void remove() {
-        AtletaDAO.getInstance().remove(this);
+    public void remove() throws NoSuchMethodException {
+        DAO.getInstance().remove(this);
     }
 
-    public static Atleta find(Long id) {
-        return AtletaDAO.getInstance().find(id);
+    public static Atleta find(Long id) throws ClassNotFoundException {
+        return (Atleta) DAO.getInstance().find(id);
     }
 
-    public static List<Atleta> findAll() {
-        return AtletaDAO.getInstance().findAll();
+    public static List<Object> findAll() throws ClassNotFoundException {
+        return DAO.getInstance().findAll();
     }
 
     public float getPeso() {
