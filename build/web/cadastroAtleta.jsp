@@ -11,55 +11,44 @@
         <title>SIGAEE- Cadastro de Atleta</title>
 
         <script type="text/javascript">
-            function validar(){
+            function validar() {
                 var nome = fmrAtleta.txtNomeAtleta.value;
                 var email = fmrAtleta.txtEmailAtleta.value;
                 var senha = fmrAtleta.txtSenhaAtleta.value;
-                
-                if(nome === ""){
+
+                if (nome === "") {
                     alert('Preencha o campo nome.');
                     fmrAtleta.txtNomeAtleta.focus();
                     return false;
                 }
-                
-                if(email == "" || txtEmailAtleta.indexOf('@') == -1 ){
+
+                if (email == "" || txtEmailAtleta.indexOf('@') == -1) {
                     alert('Preencha o campo E-mail.');
                     fmrAtleta.txtEmailAtleta.focus();
                     return false;
                 }
-                
-                if(senha == "" || txtSenhaAtleta.length <= 5){
+
+                if (senha == "" || txtSenhaAtleta.length <= 5) {
                     alert('Preencha o campo senha com minimo 6 caracteres');
                     fmrGestor.txtSenhaAtleta.focus();
                     return false;
                 }
             }
         </script>
+        <script>
+            $(function () {
+                $("#header").load("Header.jsp");
+
+            });
+        </script>
+
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand text-white" href="index.jsp">SIGAEE</a>
-                <a class="navbar-brand text-white" href="cadastro.jsp"> > Cadastro </a>
-                <a class="navbar-brand text-white" href="cadastroAtleta.jsp"> > Cadastro Atleta</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.jsp">Home</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="cadastro.jsp">Cadastro</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.jsp">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!-- header-section-starts -->
+        <div id="header"></div>
+
+
+        <!-- header-section-ends -->
         <section class="py-5">
             <div class="container">
                 <h1> Cadastro Atleta ${operacao}</h1>
